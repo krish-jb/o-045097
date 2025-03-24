@@ -3,7 +3,9 @@ import React, { useEffect } from 'react';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Manifesto from '@/components/Manifesto';
-import About from '@/components/About';
+import Gap from '@/components/Gap';
+import Connecting from '@/components/Connecting';
+import Community from '@/components/Community';
 import Footer from '@/components/Footer';
 
 const Index = () => {
@@ -40,7 +42,9 @@ const Index = () => {
       <Header />
       <Hero />
       <Manifesto />
-      <About />
+      <Gap />
+      <Connecting />
+      <Community />
       <Footer />
     </main>
   );
