@@ -28,7 +28,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
           </FadeIn>
           
           <FadeIn delay={300}>
-            <p className="text-lg md:text-xl text-white/90 mb-8">
+            <p className="text-lg md:text-xl text-white/90 mb-8 whitespace-nowrap">
               Backing overlooked founders in the Baltics with the first check
             </p>
           </FadeIn>
