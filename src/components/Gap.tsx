@@ -90,53 +90,55 @@ const Gap: React.FC<GapProps> = ({ className }) => {
           ))}
         </div>
         
-        <div className="max-w-4xl mx-auto">
-          <FadeIn delay={200}>
-            <div className="rounded-md overflow-hidden shadow-md mb-20">
-              <img 
-                src="/lovable-uploads/34a58283-8b82-48f9-88f4-2c88b069921d.png" 
-                alt="Orangery Flowers" 
-                className="w-full h-auto"
-              />
-            </div>
-          </FadeIn>
-          
-          <FadeIn delay={250}>
-            <div className="bg-white p-8 rounded-lg shadow-sm max-w-3xl mx-auto mb-8">
-              <h3 className="text-2xl font-serif mb-6 text-center">Subscribe for Updates</h3>
-              
-              <div className="flex justify-center mb-8">
-                <Button 
-                  variant="outline" 
-                  className="bg-orangery-500/10 text-orangery-700 border-orangery-200 hover:bg-orangery-500/20 min-h-[3.5rem] min-w-[250px] md:min-w-[400px]"
-                >
-                  <span 
-                    className="transition-opacity duration-1000 ease-in-out"
-                    style={{ opacity: opacity }}
-                  >
-                    {messages[messageIndex]}
-                  </span>
-                </Button>
-              </div>
-              
-              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                <Input 
-                  type="email" 
-                  placeholder="Enter your email" 
-                  className="text-gray-800 bg-gray-50 border-orangery-200 focus-visible:ring-orangery-500" 
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
+        <div className="max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <FadeIn delay={200}>
+              <div className="rounded-md overflow-hidden shadow-md">
+                <img 
+                  src="/lovable-uploads/34a58283-8b82-48f9-88f4-2c88b069921d.png" 
+                  alt="Orangery Flowers" 
+                  className="w-full h-auto"
                 />
-                <Button 
-                  type="submit" 
-                  className="bg-orangery-500 hover:bg-orangery-600 text-white"
-                >
-                  Subscribe
-                </Button>
-              </form>
-            </div>
-          </FadeIn>
+              </div>
+            </FadeIn>
+            
+            <FadeIn delay={250}>
+              <div className="bg-white p-8 rounded-lg shadow-sm">
+                <h3 className="text-2xl font-serif mb-6 text-center">Subscribe for Updates</h3>
+                
+                <div className="flex justify-center mb-8">
+                  <Button 
+                    variant="outline" 
+                    className="bg-orangery-500/10 text-orangery-700 border-orangery-200 hover:bg-orangery-500/20 min-h-[3.5rem] min-w-[250px] md:min-w-[320px]"
+                  >
+                    <span 
+                      className="transition-opacity duration-1000 ease-in-out"
+                      style={{ opacity: opacity }}
+                    >
+                      {messages[messageIndex]}
+                    </span>
+                  </Button>
+                </div>
+                
+                <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                  <Input 
+                    type="email" 
+                    placeholder="Enter your email" 
+                    className="text-gray-800 bg-gray-50 border-orangery-200 focus-visible:ring-orangery-500" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                  <Button 
+                    type="submit" 
+                    className="bg-orangery-500 hover:bg-orangery-600 text-white"
+                  >
+                    Subscribe
+                  </Button>
+                </form>
+              </div>
+            </FadeIn>
+          </div>
         </div>
       </div>
     </section>
