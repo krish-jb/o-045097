@@ -91,52 +91,51 @@ const Gap: React.FC<GapProps> = ({ className }) => {
         </div>
         
         <div className="relative max-w-5xl mx-auto">
-          {/* Full-width image */}
           <FadeIn delay={200}>
-            <div className="rounded-md overflow-hidden shadow-md mb-16">
+            <div className="rounded-md overflow-hidden shadow-md relative">
               <img 
-                src="/lovable-uploads/af28398b-9e23-4e2b-9de1-bda457e09fd8.png" 
-                alt="Park with people walking" 
+                src="/lovable-uploads/dabbf929-5dd0-4794-a011-fe43bf4b3418.png" 
+                alt="Beautiful orangery with palm trees and plants" 
                 className="w-full h-auto"
               />
-            </div>
-          </FadeIn>
-          
-          {/* Centered newsletter box */}
-          <FadeIn delay={250}>
-            <div className="bg-white p-8 rounded-lg shadow-sm max-w-2xl mx-auto">
-              <h3 className="text-2xl font-serif mb-6 text-center">Subscribe for Updates</h3>
               
-              <div className="flex justify-center mb-8">
-                <Button 
-                  variant="outline" 
-                  className="bg-orangery-500/10 text-orangery-700 border-orangery-200 hover:bg-orangery-500/20 min-h-[3.5rem] min-w-[250px] md:min-w-[320px]"
-                >
-                  <span 
-                    className="transition-opacity duration-1000 ease-in-out"
-                    style={{ opacity: opacity }}
-                  >
-                    {messages[messageIndex]}
-                  </span>
-                </Button>
+              {/* Centered newsletter box overlaid on the image */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="bg-white/90 backdrop-blur-sm p-8 rounded-lg shadow-md max-w-md w-full mx-4">
+                  <h3 className="text-2xl font-serif mb-6 text-center">Subscribe for Updates</h3>
+                  
+                  <div className="flex justify-center mb-6">
+                    <Button 
+                      variant="outline" 
+                      className="bg-orangery-500/10 text-orangery-700 border-orangery-200 hover:bg-orangery-500/20 min-h-[3.5rem] min-w-[220px] md:min-w-[280px]"
+                    >
+                      <span 
+                        className="transition-opacity duration-1000 ease-in-out"
+                        style={{ opacity: opacity }}
+                      >
+                        {messages[messageIndex]}
+                      </span>
+                    </Button>
+                  </div>
+                  
+                  <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
+                    <Input 
+                      type="email" 
+                      placeholder="Enter your email" 
+                      className="text-gray-800 bg-gray-50/80 border-orangery-200 focus-visible:ring-orangery-500" 
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                    <Button 
+                      type="submit" 
+                      className="bg-orangery-500 hover:bg-orangery-600 text-white"
+                    >
+                      Subscribe
+                    </Button>
+                  </form>
+                </div>
               </div>
-              
-              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                <Input 
-                  type="email" 
-                  placeholder="Enter your email" 
-                  className="text-gray-800 bg-gray-50 border-orangery-200 focus-visible:ring-orangery-500" 
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-                <Button 
-                  type="submit" 
-                  className="bg-orangery-500 hover:bg-orangery-600 text-white"
-                >
-                  Subscribe
-                </Button>
-              </form>
             </div>
           </FadeIn>
         </div>
