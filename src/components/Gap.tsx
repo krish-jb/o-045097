@@ -1,14 +1,52 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import FadeIn from './animations/FadeIn';
 import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 interface GapProps {
   className?: string;
 }
 
 const Gap: React.FC<GapProps> = ({ className }) => {
+  const [messageIndex, setMessageIndex] = useState(0);
+  const [opacity, setOpacity] = useState(1);
+  const [email, setEmail] = useState('');
+  
+  const messages = [
+    "List of top 50 active Baltic early stage VCs",
+    "All Baltic female founders who raised capital 2024",
+    "AI-native Baltic startups that secured funding this year"
+  ];
+  
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      // Start fading out
+      setOpacity(0);
+      
+      // Change message after fade out
+      setTimeout(() => {
+        setMessageIndex((prev) => (prev + 1) % messages.length);
+        // Start fading in
+        setOpacity(1);
+      }, 1000);
+    }, 4000); // Total time for each message
+    
+    return () => clearInterval(interval);
+  }, [messages.length]);
+  
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email) {
+      console.log('Subscribing email:', email);
+      // Here you would typically send this to a backend
+      alert(`Thanks for subscribing with ${email}!`);
+      setEmail('');
+    }
+  };
+
   const statistics = [
     {
       title: "Stagnant Growth",
@@ -39,7 +77,7 @@ const Gap: React.FC<GapProps> = ({ className }) => {
           </FadeIn>
         </div>
         
-        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-20">
           {statistics.map((stat, index) => (
             <FadeIn key={index} delay={150 + index * 50}>
               <Card className="border-0 shadow-sm h-full">
@@ -50,6 +88,55 @@ const Gap: React.FC<GapProps> = ({ className }) => {
               </Card>
             </FadeIn>
           ))}
+        </div>
+        
+        <div className="max-w-4xl mx-auto">
+          <FadeIn delay={200}>
+            <div className="rounded-md overflow-hidden shadow-md mb-20">
+              <img 
+                src="/lovable-uploads/34a58283-8b82-48f9-88f4-2c88b069921d.png" 
+                alt="Orangery Flowers" 
+                className="w-full h-auto"
+              />
+            </div>
+          </FadeIn>
+          
+          <FadeIn delay={250}>
+            <div className="bg-white p-8 rounded-lg shadow-sm max-w-3xl mx-auto mb-8">
+              <h3 className="text-2xl font-serif mb-6 text-center">Subscribe for Updates</h3>
+              
+              <div className="flex justify-center mb-8">
+                <Button 
+                  variant="outline" 
+                  className="bg-orangery-500/10 text-orangery-700 border-orangery-200 hover:bg-orangery-500/20 min-h-[3.5rem] min-w-[250px] md:min-w-[400px]"
+                >
+                  <span 
+                    className="transition-opacity duration-1000 ease-in-out"
+                    style={{ opacity: opacity }}
+                  >
+                    {messages[messageIndex]}
+                  </span>
+                </Button>
+              </div>
+              
+              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                <Input 
+                  type="email" 
+                  placeholder="Enter your email" 
+                  className="text-gray-800 bg-gray-50 border-orangery-200 focus-visible:ring-orangery-500" 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <Button 
+                  type="submit" 
+                  className="bg-orangery-500 hover:bg-orangery-600 text-white"
+                >
+                  Subscribe
+                </Button>
+              </form>
+            </div>
+          </FadeIn>
         </div>
       </div>
     </section>

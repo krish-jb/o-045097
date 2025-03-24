@@ -1,8 +1,6 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import FadeIn from './animations/FadeIn';
 
 interface HeroProps {
@@ -10,42 +8,6 @@ interface HeroProps {
 }
 
 const Hero: React.FC<HeroProps> = ({ className }) => {
-  const [messageIndex, setMessageIndex] = useState(0);
-  const [opacity, setOpacity] = useState(1);
-  const [email, setEmail] = useState('');
-  
-  const messages = [
-    "List of top 50 active Baltic early stage VCs",
-    "All Baltic female founders who raised capital 2024",
-    "AI-native Baltic startups that secured funding this year"
-  ];
-  
-  useEffect(() => {
-    const interval = setInterval(() => {
-      // Start fading out
-      setOpacity(0);
-      
-      // Change message after fade out
-      setTimeout(() => {
-        setMessageIndex((prev) => (prev + 1) % messages.length);
-        // Start fading in
-        setOpacity(1);
-      }, 1000);
-    }, 4000); // Total time for each message
-    
-    return () => clearInterval(interval);
-  }, [messages.length]);
-  
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      console.log('Subscribing email:', email);
-      // Here you would typically send this to a backend
-      alert(`Thanks for subscribing with ${email}!`);
-      setEmail('');
-    }
-  };
-  
   return (
     <section className={cn('relative min-h-screen flex items-center overflow-hidden', className)}>
       <div className="absolute inset-0 -z-10">
@@ -69,43 +31,6 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
             <p className="text-lg md:text-xl text-white/90 mb-8">
               Backing overlooked founders in the Baltics with the first check
             </p>
-          </FadeIn>
-          
-          <FadeIn delay={400}>
-            <div className="flex justify-center mb-8">
-              <Button 
-                variant="outline" 
-                className="bg-white/10 text-white border-white/20 hover:bg-white/20 min-h-[3.5rem] min-w-[250px] md:min-w-[400px]"
-              >
-                <span 
-                  className="transition-opacity duration-1000 ease-in-out"
-                  style={{ opacity: opacity }}
-                >
-                  {messages[messageIndex]}
-                </span>
-              </Button>
-            </div>
-          </FadeIn>
-          
-          <FadeIn delay={500}>
-            <div className="max-w-md mx-auto">
-              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
-                <Input 
-                  type="email" 
-                  placeholder="Enter your email" 
-                  className="text-gray-800 bg-white/90 border-0 focus-visible:ring-orangery-500" 
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-                <Button 
-                  type="submit" 
-                  className="bg-orangery-500 hover:bg-orangery-600 text-white"
-                >
-                  Subscribe
-                </Button>
-              </form>
-            </div>
           </FadeIn>
         </div>
       </div>
