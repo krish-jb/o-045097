@@ -90,14 +90,17 @@ const Gap: React.FC<GapProps> = ({ className }) => {
           ))}
         </div>
         
-        <div className="relative max-w-5xl mx-auto">
+        <div className="relative max-w-full mx-auto">
           <FadeIn delay={200}>
-            <div className="rounded-md overflow-hidden shadow-md relative">
-              <img 
-                src="/lovable-uploads/dabbf929-5dd0-4794-a011-fe43bf4b3418.png" 
-                alt="Beautiful orangery with palm trees and plants" 
-                className="w-full h-auto"
-              />
+            <div className="relative">
+              <div className="w-full h-[500px] overflow-hidden">
+                <img 
+                  src="/lovable-uploads/dabbf929-5dd0-4794-a011-fe43bf4b3418.png" 
+                  alt="Beautiful orangery with palm trees and plants" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black/30"></div>
+              </div>
               
               {/* Centered newsletter box overlaid on the image */}
               <div className="absolute inset-0 flex items-center justify-center">
