@@ -6,7 +6,6 @@ import Manifesto from '@/components/Manifesto';
 import Gap from '@/components/Gap';
 import FoundersInSearch from '@/components/FoundersInSearch';
 import Community from '@/components/Community';
-import ArtGallery from '@/components/ArtGallery';
 import Footer from '@/components/Footer';
 
 const Index = () => {
@@ -45,7 +44,6 @@ const Index = () => {
       <Manifesto />
       <Gap />
       <FoundersInSearch />
-      <ArtGallery />
       <Community />
       <Footer />
     </main>

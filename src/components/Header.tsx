@@ -78,7 +78,6 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           <Link to="/" className="hover:text-orangery-500 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
           <Link to="/#manifesto" className="hover:text-orangery-500 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Manifesto</Link>
           <Link to="/#about" className="hover:text-orangery-500 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
-          <Link to="/#inspiration" className="hover:text-orangery-500 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Inspiration</Link>
           <Link to="/#contact" className="hover:text-orangery-500 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
         </nav>
       </div>
@@ -91,7 +90,6 @@ const NavLinks = () => (
     <Link to="/" className="text-sm font-medium hover:text-orangery-500 transition-colors">Home</Link>
     <Link to="/#manifesto" className="text-sm font-medium hover:text-orangery-500 transition-colors">Manifesto</Link>
     <Link to="/#about" className="text-sm font-medium hover:text-orangery-500 transition-colors">About</Link>
-    <Link to="/#inspiration" className="text-sm font-medium hover:text-orangery-500 transition-colors">Inspiration</Link>
     <Link to="/#contact" className="text-sm font-medium hover:text-orangery-500 transition-colors">Contact</Link>
   </>
 );
