@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Manifesto from '@/components/Manifesto';
 import Gap from '@/components/Gap';
+import FoundersInSearch from '@/components/FoundersInSearch';
 import Community from '@/components/Community';
 import Footer from '@/components/Footer';
 
@@ -42,6 +43,7 @@ const Index = () => {
       <Hero />
       <Manifesto />
       <Gap />
+      <FoundersInSearch />
       <Community />
       <Footer />
     </main>
