@@ -52,41 +52,8 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
           
           <FadeIn delay={200}>
             <div>
-              <h3 className="text-xl md:text-2xl font-serif font-medium mb-6">Our offices</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                  <h4 className="font-medium mb-2">San Francisco</h4>
-                  <address className="text-muted-foreground not-italic mb-4">
-                    1234 Market Street<br />
-                    Suite 500<br />
-                    San Francisco, CA 94103
-                  </address>
-                </div>
-                <div>
-                  <h4 className="font-medium mb-2">London</h4>
-                  <address className="text-muted-foreground not-italic mb-4">
-                    45 King's Road<br />
-                    Chelsea<br />
-                    London, SW3 4ND
-                  </address>
-                </div>
-                <div>
-                  <h4 className="font-medium mb-2">Singapore</h4>
-                  <address className="text-muted-foreground not-italic mb-4">
-                    42 Carpenter Street<br />
-                    #04-01<br />
-                    Singapore 059921
-                  </address>
-                </div>
-                <div>
-                  <h4 className="font-medium mb-2">Berlin</h4>
-                  <address className="text-muted-foreground not-italic mb-4">
-                    Friedrichstraße 68<br />
-                    10117 Berlin<br />
-                    Germany
-                  </address>
-                </div>
-              </div>
+              <h3 className="text-xl md:text-2xl font-serif font-medium mb-6">Our location</h3>
+              <p className="text-muted-foreground mb-4">Vilnius, Lithuania</p>
             </div>
           </FadeIn>
         </div>
