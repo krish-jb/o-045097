@@ -48,14 +48,6 @@ const Community: React.FC<CommunityProps> = ({ className }) => {
             </FadeIn>
           ))}
         </div>
-        
-        <FadeIn delay={300}>
-          <div className="max-w-3xl mx-auto mt-16 text-center">
-            <p className="text-lg italic text-muted-foreground">
-              We are putting forward what we've learned with Unicorns Lithuania and Tech Philomaths.
-            </p>
-          </div>
-        </FadeIn>
       </div>
     </section>
   );

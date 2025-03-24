@@ -36,7 +36,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
           
           <FadeIn delay={400}>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-              <Button size="lg" variant="primary">
+              <Button size="lg" variant="primary" className="bg-orangery-400 hover:bg-orangery-500">
                 Our Mission
               </Button>
               <Button variant="outline" size="lg" className="bg-transparent text-white border-white hover:bg-white/10">
