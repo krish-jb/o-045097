@@ -125,14 +125,14 @@ const Gap: React.FC<GapProps> = ({ className }) => {
                     <Input 
                       type="email" 
                       placeholder="Enter your email" 
-                      className="text-gray-800 bg-gray-50/80 border-orangery-200 focus-visible:ring-orangery-500" 
+                      className="text-gray-800 bg-gray-50/80 border-gray-200 focus-visible:ring-gray-500" 
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
                     />
                     <Button 
                       type="submit" 
-                      className="bg-orangery-500 hover:bg-orangery-600 text-white"
+                      className="bg-gray-600 hover:bg-gray-700 text-white"
                     >
                       Subscribe
                     </Button>
