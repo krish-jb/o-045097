@@ -11,16 +11,16 @@ interface FoundersInSearchProps {
 const FoundersInSearch: React.FC<FoundersInSearchProps> = ({ className }) => {
   const founderTypes = [
     {
+      title: "First-Time Founders with Significant Non-Tech Experience",
+      description: "Corporate leaders, operators, and business owners making the leap into startups, bringing unique domain expertise and execution ability."
+    },
+    {
       title: "Illegible Founders",
       description: "Those who reject easy categorization, whether due to unconventional backgrounds, markets, or business models. We specialize in funding what others overlook."
     },
     {
       title: "Female Executives, Researchers, and Business Owners",
       description: "Backing women leaders who bring deep expertise and a fresh perspective to building transformative companies."
-    },
-    {
-      title: "First-Time Founders with Significant Non-Tech Experience",
-      description: "Corporate leaders, operators, and business owners making the leap into startups, bringing unique domain expertise and execution ability."
     },
     {
       title: "Outlier Thinkers & Builders",
