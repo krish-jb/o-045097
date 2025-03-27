@@ -18,7 +18,7 @@ const Manifesto: React.FC<ManifestoProps> = ({ className }) => {
           
           <FadeIn delay={100}>
             <p className="text-xl md:text-2xl leading-relaxed mb-12 font-serif text-center">
-              The next wave of high-growth startups will come from overlooked founder pools: corporate leaders, academia-driven innovators, and diverse teams.
+              The next wave of high-growth startups will come from overlooked founders: corporate leaders, academia-driven innovators, and diverse teams.
             </p>
           </FadeIn>
           
