@@ -28,8 +28,11 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
           </FadeIn>
           
           <FadeIn delay={300}>
-            <p className="text-lg md:text-xl text-white/90 mb-8 whitespace-nowrap">
-              Backing overlooked founders in the Baltics with the first check
+            <p className="text-lg md:text-xl text-white/90 mb-3">
+              €13.75M VC fund backing overlooked founders in the Baltics
+            </p>
+            <p className="text-base md:text-lg text-white/80 mb-8">
+              Pre-seed and seed investments in academic and corporate innovators
             </p>
           </FadeIn>
         </div>

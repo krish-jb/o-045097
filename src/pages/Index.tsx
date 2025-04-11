@@ -5,7 +5,9 @@ import Hero from '@/components/Hero';
 import Manifesto from '@/components/Manifesto';
 import Gap from '@/components/Gap';
 import FoundersInSearch from '@/components/FoundersInSearch';
+import InvestmentApproach from '@/components/InvestmentApproach';
 import Community from '@/components/Community';
+import About from '@/components/About';
 import Footer from '@/components/Footer';
 
 const Index = () => {
@@ -44,6 +46,8 @@ const Index = () => {
       <Manifesto />
       <Gap />
       <FoundersInSearch />
+      <InvestmentApproach />
+      <About />
       <Community />
       <Footer />
     </main>
