@@ -15,8 +15,8 @@ const InvestmentApproach: React.FC<InvestmentApproachProps> = ({ className }) =>
       description: "€30K–€150K tickets, with teams participating in our 16-week acceleration program focused on validation and early traction."
     },
     {
-      title: "Seed Fund (€7M)",
-      description: "€200K–€400K follow-on investments in 15-18 top-performing startups to support scaling, market expansion, and team growth."
+      title: "Seed Fund",
+      description: "€200K–€400K investments in 15+ startups to support scaling, market expansion, and team growth, with follow-on capital available."
     }
   ];
 
@@ -48,7 +48,7 @@ const InvestmentApproach: React.FC<InvestmentApproachProps> = ({ className }) =>
                   )}
                   {index === 1 && (
                     <div className="mt-4 pt-4 border-t border-gray-100">
-                      <p className="text-sm font-medium">5-7 companies receive additional follow-on</p>
+                      <p className="text-sm font-medium">Follow-on capital available</p>
                     </div>
                   )}
                 </CardContent>
