@@ -11,8 +11,8 @@ interface InvestmentApproachProps {
 const InvestmentApproach: React.FC<InvestmentApproachProps> = ({ className }) => {
   const investmentTiers = [
     {
-      title: "Pre-Seed Fund (€6.75M)",
-      description: "€30K–€250K investments in 50 startups, each participating in our 12-week acceleration program focused on validation and early traction."
+      title: "Pre-Seed Accelerator Fund",
+      description: "€30K–€150K tickets, with teams participating in our 16-week acceleration program focused on validation and early traction."
     },
     {
       title: "Seed Fund (€7M)",
@@ -43,7 +43,7 @@ const InvestmentApproach: React.FC<InvestmentApproachProps> = ({ className }) =>
                   <p className="text-muted-foreground mb-4">{tier.description}</p>
                   {index === 0 && (
                     <div className="mt-4 pt-4 border-t border-gray-100">
-                      <p className="text-sm font-medium">12-week acceleration program</p>
+                      <p className="text-sm font-medium">16-week acceleration program</p>
                     </div>
                   )}
                   {index === 1 && (
