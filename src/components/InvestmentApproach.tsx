@@ -29,7 +29,7 @@ const InvestmentApproach: React.FC<InvestmentApproachProps> = ({ className }) =>
           </FadeIn>
           <FadeIn delay={100}>
             <p className="text-lg text-center text-muted-foreground mb-12">
-              Our dual-fund strategy provides both early validation and long-term support for Baltic founders
+              We invest sector-agnostically in pre-seed and seed stage in companies run by overlooked founders - such as gender-diverse teams, academic researchers, business owners, and corporate professionals transitioning into tech entrepreneurship. Our thesis is that tremendous untapped talent in these categories can yield high-impact startups if given early support. We believe in domain expertise and unfair advantages these founders bring.
             </p>
           </FadeIn>
         </div>
