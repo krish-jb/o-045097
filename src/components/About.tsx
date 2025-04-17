@@ -15,15 +15,12 @@ const About: React.FC<AboutProps> = ({ className }) => {
           <FadeIn>
             <div>
               <span className="text-sm md:text-base font-medium text-orangery-500 mb-2 inline-block">About us</span>
-              <h2 className="text-3xl md:text-5xl font-serif font-medium tracking-tight mb-6">Building the future, one venture at a time</h2>
+              <h2 className="text-3xl md:text-5xl font-serif font-medium tracking-tight mb-6">We got started 2025 with a single mission</h2>
               <p className="text-lg text-muted-foreground mb-6">
-                Orangery Ventures was founded in 2018 with a simple mission: to find and fund the most ambitious founders building technology that shapes our future.
+                Bring fresh take into Baltic venture ecosystem.
               </p>
               <p className="text-lg text-muted-foreground mb-6">
-                We've built a team of investors, operators, and advisors who have scaled companies from zero to billions, and we bring that experience to every partnership we form.
-              </p>
-              <p className="text-lg text-muted-foreground">
-                Our portfolio spans AI, climate tech, biotechnology, and frontier software—united by a common thread of exceptional founders with transformative visions.
+                We are founder-driven and embrace diversity. Orangery brings inclusive take to venture, inviting and inspiring first-time founders to try tech entrepreneurship.
               </p>
             </div>
           </FadeIn>
