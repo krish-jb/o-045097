@@ -29,10 +29,10 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
           
           <FadeIn delay={300}>
             <p className="text-lg md:text-xl text-white/90 mb-4">
-              We believe founders with unfair advantages - domain expertise. We back diverse teams, we search for overlooked founders.
+              We believe founders with unfair advantages & domain expertise.
             </p>
             <p className="text-lg md:text-xl text-white/90 mb-8">
-              First check, Baltic focus.
+              We back diverse teams, we search for overlooked founders. First check, Baltic focus.
             </p>
           </FadeIn>
         </div>
