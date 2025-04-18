@@ -32,7 +32,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
               We believe founders with unfair advantages & domain expertise.
             </p>
             <p className="text-lg md:text-xl text-white/90 mb-8">
-              We back diverse teams, we search for overlooked founders. First check, Baltic focus.
+              We back diverse teams and overlooked founders.
             </p>
           </FadeIn>
         </div>
