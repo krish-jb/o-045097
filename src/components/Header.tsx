@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { NavLink } from 'react-router-dom';
@@ -21,12 +20,19 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
   }, []);
 
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
+    if (id === 'home') {
       window.scrollTo({
-        top: element.offsetTop - 80, // Account for header height
+        top: 0,
         behavior: 'smooth'
       });
+    } else {
+      const element = document.getElementById(id);
+      if (element) {
+        window.scrollTo({
+          top: element.offsetTop - 80, // Account for header height
+          behavior: 'smooth'
+        });
+      }
     }
   };
 
@@ -68,7 +74,6 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
         </button>
       </div>
       
-      {/* Mobile menu */}
       <div 
         className={cn(
           "fixed inset-0 bg-white z-40 flex flex-col pt-24 px-6 transition-transform duration-500 ease-in-out transform md:hidden",
@@ -125,15 +130,12 @@ interface NavLinksProps {
 
 const NavLinks: React.FC<NavLinksProps> = ({ scrollToSection }) => (
   <>
-    <NavLink 
-      to="/" 
-      className={({ isActive }) => cn(
-        "text-sm font-medium hover:text-orangery-500 transition-colors",
-        isActive && "text-orangery-500 font-semibold"
-      )}
+    <button 
+      className="text-sm font-medium hover:text-orangery-500 transition-colors"
+      onClick={() => scrollToSection('home')}
     >
       Home
-    </NavLink>
+    </button>
     <button 
       className="text-sm font-medium hover:text-orangery-500 transition-colors"
       onClick={() => scrollToSection('thesis')}
