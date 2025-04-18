@@ -24,7 +24,7 @@ const Manifesto: React.FC<ManifestoProps> = ({ className }) => {
           
           <FadeIn delay={200}>
             <p className="text-lg leading-relaxed text-muted-foreground text-center">
-              Directing investment towards diverse teams is a strategic move that not only promotes equity but also leverages untapped potential for higher returns and economic growth.
+              Directing investment towards diverse teams is a strategic move that not only promotes equity but also leverages untapped potential for economic growth — and higher returns
             </p>
           </FadeIn>
         </div>
@@ -34,3 +34,4 @@ const Manifesto: React.FC<ManifestoProps> = ({ className }) => {
 };
 
 export default Manifesto;
+
