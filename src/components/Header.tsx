@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 interface HeaderProps {
   className?: string;
@@ -31,12 +31,12 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
       )}
     >
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
-        <Link 
+        <NavLink 
           to="/" 
           className="text-xl font-serif font-medium tracking-tight transition-opacity hover:opacity-80"
         >
           Orangery Ventures
-        </Link>
+        </NavLink>
         
         <div className="hidden md:flex items-center space-x-8">
           <NavLinks />
@@ -75,9 +75,36 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
         </button>
         
         <nav className="flex flex-col space-y-6 text-lg">
-          <Link to="/" className="hover:text-orangery-500 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
-          <Link to="/#thesis" className="hover:text-orangery-500 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Thesis</Link>
-          <Link to="/#investment" className="hover:text-orangery-500 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Investment</Link>
+          <NavLink 
+            to="/" 
+            className={({ isActive }) => cn(
+              "hover:text-orangery-500 transition-colors",
+              isActive && "text-orangery-500 font-semibold"
+            )}
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            Home
+          </NavLink>
+          <NavLink 
+            to="/#thesis" 
+            className={({ isActive }) => cn(
+              "hover:text-orangery-500 transition-colors",
+              isActive && "text-orangery-500 font-semibold"
+            )}
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            Thesis
+          </NavLink>
+          <NavLink 
+            to="/#investment" 
+            className={({ isActive }) => cn(
+              "hover:text-orangery-500 transition-colors",
+              isActive && "text-orangery-500 font-semibold"
+            )}
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            Investment
+          </NavLink>
         </nav>
       </div>
     </header>
@@ -86,10 +113,35 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
 
 const NavLinks = () => (
   <>
-    <Link to="/" className="text-sm font-medium hover:text-orangery-500 transition-colors">Home</Link>
-    <Link to="/#thesis" className="text-sm font-medium hover:text-orangery-500 transition-colors">Thesis</Link>
-    <Link to="/#investment" className="text-sm font-medium hover:text-orangery-500 transition-colors">Investment</Link>
+    <NavLink 
+      to="/" 
+      className={({ isActive }) => cn(
+        "text-sm font-medium hover:text-orangery-500 transition-colors",
+        isActive && "text-orangery-500 font-semibold"
+      )}
+    >
+      Home
+    </NavLink>
+    <NavLink 
+      to="/#thesis" 
+      className={({ isActive }) => cn(
+        "text-sm font-medium hover:text-orangery-500 transition-colors",
+        isActive && "text-orangery-500 font-semibold"
+      )}
+    >
+      Thesis
+    </NavLink>
+    <NavLink 
+      to="/#investment" 
+      className={({ isActive }) => cn(
+        "text-sm font-medium hover:text-orangery-500 transition-colors",
+        isActive && "text-orangery-500 font-semibold"
+      )}
+    >
+      Investment
+    </NavLink>
   </>
 );
 
 export default Header;
+
