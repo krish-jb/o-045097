@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { cn } from '@/lib/utils';
 import FadeIn from './animations/FadeIn';
@@ -12,8 +11,8 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
     <section className={cn('relative min-h-screen flex items-center overflow-hidden', className)}>
       <div className="absolute inset-0 -z-10">
         <img 
-          src="/lovable-uploads/eca973fe-eb5c-4625-b81b-dbeb2dcdbe13.png" 
-          alt="Elegant orangery with palm trees and ornate architecture" 
+          src="/lovable-uploads/a0278ce1-b82d-4ed6-a186-14a9503ef65c.png" 
+          alt="Orangery" 
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/30"></div>
