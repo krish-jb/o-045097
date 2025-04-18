@@ -25,25 +25,10 @@ const About: React.FC<AboutProps> = ({ className }) => {
             </div>
           </FadeIn>
         </div>
-        
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10 mt-20 md:mt-32">
-          {[
-            { number: "75+", label: "Portfolio companies" },
-            { number: "24", label: "Countries" },
-            { number: "90%", label: "Follow-on funding rate" },
-            { number: "12", label: "Unicorns created" }
-          ].map((stat, index) => (
-            <FadeIn key={index} delay={index * 100}>
-              <div className="text-center p-6 glass-panel rounded-xl">
-                <h3 className="text-2xl md:text-4xl font-serif font-medium mb-2">{stat.number}</h3>
-                <p className="text-sm text-muted-foreground">{stat.label}</p>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
       </div>
     </section>
   );
 };
 
 export default About;
+
