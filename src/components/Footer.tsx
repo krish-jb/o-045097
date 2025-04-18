@@ -21,9 +21,8 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
           
           <div className="flex space-x-6 mb-4 md:mb-0">
             <Link to="/" className="text-sm hover:text-orangery-500 transition-colors">Home</Link>
-            <Link to="/#manifesto" className="text-sm hover:text-orangery-500 transition-colors">Manifesto</Link>
-            <Link to="/#acceleration" className="text-sm hover:text-orangery-500 transition-colors">Acceleration</Link>
-            <Link to="/#about" className="text-sm hover:text-orangery-500 transition-colors">About</Link>
+            <Link to="/#thesis" className="text-sm hover:text-orangery-500 transition-colors">Thesis</Link>
+            <Link to="/#investment" className="text-sm hover:text-orangery-500 transition-colors">Investment</Link>
           </div>
           
           <div className="text-sm text-muted-foreground">
@@ -36,4 +35,3 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
 };
 
 export default Footer;
-
