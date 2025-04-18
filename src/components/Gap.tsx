@@ -54,7 +54,7 @@ const Gap: React.FC<GapProps> = ({ className }) => {
     },
     {
       title: "Limited Ecosystem",
-      description: "Total number of startups in Lithuania is stagnant for more than 5 years ~ 1000"
+      description: "Total number of startups in Lithuania is stagnant for more than 5 years ~ 800"
     },
     {
       title: "Funding Inequality",
