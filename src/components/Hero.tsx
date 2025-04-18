@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { cn } from '@/lib/utils';
 import FadeIn from './animations/FadeIn';
@@ -19,8 +18,8 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
         <div className="absolute inset-0 bg-black/30"></div>
       </div>
       
-      <div className="container mx-auto px-4 md:px-6 py-20 md:py-32 relative z-10">
-        <div className="max-w-xl mx-auto text-center">
+      <div className="container mx-auto px-4 md:px-6 py-20 md:py-32 relative z-10 max-w-4xl">
+        <div className="max-w-3xl mx-auto text-center">
           <FadeIn delay={200}>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-medium tracking-tight text-white leading-tight mb-6">
               Orangery Ventures
