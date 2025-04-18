@@ -20,6 +20,16 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      window.scrollTo({
+        top: element.offsetTop - 80, // Account for header height
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return (
     <header
       className={cn(
@@ -39,7 +49,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
         </NavLink>
         
         <div className="hidden md:flex items-center space-x-8">
-          <NavLinks />
+          <NavLinks scrollToSection={scrollToSection} />
         </div>
         
         <button 
@@ -85,33 +95,35 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           >
             Home
           </NavLink>
-          <NavLink 
-            to="/#thesis" 
-            className={({ isActive }) => cn(
-              "hover:text-orangery-500 transition-colors",
-              isActive && "text-orangery-500 font-semibold"
-            )}
-            onClick={() => setIsMobileMenuOpen(false)}
+          <button 
+            className="text-left hover:text-orangery-500 transition-colors"
+            onClick={() => {
+              scrollToSection('thesis');
+              setIsMobileMenuOpen(false);
+            }}
           >
             Thesis
-          </NavLink>
-          <NavLink 
-            to="/#investment" 
-            className={({ isActive }) => cn(
-              "hover:text-orangery-500 transition-colors",
-              isActive && "text-orangery-500 font-semibold"
-            )}
-            onClick={() => setIsMobileMenuOpen(false)}
+          </button>
+          <button 
+            className="text-left hover:text-orangery-500 transition-colors"
+            onClick={() => {
+              scrollToSection('investment');
+              setIsMobileMenuOpen(false);
+            }}
           >
             Investment
-          </NavLink>
+          </button>
         </nav>
       </div>
     </header>
   );
 };
 
-const NavLinks = () => (
+interface NavLinksProps {
+  scrollToSection: (id: string) => void;
+}
+
+const NavLinks: React.FC<NavLinksProps> = ({ scrollToSection }) => (
   <>
     <NavLink 
       to="/" 
@@ -122,26 +134,19 @@ const NavLinks = () => (
     >
       Home
     </NavLink>
-    <NavLink 
-      to="/#thesis" 
-      className={({ isActive }) => cn(
-        "text-sm font-medium hover:text-orangery-500 transition-colors",
-        isActive && "text-orangery-500 font-semibold"
-      )}
+    <button 
+      className="text-sm font-medium hover:text-orangery-500 transition-colors"
+      onClick={() => scrollToSection('thesis')}
     >
       Thesis
-    </NavLink>
-    <NavLink 
-      to="/#investment" 
-      className={({ isActive }) => cn(
-        "text-sm font-medium hover:text-orangery-500 transition-colors",
-        isActive && "text-orangery-500 font-semibold"
-      )}
+    </button>
+    <button 
+      className="text-sm font-medium hover:text-orangery-500 transition-colors"
+      onClick={() => scrollToSection('investment')}
     >
       Investment
-    </NavLink>
+    </button>
   </>
 );
 
 export default Header;
-
