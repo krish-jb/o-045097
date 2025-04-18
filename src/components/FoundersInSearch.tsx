@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { cn } from '@/lib/utils';
 import FadeIn from './animations/FadeIn';
@@ -33,7 +32,7 @@ const FoundersInSearch: React.FC<FoundersInSearchProps> = ({ className }) => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-3xl mx-auto mb-16">
           <FadeIn>
-            <h2 className="text-3xl md:text-4xl font-serif mb-8 text-center">Founders in Search</h2>
+            <h2 className="text-3xl md:text-4xl font-serif mb-8 text-center">Founders we back</h2>
           </FadeIn>
         </div>
         
