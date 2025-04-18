@@ -76,10 +76,8 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
         
         <nav className="flex flex-col space-y-6 text-lg">
           <Link to="/" className="hover:text-orangery-500 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
-          <Link to="/#manifesto" className="hover:text-orangery-500 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Manifesto</Link>
-          <Link to="/#acceleration" className="hover:text-orangery-500 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Acceleration</Link>
-          <Link to="/#about" className="hover:text-orangery-500 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
-          <Link to="/#contact" className="hover:text-orangery-500 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
+          <Link to="/#thesis" className="hover:text-orangery-500 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Thesis</Link>
+          <Link to="/#investment" className="hover:text-orangery-500 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Investment</Link>
         </nav>
       </div>
     </header>
@@ -89,10 +87,8 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
 const NavLinks = () => (
   <>
     <Link to="/" className="text-sm font-medium hover:text-orangery-500 transition-colors">Home</Link>
-    <Link to="/#manifesto" className="text-sm font-medium hover:text-orangery-500 transition-colors">Manifesto</Link>
-    <Link to="/#acceleration" className="text-sm font-medium hover:text-orangery-500 transition-colors">Acceleration</Link>
-    <Link to="/#about" className="text-sm font-medium hover:text-orangery-500 transition-colors">About</Link>
-    <Link to="/#contact" className="text-sm font-medium hover:text-orangery-500 transition-colors">Contact</Link>
+    <Link to="/#thesis" className="text-sm font-medium hover:text-orangery-500 transition-colors">Thesis</Link>
+    <Link to="/#investment" className="text-sm font-medium hover:text-orangery-500 transition-colors">Investment</Link>
   </>
 );
 
