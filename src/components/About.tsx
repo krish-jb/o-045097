@@ -11,15 +11,20 @@ const About: React.FC<AboutProps> = ({ className }) => {
   return (
     <section id="about" className={cn('py-20 md:py-32 bg-gray-50', className)}>
       <div className="container mx-auto px-4 md:px-6">
-        <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
+        <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
           <FadeIn>
             <div>
               <span className="text-sm md:text-base font-medium text-orangery-500 mb-2 inline-block">About us</span>
               <h2 className="text-3xl md:text-5xl font-serif font-medium tracking-tight mb-6">We got started 2025 with a single mission</h2>
-              <p className="text-lg text-muted-foreground mb-6">
+              <p className="text-lg text-muted-foreground">
                 To bring a fresh take into Baltic venture ecosystem.
               </p>
-              <p className="text-lg text-muted-foreground mb-6">
+            </div>
+          </FadeIn>
+          
+          <FadeIn delay={150}>
+            <div>
+              <p className="text-lg text-muted-foreground">
                 We are founder-driven and embrace diversity. Orangery brings an inclusive take to venture, inviting and inspiring first-time founders to try tech entrepreneurship.
               </p>
             </div>
@@ -31,4 +36,3 @@ const About: React.FC<AboutProps> = ({ className }) => {
 };
 
 export default About;
-
