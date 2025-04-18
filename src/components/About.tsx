@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { cn } from '@/lib/utils';
 import FadeIn from './animations/FadeIn';
@@ -17,10 +16,10 @@ const About: React.FC<AboutProps> = ({ className }) => {
               <span className="text-sm md:text-base font-medium text-orangery-500 mb-2 inline-block">About us</span>
               <h2 className="text-3xl md:text-5xl font-serif font-medium tracking-tight mb-6">We got started 2025 with a single mission</h2>
               <p className="text-lg text-muted-foreground mb-6">
-                Bring fresh take into Baltic venture ecosystem.
+                To bring a fresh take into Baltic venture ecosystem.
               </p>
               <p className="text-lg text-muted-foreground mb-6">
-                We are founder-driven and embrace diversity. Orangery brings inclusive take to venture, inviting and inspiring first-time founders to try tech entrepreneurship.
+                We are founder-driven and embrace diversity. Orangery brings an inclusive take to venture, inviting and inspiring first-time founders to try tech entrepreneurship.
               </p>
             </div>
           </FadeIn>
