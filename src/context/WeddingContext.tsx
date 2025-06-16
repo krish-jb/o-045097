@@ -1,254 +1,294 @@
-
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { WeddingData, User } from '@/types/wedding';
-import { supabase } from '@/integrations/supabase/client';
-import { Session, User as SupabaseUser } from '@supabase/supabase-js';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { WeddingData, User } from "@/types/wedding";
+import { supabase } from "@/integrations/supabase/client";
+import { Session, User as SupabaseUser } from "@supabase/supabase-js";
 
 interface WeddingContextType {
-  weddingData: WeddingData;
-  user: User | null;
-  session: Session | null;
-  isLoggedIn: boolean;
-  updateWeddingData: (data: Partial<WeddingData>) => void;
-  saveData: () => Promise<void>;
-  login: (email: string, password: string) => Promise<{ error: any }>;
-  signUp: (email: string, password: string, fullName?: string) => Promise<{ error: any }>;
-  logout: () => Promise<void>;
+    weddingData: WeddingData;
+    user: User | null;
+    session: Session | null;
+    isLoggedIn: boolean;
+    updateWeddingData: (data: Partial<WeddingData>) => void;
+    saveData: () => Promise<void>;
+    login: (email: string, password: string) => Promise<{ error: any }>;
+    signUp: (
+        email: string,
+        password: string,
+        fullName?: string,
+    ) => Promise<{ error: any }>;
+    logout: () => Promise<void>;
 }
 
 const defaultWeddingData: WeddingData = {
-  couple: {
-    groomName: "Alexander",
-    brideName: "Isabella",
-    weddingQuote: "Road to Forever - Where two hearts become one"
-  },
-  story: {
-    title: "Our Story",
-    content: "We met on a beautiful autumn day in the local coffee shop. What started as a chance encounter over spilled coffee became the beginning of our forever love story. After three wonderful years together, Alexander proposed during a romantic sunset at our favorite beach, and Isabella said yes with tears of joy."
-  },
-  weddingDetails: {
-    ceremony: {
-      date: "June 15, 2024",
-      time: "4:00 PM",
-      venue: "St. Mary's Cathedral",
-      address: "123 Cathedral Street, City, State 12345"
+    couple: {
+        groomName: "Nithin",
+        brideName: "Nithya",
+        weddingQuote:
+            "Together We Journey – Two souls, one path, endless love.",
     },
-    reception: {
-      date: "June 15, 2024",
-      time: "6:30 PM",
-      venue: "Grand Ballroom",
-      address: "456 Reception Avenue, City, State 12345"
+    story: {
+        title: "Our Story",
+        content:
+            "We met on a beautiful autumn day in the local coffee shop. What started as a chance encounter over spilled coffee became the beginning of our forever love story. After three wonderful years together, Alexander proposed during a romantic sunset at our favorite beach, and Isabella said yes with tears of joy.",
     },
-    gettingThere: "The venue is easily accessible by car or public transport. Free shuttle service will be provided from the ceremony to reception venue.",
-    whatToWear: "Semi-formal attire requested. Ladies: cocktail dresses or elegant separates. Gentlemen: suit and tie or dress shirt with slacks.",
-    parking: "Complimentary valet parking available at both venues. Street parking is also available on surrounding streets."
-  },
-  schedule: [
-    {
-      id: "1",
-      time: "3:30 PM",
-      event: "Guest Arrival",
-      description: "Welcome drinks and mingling"
+    weddingDetails: {
+        ceremony: {
+            date: "June 15, 2024",
+            time: "4:00 PM",
+            venue: "St. Mary's Cathedral",
+            address: "123 Cathedral Street, City, State 12345",
+        },
+        reception: {
+            date: "June 15, 2024",
+            time: "6:30 PM",
+            venue: "Grand Ballroom",
+            address: "456 Reception Avenue, City, State 12345",
+        },
+        gettingThere:
+            "The venue is easily accessible by car or public transport. Free shuttle service will be provided from the ceremony to reception venue.",
+        whatToWear:
+            "Semi-formal attire requested. Ladies: cocktail dresses or elegant separates. Gentlemen: suit and tie or dress shirt with slacks.",
+        parking:
+            "Complimentary valet parking available at both venues. Street parking is also available on surrounding streets.",
     },
-    {
-      id: "2",
-      time: "4:00 PM",
-      event: "Ceremony",
-      description: "Wedding ceremony begins"
+    schedule: [
+        {
+            id: "1",
+            time: "3:30 PM",
+            event: "Guest Arrival",
+            description: "Welcome drinks and mingling",
+        },
+        {
+            id: "2",
+            time: "4:00 PM",
+            event: "Ceremony",
+            description: "Wedding ceremony begins",
+        },
+        {
+            id: "3",
+            time: "5:00 PM",
+            event: "Cocktail Hour",
+            description: "Photos and cocktails",
+        },
+        {
+            id: "4",
+            time: "6:30 PM",
+            event: "Reception",
+            description: "Dinner and dancing",
+        },
+    ],
+    gallery: [
+        {
+            id: "1",
+            url: "/lovable-uploads/47f9a1d0-4458-400a-8fc0-79adf093cf18.png",
+            caption: "Our engagement photo",
+        },
+        {
+            id: "2",
+            url: "/lovable-uploads/47f9a1d0-4458-400a-8fc0-79adf093cf18.png",
+            caption: "Our family photo",
+        },
+        {
+            id: "3",
+            url: "/lovable-uploads/47f9a1d0-4458-400a-8fc0-79adf093cf18.png",
+            caption: "Our friends",
+        },
+    ],
+    guestWishes: [
+        {
+            id: "1",
+            name: "Vishnu Das",
+            message: "Wishing you both a lifetime of love and happiness!",
+            date: "2024-01-15",
+        },
+        {
+            id: "2",
+            name: "Sarah & Mike",
+            message: "Wishing you a life filled with adventures!",
+            date: "2024-01-16",
+        },
+        {
+            id: "3",
+            name: "Jenna",
+            message: "Wishing you two a healthy life!",
+            date: "2024-01-16",
+        },
+    ],
+    moreInfo: {
+        title: "Additional Information",
+        content:
+            "For dietary restrictions, please contact us at least one week before the wedding. We will have vegetarian and gluten-free options available. Children are welcome at both the ceremony and reception.",
     },
-    {
-      id: "3",
-      time: "5:00 PM",
-      event: "Cocktail Hour",
-      description: "Photos and cocktails"
+    contact: {
+        phone: "+91 956 5858 855",
+        email: "wedding@nithin_nithya.com",
+        address: "123 Main Street, City, State 12345",
     },
-    {
-      id: "4",
-      time: "6:30 PM",
-      event: "Reception",
-      description: "Dinner and dancing"
-    }
-  ],
-  gallery: [
-    {
-      id: "1",
-      url: "/lovable-uploads/47f9a1d0-4458-400a-8fc0-79adf093cf18.png",
-      caption: "Our engagement photo"
-    }
-  ],
-  guestWishes: [
-    {
-      id: "1",
-      name: "Sarah & Mike",
-      message: "Wishing you both a lifetime of love and happiness!",
-      date: "2024-01-15"
-    }
-  ],
-  moreInfo: {
-    title: "Additional Information",
-    content: "For dietary restrictions, please contact us at least one week before the wedding. We will have vegetarian and gluten-free options available. Children are welcome at both the ceremony and reception."
-  },
-  contact: {
-    phone: "+1 (555) 123-4567",
-    email: "wedding@alexanderandisabella.com",
-    address: "123 Main Street, City, State 12345"
-  },
-  jewelry: {
-    title: "Our Wedding Jewelry",
-    description: "Discover exquisite wedding rings and jewelry collections from our trusted partner.",
-    shopName: "Elegant Diamonds",
-    website: "https://elegantdiamonds.com"
-  }
+    jewelry: {
+        title: "Our Wedding Jewelry",
+        description:
+            "Discover exquisite wedding rings and jewelry collections from our trusted partner.",
+        shopName: "Edimannickal Gold and Diamonds",
+        website:
+            "https://www.instagram.com/edimannickalgoldanddiamonds?igsh=czd3ZzV3bjNvMQ==",
+    },
 };
 
 const WeddingContext = createContext<WeddingContextType | undefined>(undefined);
 
-export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [weddingData, setWeddingData] = useState<WeddingData>(defaultWeddingData);
-  const [user, setUser] = useState<User | null>(null);
-  const [session, setSession] = useState<Session | null>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
+    children,
+}) => {
+    const [weddingData, setWeddingData] =
+        useState<WeddingData>(defaultWeddingData);
+    const [user, setUser] = useState<User | null>(null);
+    const [session, setSession] = useState<Session | null>(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    // Set up auth state listener
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setSession(session);
-        if (session?.user) {
-          const mappedUser: User = {
-            id: session.user.id,
-            email: session.user.email || '',
-            isAuthenticated: true
-          };
-          setUser(mappedUser);
-          setIsLoggedIn(true);
-          
-          // Load wedding data for authenticated user
-          setTimeout(() => {
-            loadWeddingData(session.user.id);
-          }, 0);
-        } else {
-          setUser(null);
-          setIsLoggedIn(false);
-        }
-      }
-    );
+    useEffect(() => {
+        // Set up auth state listener
+        const {
+            data: { subscription },
+        } = supabase.auth.onAuthStateChange((event, session) => {
+            setSession(session);
+            if (session?.user) {
+                const mappedUser: User = {
+                    id: session.user.id,
+                    email: session.user.email || "",
+                    isAuthenticated: true,
+                };
+                setUser(mappedUser);
+                setIsLoggedIn(true);
 
-    // Check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      if (session?.user) {
-        const mappedUser: User = {
-          id: session.user.id,
-          email: session.user.email || '',
-          isAuthenticated: true
-        };
-        setUser(mappedUser);
-        setIsLoggedIn(true);
-        loadWeddingData(session.user.id);
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  const loadWeddingData = async (userId: string) => {
-    try {
-      const { data, error } = await supabase
-        .from('wedding_data')
-        .select('data')
-        .eq('user_id', userId)
-        .maybeSingle();
-
-      if (error) {
-        console.error('Error loading wedding data:', error);
-        return;
-      }
-
-      if (data?.data) {
-        setWeddingData(data.data as WeddingData);
-      }
-    } catch (error) {
-      console.error('Error loading wedding data:', error);
-    }
-  };
-
-  const updateWeddingData = (data: Partial<WeddingData>) => {
-    setWeddingData(prev => ({ ...prev, ...data }));
-  };
-
-  const saveData = async () => {
-    if (!user?.id) {
-      console.error('No user logged in');
-      return;
-    }
-
-    try {
-      const { error } = await supabase
-        .from('wedding_data')
-        .upsert({
-          user_id: user.id,
-          data: weddingData,
-          updated_at: new Date().toISOString()
+                // Load wedding data for authenticated user
+                setTimeout(() => {
+                    loadWeddingData(session.user.id);
+                }, 0);
+            } else {
+                setUser(null);
+                setIsLoggedIn(false);
+            }
         });
 
-      if (error) {
-        console.error('Error saving wedding data:', error);
-      }
-    } catch (error) {
-      console.error('Error saving wedding data:', error);
-    }
-  };
+        // Check for existing session
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            setSession(session);
+            if (session?.user) {
+                const mappedUser: User = {
+                    id: session.user.id,
+                    email: session.user.email || "",
+                    isAuthenticated: true,
+                };
+                setUser(mappedUser);
+                setIsLoggedIn(true);
+                loadWeddingData(session.user.id);
+            }
+        });
 
-  const login = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password
-    });
-    return { error };
-  };
+        return () => subscription.unsubscribe();
+    }, []);
 
-  const signUp = async (email: string, password: string, fullName?: string) => {
-    const redirectUrl = `${window.location.origin}/`;
-    
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: redirectUrl,
-        data: {
-          full_name: fullName
+    const loadWeddingData = async (userId: string) => {
+        try {
+            const { data, error } = await supabase
+                .from("wedding_data")
+                .select("data")
+                .eq("user_id", userId)
+                .maybeSingle();
+
+            if (error) {
+                console.error("Error loading wedding data:", error);
+                return;
+            }
+
+            if (data?.data) {
+                setWeddingData(data.data as WeddingData);
+            }
+        } catch (error) {
+            console.error("Error loading wedding data:", error);
         }
-      }
-    });
-    return { error };
-  };
+    };
 
-  const logout = async () => {
-    await supabase.auth.signOut();
-  };
+    const updateWeddingData = (data: Partial<WeddingData>) => {
+        setWeddingData((prev) => ({ ...prev, ...data }));
+    };
 
-  return (
-    <WeddingContext.Provider value={{
-      weddingData,
-      user,
-      session,
-      isLoggedIn,
-      updateWeddingData,
-      saveData,
-      login,
-      signUp,
-      logout
-    }}>
-      {children}
-    </WeddingContext.Provider>
-  );
+    const saveData = async () => {
+        if (!user?.id) {
+            console.error("No user logged in");
+            return;
+        }
+
+        try {
+            const { error } = await supabase.from("wedding_data").upsert({
+                user_id: user.id,
+                data: weddingData,
+                updated_at: new Date().toISOString(),
+            });
+
+            if (error) {
+                console.error("Error saving wedding data:", error);
+            }
+        } catch (error) {
+            console.error("Error saving wedding data:", error);
+        }
+    };
+
+    const login = async (email: string, password: string) => {
+        const { error } = await supabase.auth.signInWithPassword({
+            email,
+            password,
+        });
+        return { error };
+    };
+
+    const signUp = async (
+        email: string,
+        password: string,
+        fullName?: string,
+    ) => {
+        const redirectUrl = `${window.location.origin}/`;
+
+        const { error } = await supabase.auth.signUp({
+            email,
+            password,
+            options: {
+                emailRedirectTo: redirectUrl,
+                data: {
+                    full_name: fullName,
+                },
+            },
+        });
+        return { error };
+    };
+
+    const logout = async () => {
+        await supabase.auth.signOut();
+    };
+
+    return (
+        <WeddingContext.Provider
+            value={{
+                weddingData,
+                user,
+                session,
+                isLoggedIn,
+                updateWeddingData,
+                saveData,
+                login,
+                signUp,
+                logout,
+            }}
+        >
+            {children}
+        </WeddingContext.Provider>
+    );
 };
 
 export const useWedding = () => {
-  const context = useContext(WeddingContext);
-  if (context === undefined) {
-    throw new Error('useWedding must be used within a WeddingProvider');
-  }
-  return context;
+    const context = useContext(WeddingContext);
+    if (context === undefined) {
+        throw new Error("useWedding must be used within a WeddingProvider");
+    }
+    return context;
 };
