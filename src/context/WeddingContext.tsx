@@ -1,15 +1,19 @@
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { WeddingData, User } from '@/types/wedding';
-import axios from 'axios';
+import { supabase } from '@/integrations/supabase/client';
+import { Session, User as SupabaseUser } from '@supabase/supabase-js';
 
 interface WeddingContextType {
   weddingData: WeddingData;
   user: User | null;
+  session: Session | null;
   isLoggedIn: boolean;
   updateWeddingData: (data: Partial<WeddingData>) => void;
   saveData: () => Promise<void>;
-  login: (email: string, password: string) => Promise<boolean>;
-  logout: () => void;
+  login: (email: string, password: string) => Promise<{ error: any }>;
+  signUp: (email: string, password: string, fullName?: string) => Promise<{ error: any }>;
+  logout: () => Promise<void>;
 }
 
 const defaultWeddingData: WeddingData = {
@@ -102,31 +106,70 @@ const WeddingContext = createContext<WeddingContextType | undefined>(undefined);
 export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [weddingData, setWeddingData] = useState<WeddingData>(defaultWeddingData);
   const [user, setUser] = useState<User | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const user_id = 'wedding_couple_2024';
-
   useEffect(() => {
-    loadWeddingData();
+    // Set up auth state listener
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setSession(session);
+        if (session?.user) {
+          const mappedUser: User = {
+            id: session.user.id,
+            email: session.user.email || '',
+            isAuthenticated: true
+          };
+          setUser(mappedUser);
+          setIsLoggedIn(true);
+          
+          // Load wedding data for authenticated user
+          setTimeout(() => {
+            loadWeddingData(session.user.id);
+          }, 0);
+        } else {
+          setUser(null);
+          setIsLoggedIn(false);
+        }
+      }
+    );
+
+    // Check for existing session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      if (session?.user) {
+        const mappedUser: User = {
+          id: session.user.id,
+          email: session.user.email || '',
+          isAuthenticated: true
+        };
+        setUser(mappedUser);
+        setIsLoggedIn(true);
+        loadWeddingData(session.user.id);
+      }
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
-  const loadWeddingData = async () => {
+  const loadWeddingData = async (userId: string) => {
     try {
-      const response = await axios.post(
-        'https://kzhbmjygrzjardgruunp.supabase.co/functions/v1/getwebdata',
-        { user_id },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      if (response.data) {
-        setWeddingData(response.data);
+      const { data, error } = await supabase
+        .from('wedding_data')
+        .select('data')
+        .eq('user_id', userId)
+        .maybeSingle();
+
+      if (error) {
+        console.error('Error loading wedding data:', error);
+        return;
+      }
+
+      if (data?.data) {
+        setWeddingData(data.data as WeddingData);
       }
     } catch (error) {
-      console.log('Using default data, API not available:', error);
-      // Keep using default data
+      console.error('Error loading wedding data:', error);
     }
   };
 
@@ -135,45 +178,66 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({ child
   };
 
   const saveData = async () => {
+    if (!user?.id) {
+      console.error('No user logged in');
+      return;
+    }
+
     try {
-      await axios.post(
-        'https://kzhbmjygrzjardgruunp.supabase.co/functions/v1/webdata',
-        weddingData,
-        {
-          headers: {
-            'Authorization': `Bearer ${user?.id}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      const { error } = await supabase
+        .from('wedding_data')
+        .upsert({
+          user_id: user.id,
+          data: weddingData,
+          updated_at: new Date().toISOString()
+        });
+
+      if (error) {
+        console.error('Error saving wedding data:', error);
+      }
     } catch (error) {
-      console.error('Failed to save data:', error);
+      console.error('Error saving wedding data:', error);
     }
   };
 
-  const login = async (email: string, password: string): Promise<boolean> => {
-    // Placeholder login - will be replaced with Supabase auth
-    if (email === 'admin@wedding.com' && password === 'password') {
-      setUser({ id: 'admin', email, isAuthenticated: true });
-      setIsLoggedIn(true);
-      return true;
-    }
-    return false;
+  const login = async (email: string, password: string) => {
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
+    return { error };
   };
 
-  const logout = () => {
-    setUser(null);
-    setIsLoggedIn(false);
+  const signUp = async (email: string, password: string, fullName?: string) => {
+    const redirectUrl = `${window.location.origin}/`;
+    
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: redirectUrl,
+        data: {
+          full_name: fullName
+        }
+      }
+    });
+    return { error };
+  };
+
+  const logout = async () => {
+    await supabase.auth.signOut();
   };
 
   return (
     <WeddingContext.Provider value={{
       weddingData,
       user,
+      session,
       isLoggedIn,
       updateWeddingData,
       saveData,
       login,
+      signUp,
       logout
     }}>
       {children}
