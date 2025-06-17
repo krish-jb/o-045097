@@ -90,7 +90,7 @@ const defaultWeddingData: WeddingData = {
         },
         {
             id: "3",
-            url: "/couple/gallery_3.jpg",
+            url: "/couple/cover_image.jpg",
             caption: "Our friends",
         },
     ],

@@ -25,9 +25,9 @@ const OurStory: React.FC = () => {
                     <FadeIn className="md:col-span-5">
                         <div className="relative h-[500px] lg:h-[600px] w-full rounded-lg overflow-hidden">
                             <img
-                                src="/couple/our_story.jpg"
+                                src="/couple/gallery_3.jpg"
                                 alt="Our story photo"
-                                className="w-full h-full object-cover object-[0%_80%] scale-110"
+                                className="w-full h-full object-cover object-center"
                             />
                         </div>
                     </FadeIn>
