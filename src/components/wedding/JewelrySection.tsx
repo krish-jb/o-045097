@@ -10,30 +10,35 @@ const JewelrySection: React.FC = () => {
 
     const updateJewelry = (field: string, value: string) => {
         updateWeddingData({
-            jewelry: { ...weddingData.jewelry, [field]: value },
+            jeweller: { ...weddingData.jeweller, [field]: value },
         });
     };
 
-    console.log(weddingData.jewelry.website);
+    const goToJewellerWebsite = () => {
+        window.open(weddingData.jeweller.website, "_blank");
+    };
 
     return (
-        <section id="jewelry" className="py-20 md:py-32 bg-white">
+        <section id="jeweller" className="py-20 md:py-32 bg-white">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="max-w-4xl mx-auto">
                     <FadeIn>
                         <Card className="overflow-hidden">
                             <div className="grid md:grid-cols-2 gap-0">
-                                <div className="relative h-64 md:h-full">
+                                <div
+                                    className="relative h-96 md:h-full cursor-pointer"
+                                    onClick={goToJewellerWebsite}
+                                >
                                     <img
                                         src="/jewelry/ad-2.jpg"
-                                        alt="Wedding Jewelry"
-                                        className="w-full h-full object-cover"
+                                        alt="Wedding Jewellery"
+                                        className="w-full h-full object-cover object-[0%_15%] hover:scale-105 duration-500"
                                     />
                                 </div>
                                 <div className="p-8 md:p-12 flex flex-col justify-center">
                                     <CardHeader className="p-0 mb-6">
                                         <EditableText
-                                            value={weddingData.jewelry.title}
+                                            value={weddingData.jeweller.title}
                                             onSave={(value) =>
                                                 updateJewelry("title", value)
                                             }
@@ -44,7 +49,7 @@ const JewelrySection: React.FC = () => {
                                     <CardContent className="p-0 space-y-6">
                                         <EditableText
                                             value={
-                                                weddingData.jewelry.description
+                                                weddingData.jeweller.description
                                             }
                                             onSave={(value) =>
                                                 updateJewelry(
@@ -64,7 +69,7 @@ const JewelrySection: React.FC = () => {
                                                 </p>
                                                 <EditableText
                                                     value={
-                                                        weddingData.jewelry
+                                                        weddingData.jeweller
                                                             .shopName
                                                     }
                                                     onSave={(value) =>
@@ -80,7 +85,7 @@ const JewelrySection: React.FC = () => {
 
                                             <EditableText
                                                 value={
-                                                    weddingData.jewelry.website
+                                                    weddingData.jeweller.website
                                                 }
                                                 onSave={(value) =>
                                                     updateJewelry(
@@ -92,13 +97,10 @@ const JewelrySection: React.FC = () => {
                                             >
                                                 <Button
                                                     variant="outline"
-                                                    onClick={() =>
-                                                        window.open(
-                                                            weddingData.jewelry
-                                                                .website,
-                                                            "_blank",
-                                                        )
+                                                    onClick={
+                                                        goToJewellerWebsite
                                                     }
+                                                    className="w-full mt-5"
                                                 >
                                                     Visit Store
                                                 </Button>

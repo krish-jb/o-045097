@@ -27,9 +27,9 @@ const defaultWeddingData: WeddingData = {
             "Together We Journey – Two souls, one path, endless love.",
     },
     story: {
-        title: "Our Story",
+        title: "Love",
         content:
-            "We met on a beautiful autumn day in the local coffee shop. What started as a chance encounter over spilled coffee became the beginning of our forever love story. After three wonderful years together, Alexander proposed during a romantic sunset at our favorite beach, and Isabella said yes with tears of joy.",
+            "We met on a beautiful autumn day in the local coffee shop. What started as a chance encounter over spilled coffee became the beginning of our forever love story. After three wonderful years together, Nithin proposed during a romantic sunset at our favorite beach, and Isabella said yes with tears of joy.",
     },
     weddingDetails: {
         ceremony: {
@@ -80,17 +80,17 @@ const defaultWeddingData: WeddingData = {
     gallery: [
         {
             id: "1",
-            url: "/lovable-uploads/47f9a1d0-4458-400a-8fc0-79adf093cf18.png",
+            url: "/couple/gallery_1.jpg",
             caption: "Our engagement photo",
         },
         {
             id: "2",
-            url: "/lovable-uploads/47f9a1d0-4458-400a-8fc0-79adf093cf18.png",
+            url: "/couple/gallery_2.jpg",
             caption: "Our family photo",
         },
         {
             id: "3",
-            url: "/lovable-uploads/47f9a1d0-4458-400a-8fc0-79adf093cf18.png",
+            url: "/couple/gallery_3.jpg",
             caption: "Our friends",
         },
     ],
@@ -124,10 +124,10 @@ const defaultWeddingData: WeddingData = {
         email: "wedding@nithin_nithya.com",
         address: "123 Main Street, City, State 12345",
     },
-    jewelry: {
-        title: "Our Wedding Jewelry",
+    jeweller: {
+        title: "Our Wedding Jeweller",
         description:
-            "Discover exquisite wedding rings and jewelry collections from our trusted partner.",
+            "Discover exquisite wedding rings and jewellery collections from our trusted partner.",
         shopName: "Edimannickal Gold and Diamonds",
         website:
             "https://www.instagram.com/edimannickalgoldanddiamonds?igsh=czd3ZzV3bjNvMQ==",

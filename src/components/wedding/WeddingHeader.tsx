@@ -3,11 +3,13 @@ import { cn } from "@/lib/utils";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useWedding } from "@/context/WeddingContext";
+import WeddingDetails from "./WeddingDetails";
 
 const WeddingHeader: React.FC = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const { isLoggedIn, logout } = useWedding();
+    const { weddingData, updateWeddingData } = useWedding();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -45,12 +47,16 @@ const WeddingHeader: React.FC = () => {
         }
     };
 
+    useEffect(() => {
+        console.log(isMobileMenuOpen);
+    }, [isMobileMenuOpen]);
+
     return (
         <header
             className={cn(
-                "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+                "fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white",
                 isScrolled
-                    ? "py-3 bg-white/90 backdrop-blur-md border-b border-gray-200/20 shadow-sm"
+                    ? "py-3 bg-white border-b border-gray-200/20 shadow-sm"
                     : "py-5 bg-transparent",
             )}
         >
@@ -59,7 +65,8 @@ const WeddingHeader: React.FC = () => {
                     to="/"
                     className="text-xl font-serif font-medium tracking-tight transition-opacity hover:opacity-80"
                 >
-                    A & I Wedding
+                    {`${weddingData.couple.groomName[0]} &
+                    ${weddingData.couple.brideName[0]} Wedding`}
                 </Link>
 
                 <div className="hidden md:flex items-center space-x-8">
@@ -129,13 +136,15 @@ const WeddingHeader: React.FC = () => {
 
             <div
                 className={cn(
-                    "fixed inset-0 bg-white z-40 flex flex-col pt-24 px-6 transition-transform duration-500 ease-in-out transform md:hidden",
-                    isMobileMenuOpen ? "translate-x-0" : "translate-x-full",
+                    "fixed backdrop-blur-lg inset-0 z-40 flex flex-col pt-24 px-6 duration-500 transition-opacity transform ease-in-out md:hidden",
+                    isMobileMenuOpen
+                        ? "translate-x-0 opacity-100"
+                        : "translate-x-full opacity-0",
                 )}
             >
                 <button
                     className="absolute top-5 right-5 p-2"
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     aria-label="Close menu"
                 >
                     <span className="block w-6 h-0.5 bg-foreground transform rotate-45 translate-y-0.5" />
@@ -173,13 +182,12 @@ const WeddingHeader: React.FC = () => {
                     >
                         Gallery
                     </button>
-                    <Button
-                        variant="outline"
-                        className="self-start"
+                    <button
+                        className="text-left hover:text-orangery-500 transition-colors"
                         onClick={handleAuthAction}
                     >
                         {isLoggedIn ? "Logout" : "Login"}
-                    </Button>
+                    </button>
                 </nav>
             </div>
         </header>
