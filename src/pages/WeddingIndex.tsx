@@ -9,7 +9,7 @@ import GuestWishes from "@/components/wedding/GuestWishes";
 import MoreInfo from "@/components/wedding/MoreInfo";
 import Contact from "@/components/wedding/Contact";
 import JewelrySection from "@/components/wedding/JewelrySection";
-import { WeddingProvider } from "@/context/WeddingContext";
+import { WeddingProvider } from "@/context/WeddingContextProvider";
 
 const WeddingIndex = () => {
     useEffect(() => {
@@ -41,20 +41,18 @@ const WeddingIndex = () => {
     }, []);
 
     return (
-        <WeddingProvider>
-            <main className="relative">
-                <WeddingHeader />
-                <WeddingHero />
-                <OurStory />
-                <WeddingDetails />
-                <Schedule />
-                <Gallery />
-                <GuestWishes />
-                <MoreInfo />
-                <Contact />
-                <JewelrySection />
-            </main>
-        </WeddingProvider>
+        <main className="relative">
+            <WeddingHeader />
+            <WeddingHero />
+            <OurStory />
+            <WeddingDetails />
+            <Schedule />
+            <Gallery />
+            <GuestWishes />
+            <MoreInfo />
+            <Contact />
+            <JewelrySection />
+        </main>
     );
 };
 

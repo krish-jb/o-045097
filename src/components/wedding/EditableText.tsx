@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { useWedding } from "@/context/WeddingContext";
+import { useWedding } from "@/context/useWedding";
 
 interface EditableTextProps {
     value: string;
@@ -56,7 +56,7 @@ const EditableText: React.FC<EditableTextProps> = ({
                     <Button
                         variant="ghost"
                         size="sm"
-                        className="absolute -top-1 -right-8 opacity-0 group-hover:opacity-100 transition-opacity p-1 h-6 w-6"
+                        className="absolute -top-1 -right-8 opacity-100 transition-opacity p-1 h-6 w-6"
                         onClick={() => setEditValue(value)}
                     >
                         ✏️

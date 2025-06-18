@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { useWedding } from "@/context/WeddingContext";
+import { useWedding } from "@/context/useWedding";
 import WeddingDetails from "./WeddingDetails";
 
 const WeddingHeader: React.FC = () => {
@@ -46,10 +46,6 @@ const WeddingHeader: React.FC = () => {
             navigate("/login");
         }
     };
-
-    useEffect(() => {
-        console.log(isMobileMenuOpen);
-    }, [isMobileMenuOpen]);
 
     return (
         <header
@@ -136,7 +132,7 @@ const WeddingHeader: React.FC = () => {
 
             <div
                 className={cn(
-                    "fixed backdrop-blur-lg inset-0 z-40 flex flex-col pt-24 px-6 duration-500 transition-opacity transform ease-in-out md:hidden",
+                    "fixed bg-white inset-0 z-40 flex flex-col pt-24 px-6 duration-500 transition-opacity transform ease-in-out md:hidden",
                     isMobileMenuOpen
                         ? "translate-x-0 opacity-100"
                         : "translate-x-full opacity-0",

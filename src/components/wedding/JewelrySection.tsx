@@ -1,5 +1,5 @@
 import React from "react";
-import { useWedding } from "@/context/WeddingContext";
+import { useWedding } from "@/context/useWedding";
 import EditableText from "./EditableText";
 import FadeIn from "@/components/animations/FadeIn";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -37,74 +37,33 @@ const JewelrySection: React.FC = () => {
                                 </div>
                                 <div className="p-8 md:p-12 flex flex-col justify-center">
                                     <CardHeader className="p-0 mb-6">
-                                        <EditableText
-                                            value={weddingData.jeweller.title}
-                                            onSave={(value) =>
-                                                updateJewelry("title", value)
-                                            }
-                                            label="Edit Jewelry Title"
-                                            className="block text-2xl md:text-3xl font-serif font-medium tracking-tight mb-4"
-                                        />
+                                        <p className="block text-2xl md:text-3xl font-serif font-medium tracking-tight mb-4">
+                                            {weddingData.jeweller.title}
+                                        </p>
                                     </CardHeader>
                                     <CardContent className="p-0 space-y-6">
-                                        <EditableText
-                                            value={
-                                                weddingData.jeweller.description
-                                            }
-                                            onSave={(value) =>
-                                                updateJewelry(
-                                                    "description",
-                                                    value,
-                                                )
-                                            }
-                                            label="Edit Jewelry Description"
-                                            multiline
-                                            className="text-muted-foreground leading-relaxed"
-                                        />
-
+                                        <p className="text-muted-foreground leading-relaxed">
+                                            {weddingData.jeweller.description}
+                                        </p>
                                         <div className="space-y-4">
                                             <div>
                                                 <p className="font-medium text-orangery-500 mb-2">
                                                     Shop
                                                 </p>
-                                                <EditableText
-                                                    value={
+                                                <p className="text-lg font-medium">
+                                                    {
                                                         weddingData.jeweller
                                                             .shopName
                                                     }
-                                                    onSave={(value) =>
-                                                        updateJewelry(
-                                                            "shopName",
-                                                            value,
-                                                        )
-                                                    }
-                                                    label="Edit Shop Name"
-                                                    className="text-lg font-medium"
-                                                />
+                                                </p>
                                             </div>
-
-                                            <EditableText
-                                                value={
-                                                    weddingData.jeweller.website
-                                                }
-                                                onSave={(value) =>
-                                                    updateJewelry(
-                                                        "website",
-                                                        value,
-                                                    )
-                                                }
-                                                label="Edit Website URL"
+                                            <Button
+                                                variant="outline"
+                                                onClick={goToJewellerWebsite}
+                                                className="w-full mt-5"
                                             >
-                                                <Button
-                                                    variant="outline"
-                                                    onClick={
-                                                        goToJewellerWebsite
-                                                    }
-                                                    className="w-full mt-5"
-                                                >
-                                                    Visit Store
-                                                </Button>
-                                            </EditableText>
+                                                Visit Store
+                                            </Button>
                                         </div>
                                     </CardContent>
                                 </div>

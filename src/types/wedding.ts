@@ -9,21 +9,32 @@ export interface WeddingData {
         content: string;
     };
     weddingDetails: {
-        ceremony: {
+        event1: {
+            title: string;
             date: string;
             time: string;
             venue: string;
             address: string;
         };
-        reception: {
+        event2: {
+            title: string;
             date: string;
             time: string;
             venue: string;
             address: string;
         };
-        gettingThere: string;
-        whatToWear: string;
-        parking: string;
+        toKnow1: {
+            title: string;
+            description: string;
+        };
+        toKnow2: {
+            title: string;
+            description: string;
+        };
+        toKnow3: {
+            title: string;
+            description: string;
+        };
     };
     schedule: Array<{
         id: string;

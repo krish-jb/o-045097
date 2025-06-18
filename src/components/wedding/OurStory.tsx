@@ -1,5 +1,5 @@
 import React from "react";
-import { useWedding } from "@/context/WeddingContext";
+import { useWedding } from "@/context/useWedding";
 import EditableText from "./EditableText";
 import FadeIn from "@/components/animations/FadeIn";
 
