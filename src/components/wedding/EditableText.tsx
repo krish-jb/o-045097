@@ -31,11 +31,10 @@ const EditableText: React.FC<EditableTextProps> = ({
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [editValue, setEditValue] = useState(value);
-    const { isLoggedIn, saveData } = useWedding();
+    const { isLoggedIn } = useWedding();
 
-    const handleSave = async () => {
+    const handleSave = () => {
         onSave(editValue);
-        await saveData();
         setIsOpen(false);
     };
 

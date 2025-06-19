@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useWedding } from "@/context/useWedding";
 import WeddingDetails from "./WeddingDetails";
+import { toast } from "@/hooks/use-toast";
 
 const WeddingHeader: React.FC = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -42,6 +43,8 @@ const WeddingHeader: React.FC = () => {
     const handleAuthAction = () => {
         if (isLoggedIn) {
             logout();
+            setIsMobileMenuOpen(false);
+            toast({ title: "You have logged out!" });
         } else {
             navigate("/login");
         }

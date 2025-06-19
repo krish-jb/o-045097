@@ -228,21 +228,30 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
     };
 
     const updateWeddingData = (data: Partial<WeddingData>) => {
-        setWeddingData((prev) => ({ ...prev, ...data }));
+        setWeddingData((prev) => {
+            const updated = { ...prev, ...data };
+
+            saveData(updated); // save to backend
+
+            return updated;
+        });
     };
 
-    const saveData = async () => {
+    const saveData = async (data: WeddingData) => {
         if (!user?.id) {
             console.error("No user logged in");
             return;
         }
 
         try {
-            const { error } = await supabase.from("wedding_data").upsert({
-                user_id: user.id,
-                data: weddingData as unknown as Json,
-                updated_at: new Date().toISOString(),
-            });
+            const { error } = await supabase.from("wedding_data").upsert(
+                {
+                    user_id: user.id,
+                    data: data as unknown as Json,
+                    updated_at: new Date().toISOString(),
+                },
+                { onConflict: "user_id" },
+            );
 
             if (error) {
                 console.error("Error saving wedding data:", error);

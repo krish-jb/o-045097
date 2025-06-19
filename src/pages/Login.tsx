@@ -9,8 +9,8 @@ import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 
 const Login: React.FC = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("user@gmail.com");
+    const [password, setPassword] = useState("password");
     const [fullName, setFullName] = useState("");
     const [isSignUp, setIsSignUp] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
