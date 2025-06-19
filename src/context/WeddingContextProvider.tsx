@@ -15,7 +15,7 @@ export interface WeddingContextType {
     session: Session | null;
     isLoggedIn: boolean;
     updateWeddingData: (data: Partial<WeddingData>) => void;
-    saveData: () => Promise<void>;
+    saveData: (data: WeddingData) => Promise<void>;
     login: (
         email: string,
         password: string,
