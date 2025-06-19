@@ -169,6 +169,9 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
             data: { subscription },
         } = supabase.auth.onAuthStateChange((event, session) => {
             setSession(session);
+            setTimeout(() => {
+                loadWeddingData(import.meta.env.VITE_WEBSITE_KEY);
+            }, 0);
             if (session?.user) {
                 const mappedUser: User = {
                     id: session.user.id,
@@ -177,11 +180,6 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                 };
                 setUser(mappedUser);
                 setIsLoggedIn(true);
-
-                // Load wedding data for authenticated user
-                setTimeout(() => {
-                    loadWeddingData(session.user.id);
-                }, 0);
             } else {
                 setUser(null);
                 setIsLoggedIn(false);
@@ -199,19 +197,19 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                 };
                 setUser(mappedUser);
                 setIsLoggedIn(true);
-                loadWeddingData(session.user.id);
+                loadWeddingData(import.meta.env.VITE_WEBSITE_KEY);
             }
         });
 
         return () => subscription.unsubscribe();
     }, []);
 
-    const loadWeddingData = async (userId: string) => {
+    const loadWeddingData = async (id: string) => {
         try {
             const { data, error } = await supabase
                 .from("wedding_data")
                 .select("data")
-                .eq("user_id", userId)
+                .eq("id", id)
                 .maybeSingle();
 
             if (error) {
