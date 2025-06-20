@@ -34,11 +34,13 @@ const defaultWeddingData: WeddingData = {
         brideName: "Nithya",
         weddingQuote:
             "Together We Journey – Two souls, one path, endless love.",
+        image: "/couple/our_story.jpg",
     },
     story: {
         title: "Love",
         content:
             "We met on a beautiful autumn day in the local coffee shop. What started as a chance encounter over spilled coffee became the beginning of our forever love story. After three wonderful years together, Nithin proposed during a romantic sunset at our favorite beach, and Isabella said yes with tears of joy.",
+        image: "/couple/gallery_3.jpg",
     },
     weddingDetails: {
         event1: {
@@ -218,6 +220,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
             }
 
             if (data?.data) {
+                console.log(data.data);
                 setWeddingData(data.data as unknown as WeddingData);
             }
         } catch (error) {
@@ -226,9 +229,10 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
     };
 
     const updateWeddingData = (data: Partial<WeddingData>) => {
+        console.log(data);
         setWeddingData((prev) => {
             const updated = { ...prev, ...data };
-
+            console.log(updated);
             saveData(updated); // save to backend
 
             return updated;

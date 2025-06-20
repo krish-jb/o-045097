@@ -3,10 +3,12 @@ export interface WeddingData {
         groomName: string;
         brideName: string;
         weddingQuote: string;
+        image: string;
     };
     story: {
         title: string;
         content: string;
+        image: string;
     };
     weddingDetails: {
         event1: {

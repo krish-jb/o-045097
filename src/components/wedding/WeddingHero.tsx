@@ -1,10 +1,13 @@
-import React from "react";
-import { useWedding } from "@/context/useWedding";
-import EditableText from "./EditableText";
 import FadeIn from "@/components/animations/FadeIn";
+import EditableImage from "@/components/wedding/EditableImage";
+import EditableText from "@/components/wedding/EditableText";
+import { useWedding } from "@/context/useWedding";
+import uploadImage from "@/utils/UploadImage";
+import React, { useEffect, useState } from "react";
 
 const WeddingHero: React.FC = () => {
-    const { weddingData, updateWeddingData } = useWedding();
+    const { weddingData, updateWeddingData, user } = useWedding();
+    const [state, setState] = useState(false);
 
     const updateGroomName = (newName: string) => {
         updateWeddingData({
@@ -24,17 +27,28 @@ const WeddingHero: React.FC = () => {
         });
     };
 
+    const updateHeroImage = async (file: File) => {
+        const imageUrl = await uploadImage(file, user, "hero_image");
+        updateWeddingData({
+            couple: { ...weddingData.couple, image: imageUrl },
+        });
+    };
+
     return (
         <section className="relative min-h-screen flex items-center overflow-hidden">
-            <div className="absolute inset-0 -z-10">
-                <img
-                    src="/couple/our_story.jpg"
-                    alt="Wedding Background"
-                    className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-black/40"></div>
-            </div>
-
+            <EditableImage
+                label="Update Cover Image"
+                onUpdate={updateHeroImage}
+            >
+                <div className="absolute inset-0 -z-10 pointer-events-none">
+                    <img
+                        src={weddingData.couple.image}
+                        alt="Wedding Background"
+                        className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/40"></div>
+                </div>
+            </EditableImage>
             <div className="container mx-auto px-4 md:px-6 py-20 md:py-32 relative z-10 max-w-4xl">
                 <div className="max-w-3xl mx-auto text-center">
                     <FadeIn delay={200}>

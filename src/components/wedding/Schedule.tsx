@@ -61,6 +61,7 @@ const Schedule: React.FC = () => {
                 <div className="max-w-3xl mx-auto">
                     {weddingData.schedule.map((item, index) => (
                         <DeletableItem
+                            key={index}
                             onDelete={() => deleteScheduleItem(index)}
                             label={"Are you sure?"}
                         >
