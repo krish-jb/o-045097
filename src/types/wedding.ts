@@ -49,12 +49,6 @@ export interface WeddingData {
         url: string;
         caption: string;
     }>;
-    guestWishes: Array<{
-        id: string;
-        name: string;
-        message: string;
-        date: string;
-    }>;
     moreInfo: {
         title: string;
         content: string;
@@ -77,3 +71,9 @@ export interface User {
     email: string;
     isAuthenticated: boolean;
 }
+
+export type WeddingWishType = Array<{
+    id: string;
+    name: string;
+    message: string;
+}>;

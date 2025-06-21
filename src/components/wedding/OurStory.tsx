@@ -3,9 +3,10 @@ import { useWedding } from "@/context/useWedding";
 import EditableText from "./EditableText";
 import FadeIn from "@/components/animations/FadeIn";
 import EditableImage from "./EditableImage";
+import uploadImage from "@/utils/UploadImage";
 
 const OurStory: React.FC = () => {
-    const { weddingData, updateWeddingData } = useWedding();
+    const { weddingData, updateWeddingData, user } = useWedding();
 
     const updateStoryTitle = (newTitle: string) => {
         updateWeddingData({
@@ -19,6 +20,13 @@ const OurStory: React.FC = () => {
         });
     };
 
+    const updateStoryImage = async (file: File) => {
+        const imageUrl = await uploadImage(file, user, "story_image");
+        updateWeddingData({
+            story: { ...weddingData.story, image: imageUrl },
+        });
+    };
+
     return (
         <section id="story" className="py-20 md:py-32 bg-gray-50">
             <div className="container mx-auto px-4 md:px-6">
@@ -26,8 +34,7 @@ const OurStory: React.FC = () => {
                     <FadeIn className="md:col-span-5">
                         <EditableImage
                             label="Update Story Image"
-                            onUpdate={async (file: File) => {}}
-                            index={1}
+                            onUpdate={updateStoryImage}
                         >
                             <div className="relative h-[500px] lg:h-[600px] w-full rounded-lg overflow-hidden">
                                 <img

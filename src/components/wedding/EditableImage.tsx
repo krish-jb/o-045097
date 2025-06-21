@@ -1,5 +1,5 @@
 import { useWedding } from "@/context/useWedding";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Button from "../ui-custom/Button";
 import {
     Dialog,
@@ -14,10 +14,11 @@ import { Input } from "../ui/input";
 type EditableImageProps = {
     className?: string;
     label?: string;
+    isImageCaptionAvailable?: boolean;
     imageCaption?: string;
     index?: number;
     onUpdate: (
-        newImage: File,
+        newImage: File | null,
         imageCaption?: string,
         index?: number,
     ) => Promise<void>;
@@ -28,31 +29,50 @@ const EditableImage: React.FC<EditableImageProps> = ({
     onUpdate,
     index,
     className,
-    imageCaption,
+    isImageCaptionAvailable = false,
+    imageCaption = null,
     label = "Edit Image",
     children,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const { isLoggedIn } = useWedding();
-    const [editCaption, setEditCaption] = useState(imageCaption);
+    const [editedImageCaption, setEditedImageCaption] = useState<string>(
+        imageCaption || "",
+    );
     const [image, setImage] = useState<File | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const handleUpdate = async () => {
         setIsLoading(true);
-        await onUpdate(image, imageCaption, index);
+        await onUpdate(image, editedImageCaption, index);
+        setImage(null);
         setIsOpen(false);
         setIsLoading(false);
     };
 
     const handleCancel = () => {
-        setEditCaption(imageCaption);
+        setEditedImageCaption(imageCaption);
+        setImage(null);
         setIsOpen(false);
     };
 
     if (!isLoggedIn) {
         return <div className={`${className}`}>{children}</div>;
     }
+
+    const isUpdateDisabled = (
+        isLoading: boolean,
+        image: File,
+        imageCaption: string,
+        editedImageCaption: string,
+    ): boolean => {
+        return (
+            isLoading ||
+            (!image &&
+                (!isImageCaptionAvailable ||
+                    imageCaption === editedImageCaption))
+        );
+    };
 
     return (
         <div className={`${className}`}>
@@ -74,12 +94,12 @@ const EditableImage: React.FC<EditableImageProps> = ({
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
                         <div className="grid gap-2">
-                            {imageCaption && (
+                            {isImageCaptionAvailable && (
                                 <Input
                                     id="edit-caption"
-                                    value={editCaption}
+                                    value={editedImageCaption}
                                     onChange={(e) =>
-                                        setEditCaption(e.target.value)
+                                        setEditedImageCaption(e.target.value)
                                     }
                                 />
                             )}
@@ -98,7 +118,12 @@ const EditableImage: React.FC<EditableImageProps> = ({
                             onClick={handleUpdate}
                             variant="primary"
                             className="rounded-sm"
-                            disabled={isLoading}
+                            disabled={isUpdateDisabled(
+                                isLoading,
+                                image,
+                                imageCaption,
+                                editedImageCaption,
+                            )}
                         >
                             {isLoading ? "Uploading..." : "Update"}
                         </Button>

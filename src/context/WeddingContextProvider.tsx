@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { WeddingData, User } from "@/types/wedding";
+import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { WeddingData, User, WeddingWishType } from "@/types/wedding";
 import { supabase } from "@/integrations/supabase/client";
 import {
     AuthError,
@@ -11,11 +11,15 @@ import { WeddingContext } from "./WeddingContext";
 
 export interface WeddingContextType {
     weddingData: WeddingData;
+    weddingWishes: WeddingWishType;
+    setWeddingWishes: Dispatch<SetStateAction<WeddingWishType>>;
     user: User | null;
     session: Session | null;
     isLoggedIn: boolean;
     updateWeddingData: (data: Partial<WeddingData>) => void;
+    loadAllWeddingWishes: () => Promise<void>;
     saveData: (data: WeddingData) => Promise<void>;
+    addWish: (data: WeddingWishType[number]) => Promise<void>;
     login: (
         email: string,
         password: string,
@@ -103,37 +107,17 @@ const defaultWeddingData: WeddingData = {
         {
             id: "1",
             url: "/couple/gallery_1.jpg",
-            caption: "Our engagement photo",
+            caption: null,
         },
         {
             id: "2",
             url: "/couple/gallery_2.jpg",
-            caption: "Our family photo",
+            caption: null,
         },
         {
             id: "3",
             url: "/couple/cover_image.jpg",
-            caption: "Our friends",
-        },
-    ],
-    guestWishes: [
-        {
-            id: "1",
-            name: "Vishnu Das",
-            message: "Wishing you both a lifetime of love and happiness!",
-            date: "2024-01-15",
-        },
-        {
-            id: "2",
-            name: "Sarah & Mike",
-            message: "Wishing you a life filled with adventures!",
-            date: "2024-01-16",
-        },
-        {
-            id: "3",
-            name: "Jenna",
-            message: "Wishing you two a healthy life!",
-            date: "2024-01-16",
+            caption: null,
         },
     ],
     moreInfo: {
@@ -161,6 +145,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
     const [weddingData, setWeddingData] =
         useState<WeddingData>(defaultWeddingData);
+    const [weddingWishes, setWeddingWishes] = useState<WeddingWishType>([]);
     const [user, setUser] = useState<User | null>(null);
     const [session, setSession] = useState<Session | null>(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -208,31 +193,67 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
 
     const loadWeddingData = async (id: string) => {
         try {
-            const { data, error } = await supabase
+            const { data: weddingData, error: weddingError } = await supabase
                 .from("wedding_data")
                 .select("data")
                 .eq("id", id)
                 .maybeSingle();
 
-            if (error) {
-                console.error("Error loading wedding data:", error);
+            const { data: wishData, error: wishError } = await supabase
+                .from("guest_wishes")
+                .select("id, name, message")
+                .eq("variant", id)
+                .order("created_at", { ascending: false })
+                .limit(3);
+
+            if (weddingError) {
+                console.error("Error loading wedding data:", weddingError);
                 return;
             }
 
-            if (data?.data) {
-                console.log(data.data);
-                setWeddingData(data.data as unknown as WeddingData);
+            if (wishError) {
+                console.error("Error loading wish data: ", wishError);
+            }
+
+            if (weddingData?.data) {
+                setWeddingData(weddingData.data as unknown as WeddingData);
+            }
+
+            if (wishData) {
+                setWeddingWishes(wishData);
             }
         } catch (error) {
             console.error("Error loading wedding data:", error);
         }
     };
 
+    const loadAllWeddingWishes = async () => {
+        try {
+            const { data: wishData, error: wishError } = await supabase
+                .from("guest_wishes")
+                .select("id, name, message")
+                .eq("variant", import.meta.env.VITE_WEBSITE_KEY)
+                .order("created_at", { ascending: false });
+
+            if (wishError) {
+                console.log(
+                    "Error loading all wishes (Supabase error): ",
+                    wishError,
+                );
+                return;
+            }
+
+            if (wishData) {
+                setWeddingWishes(wishData);
+            }
+        } catch (error) {
+            console.log("Error loading all wishes: ", error);
+        }
+    };
+
     const updateWeddingData = (data: Partial<WeddingData>) => {
-        console.log(data);
         setWeddingData((prev) => {
             const updated = { ...prev, ...data };
-            console.log(updated);
             saveData(updated); // save to backend
 
             return updated;
@@ -260,6 +281,22 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
             }
         } catch (error) {
             console.error("Error saving wedding data:", error);
+        }
+    };
+
+    const addWish = async (wish: WeddingWishType[number]) => {
+        try {
+            const { error } = await supabase.from("guest_wishes").insert({
+                name: wish.name,
+                message: wish.message,
+                variant: import.meta.env.VITE_WEBSITE_KEY,
+            });
+
+            if (error) {
+                console.log("Error adding new wish(Supabase error)", error);
+            }
+        } catch (error) {
+            console.log("Error adding new wish", error);
         }
     };
 
@@ -299,11 +336,15 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
         <WeddingContext.Provider
             value={{
                 weddingData,
+                weddingWishes,
+                setWeddingWishes,
+                loadAllWeddingWishes,
                 user,
                 session,
                 isLoggedIn,
                 updateWeddingData,
                 saveData,
+                addWish,
                 login,
                 signUp,
                 logout,

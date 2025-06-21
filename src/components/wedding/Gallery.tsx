@@ -2,9 +2,30 @@ import React from "react";
 import { useWedding } from "@/context/useWedding";
 import FadeIn from "@/components/animations/FadeIn";
 import EditableImage from "./EditableImage";
+import uploadImage from "@/utils/UploadImage";
 
 const Gallery: React.FC = () => {
-    const { weddingData } = useWedding();
+    const { weddingData, user, updateWeddingData } = useWedding();
+
+    const updateGalleryImage = async (
+        file: File | null,
+        imageCaption: string,
+        index: number,
+    ) => {
+        const updatedGallery = [...weddingData.gallery];
+
+        if (file) {
+            const imageUrl = await uploadImage(
+                file,
+                user,
+                `galary_image_${index}`,
+            );
+            updatedGallery[index].url = imageUrl;
+        }
+
+        updatedGallery[index].caption = imageCaption;
+        updateWeddingData({ gallery: updatedGallery });
+    };
 
     return (
         <section id="gallery" className="py-20 md:py-32 bg-white">
@@ -25,7 +46,10 @@ const Gallery: React.FC = () => {
                         <FadeIn key={photo.id} delay={100 * (index + 1)}>
                             <EditableImage
                                 label={`Edit Gallery Image ${index + 1}`}
-                                onUpdate={() => {}}
+                                onUpdate={updateGalleryImage}
+                                index={index}
+                                isImageCaptionAvailable={true}
+                                imageCaption={photo.caption}
                             >
                                 <div className="relative group overflow-hidden rounded-lg aspect-square">
                                     <img

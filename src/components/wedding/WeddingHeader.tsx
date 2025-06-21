@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useWedding } from "@/context/useWedding";
 import WeddingDetails from "./WeddingDetails";
@@ -12,6 +12,7 @@ const WeddingHeader: React.FC = () => {
     const { isLoggedIn, logout } = useWedding();
     const { weddingData, updateWeddingData } = useWedding();
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -23,6 +24,10 @@ const WeddingHeader: React.FC = () => {
     }, []);
 
     const scrollToSection = (id: string) => {
+        if (location.pathname !== "/") {
+            navigate("/");
+            return;
+        }
         if (id === "home") {
             window.scrollTo({
                 top: 0,
