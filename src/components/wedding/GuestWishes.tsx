@@ -93,11 +93,15 @@ const GuestWishes: React.FC = () => {
                         ))}
                     </div>
                     <div className="flex md:flex-col gap-1">
-                        <FadeIn key={"add_button"} delay={100 * 4}>
+                        <FadeIn
+                            key={"add_button"}
+                            delay={100 * 4}
+                            className="w-full"
+                        >
                             <Dialog open={isOpen} onOpenChange={setIsOpen}>
                                 <DialogTrigger asChild>
                                     <Card
-                                        className="flex items-center justify-center w-full h-full hover:bg-gray-300 active:bg-gray-300 cursor-pointer duration-200"
+                                        className="flex items-center justify-center h-full hover:bg-gray-300 active:bg-gray-300 cursor-pointer duration-200"
                                         tabIndex={0}
                                         role="button"
                                     >
@@ -164,9 +168,13 @@ const GuestWishes: React.FC = () => {
                                 </DialogContent>
                             </Dialog>
                         </FadeIn>
-                        <FadeIn key={"view_button"} delay={100 * 5}>
+                        <FadeIn
+                            key={"view_button"}
+                            delay={100 * 5}
+                            className="w-full"
+                        >
                             <Card
-                                className="flex items-center justify-center w-full h-full hover:bg-gray-300 active:bg-gray-300 cursor-pointer duration-200"
+                                className="flex items-center justify-center h-full hover:bg-gray-300 active:bg-gray-300 cursor-pointer duration-200"
                                 onClick={() => navigate("/wishes")}
                             >
                                 <CardContent className="flex justify-center items-center flex-col py-3 px-6">
