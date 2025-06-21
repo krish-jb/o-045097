@@ -81,7 +81,7 @@ const Schedule: React.FC = () => {
                                             className="text-lg font-medium text-orangery-500"
                                         />
                                     </div>
-                                    <div className="flex-1 space-x-4">
+                                    <div className="flex flex-col md:block flex-1 space-x-4">
                                         <EditableText
                                             value={item.event}
                                             onSave={(value) =>
