@@ -3,7 +3,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import WeddingHeader from "@/components/wedding/WeddingHeader";
 import { useWedding } from "@/context/useWedding";
 import { useEffect } from "react";
-import { Toaster } from "sonner";
 
 const Wishes = () => {
     const { weddingWishes, loadAllWeddingWishes } = useWedding();
@@ -14,7 +13,6 @@ const Wishes = () => {
 
     return (
         <>
-            <Toaster />
             <WeddingHeader />
             <section id="wishes" className="py-20 md:py-32 bg-gray-50">
                 <div className="container mx-auto px-1">
