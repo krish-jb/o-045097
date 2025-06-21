@@ -33,6 +33,7 @@ const GuestWishes: React.FC = () => {
 
     const handleAdd = async () => {
         setIsLoading(true);
+        setIsOpen(false);
         const newWish: WeddingWishType[number] = {
             id: String(Date.now()),
             name: guestName,
@@ -58,7 +59,6 @@ const GuestWishes: React.FC = () => {
         });
 
         setGuestMessage("");
-        setIsOpen(false);
         setIsLoading(false);
     };
 
