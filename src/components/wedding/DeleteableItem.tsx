@@ -62,7 +62,7 @@ const DeletableItem: React.FC<DeleteableItemProps> = ({
                     <Button
                         variant="ghost"
                         size="sm"
-                        className="absolute -top-1 -right-8 opacity-100 transition-opacity p-1 h-6 w-6"
+                        className="absolute top-2 right-2 opacity-100 transition-opacity p-1 h-6 w-6"
                         onClick={() => setEditValue(value)}
                     >
                         {/* Trash can Icon */}
