@@ -49,8 +49,10 @@ const EditableText: React.FC<EditableTextProps> = ({
 
     return (
         <div className={`relative group ${className}`}>
-            <span>{children || value}</span>
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
+                <DialogTrigger asChild>
+                    <span>{children || value}</span>
+                </DialogTrigger>
                 <DialogTrigger asChild>
                     <Button
                         variant="ghost"
