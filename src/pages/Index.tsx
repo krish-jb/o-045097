@@ -39,7 +39,7 @@ const Index = () => {
     }, []);
 
     return (
-        <main className="relative">
+        <main className="relative overflow-x-hidden">
             <Header />
             <Hero />
             <Manifesto />
