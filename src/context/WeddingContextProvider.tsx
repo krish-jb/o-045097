@@ -16,6 +16,7 @@ export interface WeddingContextType {
     user: User | null;
     session: Session | null;
     isLoggedIn: boolean;
+    gloabalIsLoading: boolean;
     updateWeddingData: (data: Partial<WeddingData>) => void;
     loadAllWeddingWishes: () => Promise<void>;
     saveData: (data: WeddingData) => Promise<void>;
@@ -34,101 +35,95 @@ export interface WeddingContextType {
 
 const defaultWeddingData: WeddingData = {
     couple: {
-        groomName: "Nithin",
-        brideName: "Nithya",
-        weddingQuote:
-            "Together We Journey – Two souls, one path, endless love.",
-        image: "/couple/our_story.jpg",
+        groomName: "",
+        brideName: "",
+        weddingQuote: "",
+        image: "/couple/white.png",
     },
     story: {
-        title: "Love",
-        content:
-            "We met on a beautiful autumn day in the local coffee shop. What started as a chance encounter over spilled coffee became the beginning of our forever love story. After three wonderful years together, Nithin proposed during a romantic sunset at our favorite beach, and Isabella said yes with tears of joy.",
-        image: "/couple/gallery_3.jpg",
+        title: "",
+        content: "",
+        image: "/couple/white.png",
     },
     weddingDetails: {
         event1: {
-            title: "Ceremony",
-            date: "June 15, 2024",
-            time: "4:00 PM",
-            venue: "St. Mary's Cathedral",
-            address: "123 Cathedral Street, City, State 12345",
+            title: "",
+            date: "",
+            time: "",
+            venue: "",
+            address: "",
         },
         event2: {
-            title: "Reception",
-            date: "June 15, 2024",
-            time: "6:30 PM",
-            venue: "Grand Ballroom",
-            address: "456 Reception Avenue, City, State 12345",
+            title: "",
+            date: "",
+            time: "",
+            venue: "",
+            address: "",
         },
         toKnow1: {
-            title: "Getting There",
-            description:
-                "The venue is easily accessible by car or public transport. Free shuttle service will be provided from the ceremony to reception venue.",
+            title: "",
+            description: "",
         },
         toKnow2: {
-            title: "What to wear",
-            description:
-                "Semi-formal attire requested. Ladies: cocktail dresses or elegant separates. Gentlemen: suit and tie or dress shirt with slacks.",
+            title: "",
+            description: "",
         },
         toKnow3: {
-            title: "Parking",
-            description:
-                "Complimentary valet parking available at both venues. Street parking is also available on surrounding streets.",
+            title: "",
+            description: "",
         },
     },
     schedule: [
         {
             id: "1",
-            time: "3:30 PM",
-            event: "Guest Arrival",
-            description: "Welcome drinks and mingling",
+            time: "",
+            event: "",
+            description: "",
         },
         {
             id: "2",
-            time: "4:00 PM",
-            event: "Ceremony",
-            description: "Wedding ceremony begins",
+            time: "",
+            event: "",
+            description: "",
         },
         {
             id: "3",
-            time: "5:00 PM",
-            event: "Cocktail Hour",
-            description: "Photos and cocktails",
+            time: "",
+            event: "",
+            description: "",
         },
         {
             id: "4",
-            time: "6:30 PM",
-            event: "Reception",
-            description: "Dinner and dancing",
+            time: "",
+            event: "",
+            description: "",
         },
     ],
     gallery: [
         {
             id: "1",
-            url: "/couple/gallery_1.jpg",
+            url: "/couple/white.png",
             caption: null,
         },
         {
             id: "2",
-            url: "/couple/gallery_2.jpg",
+            url: "/couple/white.png",
             caption: null,
         },
         {
             id: "3",
-            url: "/couple/cover_image.jpg",
+            url: "/couple/white.png",
             caption: null,
         },
     ],
     moreInfo: {
-        title: "Additional Information",
-        content:
-            "For dietary restrictions, please contact us at least one week before the wedding. We will have vegetarian and gluten-free options available. Children are welcome at both the ceremony and reception.",
+        title: "",
+        content: "",
     },
     contact: {
-        phone: "+91 956 5858 855",
-        email: "wedding@nithin_nithya.com",
-        address: "123 Main Street, City, State 12345",
+        phone: "",
+        email: "",
+        address: "",
     },
     jeweller: {
         title: "Our Wedding Jeweller",
@@ -149,6 +144,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
     const [user, setUser] = useState<User | null>(null);
     const [session, setSession] = useState<Session | null>(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [gloabalIsLoading, setGloabalIsLoading] = useState(true);
 
     useEffect(() => {
         // Set up auth state listener
@@ -217,6 +213,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
 
             if (weddingData?.data) {
                 setWeddingData(weddingData.data as unknown as WeddingData);
+                setGloabalIsLoading(false);
             }
 
             if (wishData) {
@@ -342,6 +339,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                 user,
                 session,
                 isLoggedIn,
+                gloabalIsLoading,
                 updateWeddingData,
                 saveData,
                 addWish,

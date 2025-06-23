@@ -9,21 +9,27 @@ import GuestWishes from "@/components/wedding/GuestWishes";
 import MoreInfo from "@/components/wedding/MoreInfo";
 import Contact from "@/components/wedding/Contact";
 import JewelrySection from "@/components/wedding/JewelrySection";
+import { useWedding } from "@/context/useWedding";
+import FadeIn from "@/components/animations/FadeIn";
 
 const WeddingIndex = () => {
+    const { gloabalIsLoading } = useWedding();
+
     return (
-        <main className="relative">
-            <WeddingHeader />
-            <WeddingHero />
-            <OurStory />
-            <WeddingDetails />
-            <Schedule />
-            <Gallery />
-            <GuestWishes />
-            <MoreInfo />
-            <Contact />
-            <JewelrySection />
-        </main>
+        !gloabalIsLoading && (
+            <main className="relative">
+                <WeddingHeader />
+                <WeddingHero />
+                <OurStory />
+                <WeddingDetails />
+                <Schedule />
+                <Gallery />
+                <GuestWishes />
+                <MoreInfo />
+                <Contact />
+                <JewelrySection />
+            </main>
+        )
     );
 };
 
