@@ -43,6 +43,13 @@ const EditableText: React.FC<EditableTextProps> = ({
         setIsOpen(false);
     };
 
+    const handleOnEnterKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            handleSave();
+        }
+    };
+
     if (!isLoggedIn) {
         return <span className={className}>{children || value}</span>;
     }
@@ -51,7 +58,12 @@ const EditableText: React.FC<EditableTextProps> = ({
         <div className={`relative group ${className}`}>
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
                 <DialogTrigger asChild>
-                    <span>{children || value}</span>
+                    <span
+                        className="hover:bg-red-300 duration-200"
+                        onClick={() => setEditValue(value)}
+                    >
+                        {children || value}
+                    </span>
                 </DialogTrigger>
                 <DialogTrigger asChild>
                     <Button
@@ -86,6 +98,7 @@ const EditableText: React.FC<EditableTextProps> = ({
                                     onChange={(e) =>
                                         setEditValue(e.target.value)
                                     }
+                                    onKeyDown={handleOnEnterKeyDown}
                                 />
                             )}
                         </div>

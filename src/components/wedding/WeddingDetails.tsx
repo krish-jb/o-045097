@@ -154,7 +154,7 @@ const WeddingDetails: React.FC = () => {
                                                 .title
                                         }
                                         onSave={(value) =>
-                                            updateEvent1Details("title", value)
+                                            updateEvent2Details("title", value)
                                         }
                                         label="Edit Event 2 heading"
                                         className="block"

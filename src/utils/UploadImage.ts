@@ -24,7 +24,10 @@ const uploadImage = async (
         return null;
     }
 
-    toast({ title: "Image uploaded Successfully!" });
+    toast({
+        title: "Image uploaded Successfully!",
+        description: "Please wait few seconds to see the effect.",
+    });
 
     const { data } = supabase.storage.from("images").getPublicUrl(imagePath);
 
