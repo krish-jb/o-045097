@@ -9,7 +9,7 @@ const Wishes = () => {
 
     useEffect(() => {
         loadAllWeddingWishes();
-    }, []);
+    }, [loadAllWeddingWishes]);
 
     return (
         <>
