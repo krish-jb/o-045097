@@ -59,13 +59,13 @@ const EditableText: React.FC<EditableTextProps> = ({
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
                 <DialogTrigger asChild>
                     <span
-                        className="hover:bg-red-300 duration-200"
+                        className="bg-red-300 md:bg-inherit hover:bg-red-300 duration-200"
                         onClick={() => setEditValue(value)}
                     >
                         {children || value}
                     </span>
                 </DialogTrigger>
-                <DialogTrigger asChild>
+                <DialogTrigger asChild className="hidden md:block">
                     <Button
                         variant="ghost"
                         size="sm"
