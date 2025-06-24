@@ -18,6 +18,7 @@ import { useWedding } from "@/context/useWedding";
 import deleteImage from "@/utils/DeleteImage";
 import React, { useEffect, useState } from "react";
 import Footer from "@/components/wedding/Footer";
+import { Label } from "@/components/ui/label";
 
 const Gallery: React.FC = () => {
     const {
@@ -152,6 +153,9 @@ const Gallery: React.FC = () => {
                                     </DialogHeader>
                                     <div className="grid gap-4 py-4">
                                         <div className="grid gap-2">
+                                            <Label htmlFor="edit-caption">
+                                                Caption
+                                            </Label>
                                             <Input
                                                 id="edit-caption"
                                                 value={imageCaption}

@@ -10,6 +10,7 @@ import {
 } from "../ui/dialog";
 import ImageDropArea from "../ui-custom/ImageDropArea";
 import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 
 type EditableImageProps = {
     className?: string;
@@ -95,13 +96,20 @@ const EditableImage: React.FC<EditableImageProps> = ({
                     <div className="grid gap-4 py-4">
                         <div className="grid gap-2">
                             {isImageCaptionAvailable && (
-                                <Input
-                                    id="edit-caption"
-                                    value={editedImageCaption}
-                                    onChange={(e) =>
-                                        setEditedImageCaption(e.target.value)
-                                    }
-                                />
+                                <>
+                                    <Label htmlFor="edit-caption">
+                                        Caption
+                                    </Label>
+                                    <Input
+                                        id="edit-caption"
+                                        value={editedImageCaption}
+                                        onChange={(e) =>
+                                            setEditedImageCaption(
+                                                e.target.value,
+                                            )
+                                        }
+                                    />
+                                </>
                             )}
                         </div>
                     </div>
