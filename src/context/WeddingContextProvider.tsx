@@ -8,6 +8,7 @@ import {
 } from "@supabase/supabase-js";
 import { Json } from "@/integrations/supabase/types";
 import { WeddingContext } from "./WeddingContext";
+import uploadImage from "@/utils/UploadImage";
 
 export interface WeddingContextType {
     weddingData: WeddingData;
@@ -18,6 +19,11 @@ export interface WeddingContextType {
     isLoggedIn: boolean;
     gloabalIsLoading: boolean;
     updateWeddingData: (data: Partial<WeddingData>) => void;
+    updateGalleryImage: (
+        file: File | null,
+        imageCaption: string | null,
+        index: number,
+    ) => Promise<void>;
     loadAllWeddingWishes: () => Promise<void>;
     saveData: (data: WeddingData) => Promise<void>;
     addWish: (data: WeddingWishType[number]) => Promise<void>;
@@ -35,71 +41,81 @@ export interface WeddingContextType {
 
 const defaultWeddingData: WeddingData = {
     couple: {
-        groomName: "",
-        brideName: "",
-        weddingQuote: "",
+        groomName: "Nithin",
+        brideName: "Nithya",
+        weddingQuote:
+            "Together We Journey – Two souls, one path, endless love.",
         image: "/couple/white.png",
     },
     story: {
-        title: "",
-        content: "",
+        title: "Brewing Love",
+        content:
+            "We met on a beautiful autumn day in the local coffee shop. What started as a chance encounter over spilled coffee became the beginning of our forever love story. After three wonderful years together, Nithin proposed during a romantic sunset at our favorite beach, and Nithya said yes with tears of joy.",
         image: "/couple/white.png",
     },
     weddingDetails: {
         event1: {
-            title: "",
-            date: "",
-            time: "",
-            venue: "",
-            address: "",
+            title: "Ceremony",
+            date: "June 15, 2024",
+            time: "4:00 PM",
+            venue: "St. Mary's Cathedral",
+            address: "123 Cathedral Street, City, State 12345",
         },
         event2: {
-            title: "",
-            date: "",
-            time: "",
-            venue: "",
-            address: "",
+            title: "Reception",
+            date: "June 15, 2024",
+            time: "6:30 PM",
+            venue: "Grand Ballroom",
+            address: "456 Reception Avenue, City, State 12345",
         },
         toKnow1: {
-            title: "",
-            description: "",
+            title: "Getting There",
+            description:
+                "The venue is easily accessible by car or public transport. Free shuttle service will be provided from the ceremony to reception venue.",
         },
         toKnow2: {
-            title: "",
-            description: "",
+            title: "What to wear",
+            description:
+                "Semi-formal attire requested. Ladies: cocktail dresses or elegant separates. Gentlemen: suit and tie or dress shirt with slacks.",
         },
         toKnow3: {
-            title: "",
-            description: "",
+            title: "Parking",
+            description:
+                "Complimentary valet parking available at both venues. Street parking is also available on surrounding streets.",
         },
     },
     schedule: [
         {
             id: "1",
-            time: "",
-            event: "",
-            description: "",
+            time: "3:30 PM",
+            event: "Guest Arrival",
+            description: "Welcome drinks and mingling",
         },
         {
             id: "2",
-            time: "",
-            event: "",
-            description: "",
+            time: "4:00 PM",
+            event: "Ceremony",
+            description: "Wedding ceremony begins",
         },
         {
             id: "3",
-            time: "",
-            event: "",
-            description: "",
+            time: "5:00 PM",
+            event: "Cocktail Hour",
+            description: "Photos and cocktails",
         },
         {
             id: "4",
-            time: "",
-            event: "",
-            description: "",
+            time: "6:30 PM",
+            event: "Reception",
+            description: "Dinner and dancing",
         },
     ],
     gallery: [
+        {
+            id: "0",
+            url: "/couple/white.png",
+            caption: null,
+        },
         {
             id: "1",
             url: "/couple/white.png",
@@ -110,20 +126,16 @@ const defaultWeddingData: WeddingData = {
             url: "/couple/white.png",
             caption: null,
         },
-        {
-            id: "3",
-            url: "/couple/white.png",
-            caption: null,
-        },
     ],
     moreInfo: {
-        title: "",
-        content: "",
+        title: "Additional Information",
+        content:
+            "For dietary restrictions, please contact us at least one week before the wedding. We will have vegetarian and gluten-free options available. Children are welcome at both the ceremony and reception.",
     },
     contact: {
-        phone: "",
-        email: "",
-        address: "",
+        phone: "+91 956 5858 855",
+        email: "wedding@nithin_nithya.com",
+        address: "123 Main Street, City, State 12345",
     },
     jeweller: {
         title: "Our Wedding Jeweller",
@@ -257,6 +269,36 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
         });
     };
 
+    const updateGalleryImage = async (
+        file: File | null,
+        imageCaption: string | null,
+        index: number,
+    ) => {
+        const updatedGallery = [...weddingData.gallery];
+
+        if (index >= updatedGallery.length) {
+            updatedGallery.push({
+                id: `${updatedGallery.length}`,
+                url: "",
+                caption: imageCaption,
+            });
+        }
+
+        if (file) {
+            const imageUrl = await uploadImage(
+                file,
+                user,
+                `galary_image_${index}`,
+            );
+            updatedGallery[index].url = imageUrl;
+        }
+
+        updatedGallery[index].caption = imageCaption;
+        updateWeddingData({ gallery: updatedGallery });
+    };
+
+    const deleteImage = async () => {};
+
     const saveData = async (data: WeddingData) => {
         if (!user?.id) {
             console.error("No user logged in");
@@ -341,6 +383,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                 isLoggedIn,
                 gloabalIsLoading,
                 updateWeddingData,
+                updateGalleryImage,
                 saveData,
                 addWish,
                 login,

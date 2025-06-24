@@ -20,6 +20,7 @@ interface DeleteableItemProps {
     multiline?: boolean;
     className?: string;
     children?: React.ReactNode;
+    isLoading?: boolean;
 }
 
 const DeletableItem: React.FC<DeleteableItemProps> = ({
@@ -30,6 +31,7 @@ const DeletableItem: React.FC<DeleteableItemProps> = ({
     multiline = false,
     className = "",
     children,
+    isLoading,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [editValue, setEditValue] = useState<string | undefined>(value);
@@ -62,7 +64,7 @@ const DeletableItem: React.FC<DeleteableItemProps> = ({
                     <Button
                         variant="ghost"
                         size="sm"
-                        className="absolute top-2 right-2 opacity-100 transition-opacity p-1 h-6 w-6"
+                        className="absolute top-2 right-2 bg-white hover:bg-gray-300 opacity-100 transition-opacity p-1 h-6 w-6"
                         onClick={() => setEditValue(value)}
                     >
                         {/* Trash can Icon */}
@@ -104,8 +106,9 @@ const DeletableItem: React.FC<DeleteableItemProps> = ({
                             <Button
                                 onClick={handleDelete}
                                 variant="destructive"
+                                disabled={isLoading}
                             >
-                                Delete 🗑️
+                                {isLoading ? "Deleting..." : "Delete 🗑️"}
                             </Button>
                         </div>
                     </div>

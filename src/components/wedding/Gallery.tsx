@@ -3,29 +3,12 @@ import { useWedding } from "@/context/useWedding";
 import FadeIn from "@/components/animations/FadeIn";
 import EditableImage from "./EditableImage";
 import uploadImage from "@/utils/UploadImage";
+import LinkButton from "../ui/LinkButton";
+import { useNavigate } from "react-router-dom";
 
 const Gallery: React.FC = () => {
-    const { weddingData, user, updateWeddingData } = useWedding();
-
-    const updateGalleryImage = async (
-        file: File | null,
-        imageCaption: string,
-        index: number,
-    ) => {
-        const updatedGallery = [...weddingData.gallery];
-
-        if (file) {
-            const imageUrl = await uploadImage(
-                file,
-                user,
-                `galary_image_${index}`,
-            );
-            updatedGallery[index].url = imageUrl;
-        }
-
-        updatedGallery[index].caption = imageCaption;
-        updateWeddingData({ gallery: updatedGallery });
-    };
+    const { weddingData, updateGalleryImage } = useWedding();
+    const navigate = useNavigate();
 
     return (
         <section id="gallery" className="py-20 md:py-32 bg-white">
@@ -42,7 +25,7 @@ const Gallery: React.FC = () => {
                 </FadeIn>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {weddingData.gallery.map((photo, index) => (
+                    {weddingData.gallery.slice(0, 3).map((photo, index) => (
                         <FadeIn key={photo.id} delay={100 * (index + 1)}>
                             <EditableImage
                                 label={`Edit Gallery Image ${index + 1}`}
@@ -69,6 +52,14 @@ const Gallery: React.FC = () => {
                             </EditableImage>
                         </FadeIn>
                     ))}
+                </div>
+                <div className="flex justify-center items-center w-full p-4 mt-3">
+                    <LinkButton
+                        text={"View All"}
+                        onClick={() => {
+                            navigate("/gallery");
+                        }}
+                    />
                 </div>
             </div>
         </section>

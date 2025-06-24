@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useWedding } from "@/context/useWedding";
 import WeddingDetails from "./WeddingDetails";
 import { toast } from "@/hooks/use-toast";
+import { getResizeHandleElementsForGroup } from "react-resizable-panels";
 
 const WeddingHeader: React.FC = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -45,14 +46,10 @@ const WeddingHeader: React.FC = () => {
         setIsMobileMenuOpen(false);
     };
 
-    const handleAuthAction = () => {
-        if (isLoggedIn) {
-            logout();
-            setIsMobileMenuOpen(false);
-            toast({ title: "You have logged out!" });
-        } else {
-            navigate("/login");
-        }
+    const handleLogout = () => {
+        logout();
+        setIsMobileMenuOpen(false);
+        toast({ title: "You have logged out!" });
     };
 
     return (
@@ -111,12 +108,14 @@ const WeddingHeader: React.FC = () => {
                         >
                             Contact Us
                         </button>
-                        <button
-                            className="text-sm font-medium hover:text-orangery-500 transition-colors"
-                            onClick={handleAuthAction}
-                        >
-                            {isLoggedIn ? "Logout" : "Login"}
-                        </button>
+                        {isLoggedIn && (
+                            <button
+                                className="text-sm font-medium hover:text-orangery-500 transition-colors"
+                                onClick={handleLogout}
+                            >
+                                Logout
+                            </button>
+                        )}
                     </nav>
                 </div>
 
@@ -186,12 +185,14 @@ const WeddingHeader: React.FC = () => {
                     >
                         Gallery
                     </button>
-                    <button
-                        className="text-left hover:text-orangery-500 transition-colors"
-                        onClick={handleAuthAction}
-                    >
-                        {isLoggedIn ? "Logout" : "Login"}
-                    </button>
+                    {isLoggedIn && (
+                        <button
+                            className="text-left hover:text-orangery-500 transition-colors"
+                            onClick={handleLogout}
+                        >
+                            {isLoggedIn ? "Logout" : "Login"}
+                        </button>
+                    )}
                 </nav>
             </div>
         </header>

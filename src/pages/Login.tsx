@@ -7,6 +7,9 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import FadeIn from "@/components/animations/FadeIn";
+import Loading from "@/components/wedding/Loading";
+import Footer from "@/components/wedding/Footer";
 
 const Login: React.FC = () => {
     const [email, setEmail] = useState("user@gmail.com");
@@ -14,7 +17,7 @@ const Login: React.FC = () => {
     const [fullName, setFullName] = useState("");
     const [isSignUp, setIsSignUp] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const { login, isLoggedIn, weddingData } = useWedding();
+    const { login, isLoggedIn, weddingData, gloabalIsLoading } = useWedding();
     const navigate = useNavigate();
     const { toast } = useToast();
 
@@ -97,78 +100,92 @@ const Login: React.FC = () => {
         }
     };
 
+    if (gloabalIsLoading) {
+        return <Loading />;
+    }
+
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-            <div className="w-full max-w-md">
-                <div className="text-center mb-8">
-                    <Link
-                        to="/"
-                        className="text-2xl font-serif font-medium tracking-tight hover:opacity-80"
-                    >
-                        {`${weddingData.couple.groomName[0]} &
-                        ${weddingData.couple.brideName[0]} Wedding`}
-                    </Link>
-                    <p className="text-muted-foreground mt-2">Login</p>
-                </div>
-
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="text-center">
-                            Login to Edit
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <form
-                            onSubmit={handleSubmit}
-                            noValidate
-                            className="space-y-4"
-                        >
-                            <div>
-                                <Label htmlFor="email">Email</Label>
-                                <Input
-                                    id="email"
-                                    type="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="your@email.com"
-                                />
-                            </div>
-
-                            <div>
-                                <Label htmlFor="password">Password</Label>
-                                <Input
-                                    id="password"
-                                    type="password"
-                                    value={password}
-                                    onChange={(e) =>
-                                        setPassword(e.target.value)
-                                    }
-                                    placeholder="Your password"
-                                    minLength={6}
-                                />
-                            </div>
-
-                            <Button
-                                type="submit"
-                                className="w-full"
-                                disabled={isLoading}
-                            >
-                                {isLoading ? "Please wait..." : "Login"}
-                            </Button>
-                        </form>
-
-                        <div className="mt-4 text-center">
+        <>
+            <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+                <div className="w-full max-w-md">
+                    <FadeIn>
+                        <div className="text-center mb-8">
                             <Link
                                 to="/"
-                                className="text-sm text-muted-foreground hover:text-foreground"
+                                className="text-2xl font-serif font-medium tracking-tight hover:opacity-80"
                             >
-                                Back to Wedding Site
+                                {`${weddingData.couple.groomName[0]} &
+                        ${weddingData.couple.brideName[0]} Wedding`}
                             </Link>
+                            <p className="text-muted-foreground mt-2">Login</p>
                         </div>
-                    </CardContent>
-                </Card>
+                    </FadeIn>
+                    <FadeIn delay={100}>
+                        <Card>
+                            <CardHeader>
+                                <CardTitle className="text-center">
+                                    Login to Edit
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <form
+                                    onSubmit={handleSubmit}
+                                    noValidate
+                                    className="space-y-4"
+                                >
+                                    <div>
+                                        <Label htmlFor="email">Email</Label>
+                                        <Input
+                                            id="email"
+                                            type="email"
+                                            value={email}
+                                            onChange={(e) =>
+                                                setEmail(e.target.value)
+                                            }
+                                            placeholder="your@email.com"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <Label htmlFor="password">
+                                            Password
+                                        </Label>
+                                        <Input
+                                            id="password"
+                                            type="password"
+                                            value={password}
+                                            onChange={(e) =>
+                                                setPassword(e.target.value)
+                                            }
+                                            placeholder="Your password"
+                                            minLength={6}
+                                        />
+                                    </div>
+
+                                    <Button
+                                        type="submit"
+                                        className="w-full"
+                                        disabled={isLoading}
+                                    >
+                                        {isLoading ? "Please wait..." : "Login"}
+                                    </Button>
+                                </form>
+
+                                <div className="mt-4 text-center">
+                                    <Link
+                                        to="/"
+                                        className="text-sm text-muted-foreground hover:text-foreground"
+                                    >
+                                        Back to Wedding Site
+                                    </Link>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </FadeIn>
+                </div>
             </div>
-        </div>
+            <Footer />
+        </>
     );
 };
 

@@ -8,28 +8,32 @@ import Gallery from "@/components/wedding/Gallery";
 import GuestWishes from "@/components/wedding/GuestWishes";
 import MoreInfo from "@/components/wedding/MoreInfo";
 import Contact from "@/components/wedding/Contact";
+import Footer from "@/components/wedding/Footer";
 import JewelrySection from "@/components/wedding/JewelrySection";
 import { useWedding } from "@/context/useWedding";
-import FadeIn from "@/components/animations/FadeIn";
+import Loading from "@/components/wedding/Loading";
 
 const WeddingIndex = () => {
     const { gloabalIsLoading } = useWedding();
 
+    if (gloabalIsLoading) {
+        return <Loading />;
+    }
+
     return (
-        !gloabalIsLoading && (
-            <main className="relative">
-                <WeddingHeader />
-                <WeddingHero />
-                <OurStory />
-                <WeddingDetails />
-                <Schedule />
-                <Gallery />
-                <GuestWishes />
-                <MoreInfo />
-                <Contact />
-                <JewelrySection />
-            </main>
-        )
+        <main className="relative">
+            <WeddingHeader />
+            <WeddingHero />
+            <OurStory />
+            <WeddingDetails />
+            <Schedule />
+            <Gallery />
+            <GuestWishes />
+            <MoreInfo />
+            <Contact />
+            <JewelrySection />
+            <Footer />
+        </main>
     );
 };
 

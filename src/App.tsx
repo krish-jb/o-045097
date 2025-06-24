@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import { WeddingProvider } from "./context/WeddingContextProvider";
 import Wishes from "./pages/Wishes";
+import Gallery from "./pages/Gallery";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
                         <Route path="/" element={<WeddingIndex />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/wishes" element={<Wishes />} />
+                        <Route path="/gallery" element={<Gallery />} />
                         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                         <Route path="*" element={<NotFound />} />
                     </Routes>

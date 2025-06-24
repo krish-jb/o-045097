@@ -62,7 +62,7 @@ const JewelrySection: React.FC = () => {
                                                 onClick={goToJewellerWebsite}
                                                 className="w-full mt-5"
                                             >
-                                                Visit Store
+                                                Visit Website
                                             </Button>
                                         </div>
                                     </CardContent>
