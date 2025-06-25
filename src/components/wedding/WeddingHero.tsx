@@ -3,11 +3,10 @@ import EditableImage from "@/components/wedding/EditableImage";
 import EditableText from "@/components/wedding/EditableText";
 import { useWedding } from "@/context/useWedding";
 import uploadImage from "@/utils/UploadImage";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const WeddingHero: React.FC = () => {
     const { weddingData, updateWeddingData, user } = useWedding();
-    const [state, setState] = useState(false);
 
     const updateGroomName = (newName: string) => {
         updateWeddingData({

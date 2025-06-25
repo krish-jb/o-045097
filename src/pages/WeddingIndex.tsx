@@ -14,27 +14,27 @@ import { useWedding } from "@/context/useWedding";
 import Loading from "@/components/wedding/Loading";
 
 const WeddingIndex = () => {
-    const { gloabalIsLoading } = useWedding();
+   const { globalIsLoading } = useWedding();
 
-    if (gloabalIsLoading) {
-        return <Loading />;
-    }
+   if (globalIsLoading) {
+      return <Loading />;
+   }
 
-    return (
-        <main className="relative">
-            <WeddingHeader />
-            <WeddingHero />
-            <OurStory />
-            <WeddingDetails />
-            <Schedule />
-            <Gallery />
-            <GuestWishes />
-            <MoreInfo />
-            <Contact />
-            <JewelrySection />
-            <Footer />
-        </main>
-    );
+   return (
+      <main className="relative">
+         <WeddingHeader />
+         <WeddingHero />
+         <OurStory />
+         <WeddingDetails />
+         <Schedule />
+         <Gallery />
+         <GuestWishes />
+         <MoreInfo />
+         <Contact />
+         <JewelrySection />
+         <Footer />
+      </main>
+   );
 };
 
 export default WeddingIndex;
