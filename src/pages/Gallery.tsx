@@ -98,7 +98,7 @@ const Gallery: React.FC = () => {
                                     <DeletableItem
                                         onDelete={() =>
                                             handleDelete(
-                                                `galary_image_${index}`,
+                                                `gallery_image_${index}`,
                                                 index,
                                             )
                                         }
