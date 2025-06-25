@@ -1,8 +1,10 @@
-import React from "react";
-import { useWedding } from "@/context/useWedding";
-import EditableText from "./EditableText";
+import type React from "react";
 import FadeIn from "@/components/animations/FadeIn";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useWedding } from "@/context/useWedding";
+import MapsIconButton from "../ui-custom/MapsIconButton";
+import EditableLink from "./EditableLink";
+import EditableText from "./EditableText";
 
 const Contact: React.FC = () => {
     const { weddingData, updateWeddingData } = useWedding();
@@ -13,8 +15,18 @@ const Contact: React.FC = () => {
         });
     };
 
+    const updateContactAddress = (text: string, link: string) => {
+        updateWeddingData({
+            contact: {
+                ...weddingData.contact,
+                address: text,
+                addressMapLink: link,
+            },
+        });
+    };
+
     return (
-        <section id="contact" className="py-20 md:py-32 bg-gray-50">
+        <section id={"contact"} className="py-20 md:py-32 bg-gray-50">
             <div className="container mx-auto px-4 md:px-6">
                 <FadeIn>
                     <div className="text-center mb-16">
@@ -68,14 +80,31 @@ const Contact: React.FC = () => {
                                     <p className="font-medium text-orangery-500">
                                         Address
                                     </p>
-                                    <EditableText
-                                        value={weddingData.contact.address}
-                                        onSave={(value) =>
-                                            updateContact("address", value)
-                                        }
-                                        label="Edit Address"
-                                        className="text-lg text-muted-foreground"
-                                    />
+                                    <div className="flex flex-row justify-between md:justify-center">
+                                        <EditableLink
+                                            text={weddingData.contact.address}
+                                            link={
+                                                weddingData.contact
+                                                    .addressMapLink
+                                            }
+                                            onSave={(text, link) =>
+                                                updateContactAddress(text, link)
+                                            }
+                                            label="Edit Address"
+                                            className="text-lg text-muted-foreground underline"
+                                        />
+                                        <div className="md:absolute md:right-4">
+                                            <MapsIconButton
+                                                onClick={() => {
+                                                    window.open(
+                                                        weddingData.contact
+                                                            .addressMapLink,
+                                                        "_blank",
+                                                    );
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
                             </CardContent>
                         </Card>

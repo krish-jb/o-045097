@@ -1,6 +1,6 @@
+import type React from "react";
+import { useId, useState } from "react";
 import { useWedding } from "@/context/useWedding";
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
-import Button from "../ui-custom/Button";
 import {
     Dialog,
     DialogContent,
@@ -8,9 +8,10 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "../ui/dialog";
-import ImageDropArea from "../ui-custom/ImageDropArea";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import Button from "../ui-custom/Button";
+import ImageDropArea from "../ui-custom/ImageDropArea";
 
 type EditableImageProps = {
     className?: string;
@@ -42,6 +43,7 @@ const EditableImage: React.FC<EditableImageProps> = ({
     );
     const [image, setImage] = useState<File | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const editCaptionId = useId();
 
     const handleUpdate = async () => {
         setIsLoading(true);
@@ -97,11 +99,11 @@ const EditableImage: React.FC<EditableImageProps> = ({
                         <div className="grid gap-2">
                             {isImageCaptionAvailable && (
                                 <>
-                                    <Label htmlFor="edit-caption">
+                                    <Label htmlFor={editCaptionId}>
                                         Caption
                                     </Label>
                                     <Input
-                                        id="edit-caption"
+                                        id={editCaptionId}
                                         value={editedImageCaption}
                                         onChange={(e) =>
                                             setEditedImageCaption(

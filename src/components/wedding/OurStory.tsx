@@ -1,9 +1,9 @@
-import React from "react";
-import { useWedding } from "@/context/useWedding";
-import EditableText from "./EditableText";
+import type React from "react";
 import FadeIn from "@/components/animations/FadeIn";
-import EditableImage from "./EditableImage";
+import { useWedding } from "@/context/useWedding";
 import uploadImage from "@/utils/UploadImage";
+import EditableImage from "./EditableImage";
+import EditableText from "./EditableText";
 
 const OurStory: React.FC = () => {
     const { weddingData, updateWeddingData, user } = useWedding();
@@ -28,7 +28,7 @@ const OurStory: React.FC = () => {
     };
 
     return (
-        <section id="story" className="py-20 md:py-32 bg-gray-50">
+        <section id={"story"} className="py-20 md:py-32 bg-gray-50">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="grid md:grid-cols-12 gap-12 md:gap-20 items-center">
                     <FadeIn className="md:col-span-5">
@@ -39,7 +39,7 @@ const OurStory: React.FC = () => {
                             <div className="relative h-[500px] lg:h-[600px] w-full rounded-lg overflow-hidden">
                                 <img
                                     src={weddingData.story.image}
-                                    alt="Our story photo"
+                                    alt="Our story"
                                     className="w-full h-full object-cover object-center"
                                 />
                             </div>
@@ -65,7 +65,7 @@ const OurStory: React.FC = () => {
                                 onSave={updateStoryContent}
                                 label="Edit Story Content"
                                 multiline
-                                className="text-lg text-muted-foreground leading-relaxed"
+                                className="text-lg text-muted-foreground leading-relaxed text-justify"
                             />
                         </div>
                     </FadeIn>

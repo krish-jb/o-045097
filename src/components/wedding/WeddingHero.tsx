@@ -1,9 +1,9 @@
+import type React from "react";
 import FadeIn from "@/components/animations/FadeIn";
 import EditableImage from "@/components/wedding/EditableImage";
 import EditableText from "@/components/wedding/EditableText";
 import { useWedding } from "@/context/useWedding";
 import uploadImage from "@/utils/UploadImage";
-import React from "react";
 
 const WeddingHero: React.FC = () => {
     const { weddingData, updateWeddingData, user } = useWedding();

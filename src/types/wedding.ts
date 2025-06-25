@@ -17,6 +17,7 @@ export interface WeddingData {
             time: string;
             venue: string;
             address: string;
+            addressMapLink: string;
         };
         event2: {
             title: string;
@@ -24,6 +25,7 @@ export interface WeddingData {
             time: string;
             venue: string;
             address: string;
+            addressMapLink: string;
         };
         toKnow1: {
             title: string;
@@ -57,6 +59,7 @@ export interface WeddingData {
         phone: string;
         email: string;
         address: string;
+        addressMapLink: string;
     };
     jeweller: {
         title: string;

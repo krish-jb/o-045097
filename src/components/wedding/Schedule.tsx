@@ -1,51 +1,61 @@
-import React from "react";
-import { useWedding } from "@/context/useWedding";
-import EditableText from "./EditableText";
-import FadeIn from "@/components/animations/FadeIn";
-import DeletableItem from "./DeleteableItem";
-import { WeddingData } from "@/types/wedding";
 import { PlusIcon } from "lucide-react";
+import type React from "react";
+import FadeIn from "@/components/animations/FadeIn";
+import { useWedding } from "@/context/useWedding";
+import { useToast } from "@/hooks/use-toast";
+import type { WeddingData } from "@/types/wedding";
+import DeletableItem from "./DeleteableItem";
+import EditableText from "./EditableText";
 
 const Schedule: React.FC = () => {
     const { weddingData, updateWeddingData, isLoggedIn } = useWedding();
+    const { toast } = useToast();
 
-    const updateScheduleItem = (id: string, field: string, value: string) => {
+    const failerMessage = () => {
+        toast({
+            title: "Failed to add new schedule",
+            description:
+                "Please make sure you have a stable internet connection",
+            variant: "destructive",
+        });
+    };
+
+    const updateScheduleItem = async (
+        id: string,
+        field: string,
+        value: string,
+    ) => {
         const updatedSchedule = weddingData.schedule.map((item) =>
             item.id === id ? { ...item, [field]: value } : item,
         );
-        updateWeddingData({ schedule: updatedSchedule });
+        const success = updateWeddingData({ schedule: updatedSchedule });
+        if (!success) failerMessage();
     };
 
-    const deleteScheduleItem = (indexToRemove: number) => {
+    const deleteScheduleItem = async (indexToRemove: number) => {
         const updatedSchedule = weddingData.schedule.filter(
             (_, index) => index !== indexToRemove,
         );
-        updateWeddingData({ schedule: updatedSchedule });
+        const success = updateWeddingData({ schedule: updatedSchedule });
+        if (!success) failerMessage();
     };
 
     type ScheduleItem = WeddingData["schedule"][number];
 
-    const addScheduleItem = () => {
-        const getNewId = () => {
-            const id = weddingData.schedule
-                .map((item) => Number(item.id))
-                .filter((item) => !isNaN(item))
-                .sort((a, b) => a - b);
-            const newId = id.at(-1) + 1 || 0;
-            return String(newId);
-        };
+    const addScheduleItem = async () => {
         const newItem: ScheduleItem = {
-            id: getNewId(),
+            id: crypto.randomUUID(),
             time: "1:00 PM",
             event: "New event",
             description: "New description",
         };
         const data = [...weddingData.schedule, newItem];
-        updateWeddingData({ schedule: data });
+        const success = await updateWeddingData({ schedule: data });
+        if (!success) failerMessage();
     };
 
     return (
-        <section id="schedule" className="py-20 md:py-32 bg-gray-50">
+        <section id={"schedule"} className="py-20 md:py-32 bg-gray-50">
             <div className="container mx-auto px-4 md:px-6">
                 <FadeIn>
                     <div className="text-center mb-16">
@@ -61,7 +71,7 @@ const Schedule: React.FC = () => {
                 <div className="max-w-3xl mx-auto">
                     {weddingData.schedule.map((item, index) => (
                         <DeletableItem
-                            key={index}
+                            key={item.id}
                             onDelete={() => deleteScheduleItem(index)}
                             label={"Are you sure?"}
                         >
@@ -112,12 +122,13 @@ const Schedule: React.FC = () => {
                         </DeletableItem>
                     ))}
                     {isLoggedIn && (
-                        <div
-                            className="max-w-3xl mx-auto py-7 rounded-sm flex justify-center items-center bg-gray-100 hover:bg-gray-200 cursor-pointer duration-300"
+                        <button
+                            className="max-w-3xl mx-auto w-full py-7 rounded-sm flex justify-center items-center bg-gray-100 hover:bg-gray-200 cursor-pointer duration-300"
                             onClick={addScheduleItem}
+                            type="button"
                         >
                             <PlusIcon />
-                        </div>
+                        </button>
                     )}
                 </div>
             </div>

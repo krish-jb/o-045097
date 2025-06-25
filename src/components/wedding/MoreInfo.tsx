@@ -1,11 +1,12 @@
-import React from "react";
+import type React from "react";
+import { useId } from "react";
+import FadeIn from "@/components/animations/FadeIn";
 import { useWedding } from "@/context/useWedding";
 import EditableText from "./EditableText";
-import FadeIn from "@/components/animations/FadeIn";
 
 const MoreInfo: React.FC = () => {
     const { weddingData, updateWeddingData } = useWedding();
-
+    const moreInfoId = useId();
     const updateMoreInfoTitle = (newTitle: string) => {
         updateWeddingData({
             moreInfo: { ...weddingData.moreInfo, title: newTitle },
@@ -19,7 +20,7 @@ const MoreInfo: React.FC = () => {
     };
 
     return (
-        <section id="more-info" className="py-20 md:py-32 bg-white">
+        <section id={moreInfoId} className="py-20 md:py-32 bg-white">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="max-w-4xl mx-auto text-center">
                     <FadeIn>
@@ -27,7 +28,7 @@ const MoreInfo: React.FC = () => {
                             value={weddingData.moreInfo.title}
                             onSave={updateMoreInfoTitle}
                             label="Edit More Info Title"
-                            className="block text-3xl md:text-5xl font-serif font-medium tracking-tight mb-8"
+                            className="text-3xl md:text-5xl font-serif font-medium tracking-tight mb-4"
                         />
                     </FadeIn>
 

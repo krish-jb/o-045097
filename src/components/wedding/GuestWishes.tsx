@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { useWedding } from "@/context/useWedding";
+import { ChevronRight, PlusIcon } from "lucide-react";
+import type React from "react";
+import { useId, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import FadeIn from "@/components/animations/FadeIn";
 import { Card, CardContent } from "@/components/ui/card";
-import { ChevronRight, PlusIcon } from "lucide-react";
 import {
     Dialog,
     DialogContent,
@@ -10,22 +11,24 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import Button from "../ui-custom/Button";
-import { Input } from "../ui/input";
 import { Label } from "@/components/ui/label";
-import { WeddingWishType } from "@/types/wedding";
-import { useNavigate } from "react-router-dom";
+import { useWedding } from "@/context/useWedding";
 import { useToast } from "@/hooks/use-toast";
+import type { WeddingWishType } from "@/types/wedding";
+import { Input } from "../ui/input";
+import Button from "../ui-custom/Button";
 
 const GuestWishes: React.FC = () => {
-    const { weddingData, weddingWishes, setWeddingWishes, addWish } =
-        useWedding();
+    const { weddingWishes, setWeddingWishes, addWish } = useWedding();
     const [isOpen, setIsOpen] = useState(false);
     const [guestName, setGuestName] = useState<string>("");
     const [guestMessage, setGuestMessage] = useState<string>("");
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const { toast } = useToast();
+
+    const guestNameInputId = useId();
+    const guestMessageInputId = useId();
 
     const handleCancel = () => {
         setIsOpen(false);
@@ -63,7 +66,7 @@ const GuestWishes: React.FC = () => {
     };
 
     return (
-        <section id="wishes" className="py-20 md:py-32 bg-gray-50">
+        <section id={"wishes"} className="py-20 md:py-32 bg-gray-50">
             <div className="container mx-auto px-1">
                 <FadeIn>
                     <div className="text-center mb-16">
@@ -103,7 +106,6 @@ const GuestWishes: React.FC = () => {
                                     <Card
                                         className="flex items-center justify-center h-full hover:bg-gray-300 active:bg-gray-300 cursor-pointer duration-200"
                                         tabIndex={0}
-                                        role="button"
                                     >
                                         <CardContent className="flex flex-col justify-center items-center py-3 px-6">
                                             <p>
@@ -127,7 +129,7 @@ const GuestWishes: React.FC = () => {
                                                 Name
                                             </Label>
                                             <Input
-                                                id="guest-name"
+                                                id={guestNameInputId}
                                                 placeholder="Enter your name here"
                                                 value={guestName}
                                                 onChange={(e) =>
@@ -138,7 +140,7 @@ const GuestWishes: React.FC = () => {
                                                 Message
                                             </Label>
                                             <Input
-                                                id="guest-message"
+                                                id={guestMessageInputId}
                                                 placeholder="Enter message here"
                                                 value={guestMessage}
                                                 onChange={(e) =>

@@ -1,54 +1,63 @@
-import React, { useEffect } from "react";
-import { useWedding } from "@/context/useWedding";
-import EditableText from "./EditableText";
+import type React from "react";
 import FadeIn from "@/components/animations/FadeIn";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useWedding } from "@/context/useWedding";
+import { useToast } from "@/hooks/use-toast";
+import MapsIconButton from "../ui-custom/MapsIconButton";
+import EditableLink from "./EditableLink";
+import EditableText from "./EditableText";
 
 const WeddingDetails: React.FC = () => {
     const { weddingData, updateWeddingData } = useWedding();
+    const { toast } = useToast();
 
-    const updateEvent1Details = (field: string, value: string) => {
-        updateWeddingData({
-            weddingDetails: {
-                ...weddingData.weddingDetails,
-                event1: {
-                    ...weddingData.weddingDetails.event1,
-                    [field]: value,
-                },
-            },
+    const confirmationMessage = (event: string) => {
+        toast({
+            title: `Successfully updated ${event}`,
         });
     };
 
-    const updateEvent2Details = (field: string, value: string) => {
-        updateWeddingData({
-            weddingDetails: {
-                ...weddingData.weddingDetails,
-                event2: {
-                    ...weddingData.weddingDetails.event2,
-                    [field]: value,
-                },
-            },
-        });
-    };
-
-    const updateGeneralDetails = (
+    const updateEventDetails = async (
         event: string,
         field: string,
         value: string,
     ) => {
-        updateWeddingData({
+        const success: boolean = await updateWeddingData({
             weddingDetails: {
                 ...weddingData.weddingDetails,
                 [event]: {
-                    ...weddingData.weddingDetails[event],
+                    ...(weddingData.weddingDetails[event] || {}),
                     [field]: value,
                 },
             },
         });
+        if (success) confirmationMessage(field);
+    };
+
+    const updateEventAddress = async (
+        event: string,
+        text: string,
+        link: string,
+    ) => {
+        const success: boolean = await updateWeddingData({
+            weddingDetails: {
+                ...weddingData.weddingDetails,
+                [event]: {
+                    ...(weddingData.weddingDetails[event] || {}),
+                    address: text,
+                    addressMapLink: link,
+                },
+            },
+        });
+        if (success) confirmationMessage("address");
+    };
+
+    const openLinkInNewTab = (link: string) => {
+        window.open(link, "_blank");
     };
 
     return (
-        <section id="wedding-details" className="py-20 md:py-32 bg-white">
+        <section id={"wedding-details"} className="py-20 md:py-32 bg-white">
             <div className="container mx-auto px-4 md:px-6">
                 <FadeIn>
                     <div className="text-center mb-16">
@@ -72,7 +81,11 @@ const WeddingDetails: React.FC = () => {
                                                 .title
                                         }
                                         onSave={(value) =>
-                                            updateEvent1Details("title", value)
+                                            updateEventDetails(
+                                                "event1",
+                                                "title",
+                                                value,
+                                            )
                                         }
                                         label="Edit Event 1 heading"
                                         className="block"
@@ -90,7 +103,11 @@ const WeddingDetails: React.FC = () => {
                                                 .date
                                         }
                                         onSave={(value) =>
-                                            updateEvent1Details("date", value)
+                                            updateEventDetails(
+                                                "event1",
+                                                "date",
+                                                value,
+                                            )
                                         }
                                         label={`Edit ${
                                             weddingData.weddingDetails.event1
@@ -104,7 +121,11 @@ const WeddingDetails: React.FC = () => {
                                                 .time
                                         }
                                         onSave={(value) =>
-                                            updateEvent1Details("time", value)
+                                            updateEventDetails(
+                                                "event1",
+                                                "time",
+                                                value,
+                                            )
                                         }
                                         label="Edit Ceremony Time"
                                         className="block text-muted-foreground"
@@ -120,25 +141,44 @@ const WeddingDetails: React.FC = () => {
                                                 .venue
                                         }
                                         onSave={(value) =>
-                                            updateEvent1Details("venue", value)
+                                            updateEventDetails(
+                                                "event1",
+                                                "venue",
+                                                value,
+                                            )
                                         }
                                         label="Edit Ceremony Venue"
                                         className="block font-medium"
                                     />
-                                    <EditableText
-                                        value={
-                                            weddingData.weddingDetails.event1
-                                                .address
-                                        }
-                                        onSave={(value) =>
-                                            updateEvent1Details(
-                                                "address",
-                                                value,
-                                            )
-                                        }
-                                        label="Edit Ceremony Address"
-                                        className="block text-muted-foreground"
-                                    />
+                                    <div className="flex flex-row justify-between gap-2">
+                                        <EditableLink
+                                            text={
+                                                weddingData.weddingDetails
+                                                    .event1.address
+                                            }
+                                            link={
+                                                weddingData.weddingDetails
+                                                    .event1.addressMapLink
+                                            }
+                                            onSave={(text, link) =>
+                                                updateEventAddress(
+                                                    "event1",
+                                                    text,
+                                                    link,
+                                                )
+                                            }
+                                            label="Edit Ceremony Address"
+                                            className="block text-muted-foreground underline text-left"
+                                        />
+                                        <MapsIconButton
+                                            onClick={() =>
+                                                openLinkInNewTab(
+                                                    weddingData.weddingDetails
+                                                        .event1.addressMapLink,
+                                                )
+                                            }
+                                        />
+                                    </div>
                                 </div>
                             </CardContent>
                         </Card>
@@ -154,7 +194,11 @@ const WeddingDetails: React.FC = () => {
                                                 .title
                                         }
                                         onSave={(value) =>
-                                            updateEvent2Details("title", value)
+                                            updateEventDetails(
+                                                "event2",
+                                                "",
+                                                value,
+                                            )
                                         }
                                         label="Edit Event 2 heading"
                                         className="block"
@@ -172,7 +216,11 @@ const WeddingDetails: React.FC = () => {
                                                 .date
                                         }
                                         onSave={(value) =>
-                                            updateEvent2Details("date", value)
+                                            updateEventDetails(
+                                                "event2",
+                                                "date",
+                                                value,
+                                            )
                                         }
                                         label="Edit Reception Date"
                                         className="block font-medium"
@@ -183,7 +231,11 @@ const WeddingDetails: React.FC = () => {
                                                 .time
                                         }
                                         onSave={(value) =>
-                                            updateEvent2Details("time", value)
+                                            updateEventDetails(
+                                                "event2",
+                                                "time",
+                                                value,
+                                            )
                                         }
                                         label="Edit Reception Time"
                                         className="block text-muted-foreground"
@@ -199,25 +251,44 @@ const WeddingDetails: React.FC = () => {
                                                 .venue
                                         }
                                         onSave={(value) =>
-                                            updateEvent2Details("venue", value)
+                                            updateEventDetails(
+                                                "event2",
+                                                "venue",
+                                                value,
+                                            )
                                         }
                                         label="Edit Reception Venue"
                                         className="block font-medium"
                                     />
-                                    <EditableText
-                                        value={
-                                            weddingData.weddingDetails.event2
-                                                .address
-                                        }
-                                        onSave={(value) =>
-                                            updateEvent2Details(
-                                                "address",
-                                                value,
-                                            )
-                                        }
-                                        label="Edit Reception Address"
-                                        className="block text-muted-foreground"
-                                    />
+                                    <div className="flex flex-row justify-between gap-2">
+                                        <EditableLink
+                                            text={
+                                                weddingData.weddingDetails
+                                                    .event2.address
+                                            }
+                                            link={
+                                                weddingData.weddingDetails
+                                                    .event2.addressMapLink
+                                            }
+                                            onSave={(text, link) =>
+                                                updateEventAddress(
+                                                    "event2",
+                                                    text,
+                                                    link,
+                                                )
+                                            }
+                                            label="Edit Reception Address"
+                                            className="block text-muted-foreground underline"
+                                        />
+                                        <MapsIconButton
+                                            onClick={() =>
+                                                openLinkInNewTab(
+                                                    weddingData.weddingDetails
+                                                        .event1.addressMapLink,
+                                                )
+                                            }
+                                        />
+                                    </div>
                                 </div>
                             </CardContent>
                         </Card>
@@ -235,7 +306,7 @@ const WeddingDetails: React.FC = () => {
                                                 .title
                                         }
                                         onSave={(value) =>
-                                            updateGeneralDetails(
+                                            updateEventDetails(
                                                 "toKnow1",
                                                 "title",
                                                 value,
@@ -252,7 +323,7 @@ const WeddingDetails: React.FC = () => {
                                             .description
                                     }
                                     onSave={(value) =>
-                                        updateGeneralDetails(
+                                        updateEventDetails(
                                             "toKnow1",
                                             "description",
                                             value,
@@ -262,7 +333,7 @@ const WeddingDetails: React.FC = () => {
                                         weddingData.weddingDetails.toKnow1.title
                                     } description`}
                                     multiline
-                                    className="text-muted-foreground"
+                                    className="text-muted-foreground text-left"
                                 />
                             </CardContent>
                         </Card>
@@ -278,7 +349,7 @@ const WeddingDetails: React.FC = () => {
                                                 .title
                                         }
                                         onSave={(value) =>
-                                            updateGeneralDetails(
+                                            updateEventDetails(
                                                 "toKnow2",
                                                 "title",
                                                 value,
@@ -295,7 +366,7 @@ const WeddingDetails: React.FC = () => {
                                             .description
                                     }
                                     onSave={(value) =>
-                                        updateGeneralDetails(
+                                        updateEventDetails(
                                             "toKnow2",
                                             "description",
                                             value,
@@ -305,7 +376,7 @@ const WeddingDetails: React.FC = () => {
                                         weddingData.weddingDetails.toKnow2.title
                                     } description`}
                                     multiline
-                                    className="text-muted-foreground"
+                                    className="text-muted-foreground text-left"
                                 />
                             </CardContent>
                         </Card>
@@ -321,7 +392,7 @@ const WeddingDetails: React.FC = () => {
                                                 .title
                                         }
                                         onSave={(value) =>
-                                            updateGeneralDetails(
+                                            updateEventDetails(
                                                 "toKnow3",
                                                 "title",
                                                 value,
@@ -338,7 +409,7 @@ const WeddingDetails: React.FC = () => {
                                             .description
                                     }
                                     onSave={(value) =>
-                                        updateGeneralDetails(
+                                        updateEventDetails(
                                             "toKnow3",
                                             "description",
                                             value,
@@ -346,7 +417,7 @@ const WeddingDetails: React.FC = () => {
                                     }
                                     label={`Edit ${weddingData.weddingDetails.toKnow3.title} description`}
                                     multiline
-                                    className="text-muted-foreground"
+                                    className="text-muted-foreground text-left"
                                 />
                             </CardContent>
                         </Card>

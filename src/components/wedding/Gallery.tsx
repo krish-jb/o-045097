@@ -1,17 +1,16 @@
-import React from "react";
-import { useWedding } from "@/context/useWedding";
-import FadeIn from "@/components/animations/FadeIn";
-import EditableImage from "./EditableImage";
-import uploadImage from "@/utils/UploadImage";
-import LinkButton from "../ui/LinkButton";
+import type React from "react";
 import { useNavigate } from "react-router-dom";
+import FadeIn from "@/components/animations/FadeIn";
+import { useWedding } from "@/context/useWedding";
+import LinkButton from "../ui/LinkButton";
+import EditableImage from "./EditableImage";
 
 const Gallery: React.FC = () => {
     const { weddingData, updateGalleryImage } = useWedding();
     const navigate = useNavigate();
 
     return (
-        <section id="gallery" className="py-20 md:py-32 bg-white">
+        <section id={"gallery"} className="py-20 md:py-32 bg-white">
             <div className="container mx-auto px-4 md:px-6">
                 <FadeIn>
                     <div className="text-center mb-16">

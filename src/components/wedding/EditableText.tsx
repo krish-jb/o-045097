@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 import {
     Dialog,
     DialogContent,
@@ -32,6 +32,7 @@ const EditableText: React.FC<EditableTextProps> = ({
     const [isOpen, setIsOpen] = useState(false);
     const [editValue, setEditValue] = useState(value);
     const { isLoggedIn } = useWedding();
+    const inputId = useId();
 
     const handleSave = () => {
         onSave(editValue);
@@ -58,12 +59,13 @@ const EditableText: React.FC<EditableTextProps> = ({
         <div className={`relative group ${className}`}>
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
                 <DialogTrigger asChild>
-                    <span
-                        className="bg-red-300 md:bg-inherit hover:bg-red-300 duration-200"
+                    <button
+                        className={`bg-red-300 md:bg-inherit hover:bg-red-300 duration-200 my-[0.5mm] ${className}`}
                         onClick={() => setEditValue(value)}
+                        type="button"
                     >
                         {children || value}
-                    </span>
+                    </button>
                 </DialogTrigger>
                 <DialogTrigger asChild className="hidden md:block">
                     <Button
@@ -81,10 +83,10 @@ const EditableText: React.FC<EditableTextProps> = ({
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
                         <div className="grid gap-2">
-                            <Label htmlFor="edit-text">Content</Label>
+                            <Label htmlFor={inputId}>Content</Label>
                             {multiline ? (
                                 <Textarea
-                                    id="edit-text"
+                                    id={inputId}
                                     value={editValue}
                                     onChange={(e) =>
                                         setEditValue(e.target.value)
@@ -93,7 +95,7 @@ const EditableText: React.FC<EditableTextProps> = ({
                                 />
                             ) : (
                                 <Input
-                                    id="edit-text"
+                                    id={inputId}
                                     value={editValue}
                                     onChange={(e) =>
                                         setEditValue(e.target.value)

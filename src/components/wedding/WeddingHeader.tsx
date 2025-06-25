@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { cn } from "@/lib/utils";
+import type React from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { useWedding } from "@/context/useWedding";
-import WeddingDetails from "./WeddingDetails";
 import { toast } from "@/hooks/use-toast";
-import { getResizeHandleElementsForGroup } from "react-resizable-panels";
+import { cn } from "@/lib/utils";
 
 const WeddingHeader: React.FC = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const { isLoggedIn, logout } = useWedding();
-    const { weddingData, updateWeddingData } = useWedding();
+    const { weddingData } = useWedding();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -75,36 +73,42 @@ const WeddingHeader: React.FC = () => {
                         <button
                             className="text-sm font-medium hover:text-orangery-500 transition-colors"
                             onClick={() => scrollToSection("home")}
+                            type="button"
                         >
                             Home
                         </button>
                         <button
                             className="text-sm font-medium hover:text-orangery-500 transition-colors"
                             onClick={() => scrollToSection("story")}
+                            type="button"
                         >
                             Our Story
                         </button>
                         <button
                             className="text-sm font-medium hover:text-orangery-500 transition-colors"
                             onClick={() => scrollToSection("wedding-details")}
+                            type="button"
                         >
                             Details
                         </button>
                         <button
                             className="text-sm font-medium hover:text-orangery-500 transition-colors"
                             onClick={() => scrollToSection("schedule")}
+                            type="button"
                         >
                             Schedule
                         </button>
                         <button
                             className="text-sm font-medium hover:text-orangery-500 transition-colors"
                             onClick={() => scrollToSection("gallery")}
+                            type="button"
                         >
                             Gallery
                         </button>
                         <button
                             className="text-sm font-medium hover:text-orangery-500 transition-colors"
                             onClick={() => scrollToSection("contact")}
+                            type="button"
                         >
                             Contact Us
                         </button>
@@ -112,6 +116,7 @@ const WeddingHeader: React.FC = () => {
                             <button
                                 className="text-sm font-medium hover:text-orangery-500 transition-colors"
                                 onClick={handleLogout}
+                                type="button"
                             >
                                 Logout
                             </button>
@@ -123,6 +128,7 @@ const WeddingHeader: React.FC = () => {
                     className="md:hidden flex items-center"
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     aria-label="Toggle menu"
+                    type="button"
                 >
                     <span
                         className={cn(
@@ -149,6 +155,7 @@ const WeddingHeader: React.FC = () => {
                     className="absolute top-5 right-5 p-2"
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     aria-label="Close menu"
+                    type="button"
                 >
                     <span className="block w-6 h-0.5 bg-foreground transform rotate-45 translate-y-0.5" />
                     <span className="block w-6 h-0.5 bg-foreground transform -rotate-45" />
@@ -158,30 +165,35 @@ const WeddingHeader: React.FC = () => {
                     <button
                         className="text-left hover:text-orangery-500 transition-colors"
                         onClick={() => scrollToSection("home")}
+                        type="button"
                     >
                         Home
                     </button>
                     <button
                         className="text-left hover:text-orangery-500 transition-colors"
                         onClick={() => scrollToSection("story")}
+                        type="button"
                     >
                         Our Story
                     </button>
                     <button
                         className="text-left hover:text-orangery-500 transition-colors"
                         onClick={() => scrollToSection("wedding-details")}
+                        type="button"
                     >
                         Details
                     </button>
                     <button
                         className="text-left hover:text-orangery-500 transition-colors"
                         onClick={() => scrollToSection("schedule")}
+                        type="button"
                     >
                         Schedule
                     </button>
                     <button
                         className="text-left hover:text-orangery-500 transition-colors"
                         onClick={() => scrollToSection("gallery")}
+                        type="button"
                     >
                         Gallery
                     </button>
@@ -189,6 +201,7 @@ const WeddingHeader: React.FC = () => {
                         <button
                             className="text-left hover:text-orangery-500 transition-colors"
                             onClick={handleLogout}
+                            type="button"
                         >
                             {isLoggedIn ? "Logout" : "Login"}
                         </button>
