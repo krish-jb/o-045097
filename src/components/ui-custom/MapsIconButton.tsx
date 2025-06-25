@@ -1,25 +1,32 @@
-import { useWedding } from "@/context/useWedding";
 import type React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useWedding } from "@/context/useWedding";
+import { useSelectSingle } from "react-day-picker";
 
 interface MapsIconButtonProps {
     onClick?: () => void;
 }
 const MapsIconButton: React.FC<MapsIconButtonProps> = ({ onClick }) => {
     const { isLoggedIn } = useWedding();
-    const [color, setColor] = useState("#ffffff");
+    const [hovered, setIsHovered] = useState<boolean>(false);
+    const [color, setColor] = useState("white");
+
+    useEffect(() => {
+        setColor(hovered ? "#e5e7eb" : "white");
+    }, [hovered]);
+
     if (isLoggedIn) {
         return <></>;
     }
     return (
         <button
-            className={`w-8 p-1 border-2 border-gray-200 rounded-md bg-[${color}]`}
+            className={`w-8 p-1 border-2 border-gray-200 rounded-md ${hovered ? "bg-gray-200" : "bg-white"}`}
             type="button"
             onClick={onClick}
-            onMouseOver={() => setColor("#e5e7eb")}
-            onMouseLeave={() => setColor("#ffffff")}
-            onFocus={() => setColor("#e5e7eb")}
-            onBlur={() => setColor("#ffffff")}
+            onMouseOver={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            onFocus={() => setIsHovered(true)}
+            onBlur={() => setIsHovered(false)}
         >
             <svg
                 viewBox="0 0 192 192"
