@@ -1,5 +1,10 @@
-import React, { Dispatch, SetStateAction, useCallback, useState } from "react";
-import { Button } from "@/components/ui/button";
+import type React from "react";
+import {
+    type Dispatch,
+    type SetStateAction,
+    useCallback,
+    useState,
+} from "react";
 import { useDropzone } from "react-dropzone";
 import { Label } from "@/components/ui/label";
 
