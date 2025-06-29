@@ -22,7 +22,7 @@ const MoreInfo: React.FC = () => {
     return (
         <section id={moreInfoId} className="py-20 md:py-32 bg-white">
             <div className="container mx-auto px-4 md:px-6">
-                <div className="max-w-4xl mx-auto text-center">
+                <div className="max-w-4xl mx-auto text-center space-y-4">
                     <FadeIn>
                         <EditableText
                             value={weddingData.moreInfo.title}
