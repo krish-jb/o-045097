@@ -73,7 +73,7 @@ const Contact: React.FC = () => {
                                     link={weddingData.contact.addressMapLink}
                                     onSave={(text, link) => updateContactAddress(text, link)}
                                     label="Edit Address"
-                                    className="text-lg text-muted-foreground underline"
+                                    className="text-lg"
                                  />
                               </div>
                               <MapsIconButton

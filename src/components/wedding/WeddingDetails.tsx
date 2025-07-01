@@ -103,7 +103,7 @@ const WeddingDetails: React.FC = () => {
                                  link={weddingData.weddingDetails.event1.addressMapLink}
                                  onSave={(text, link) => updateEventAddress("event1", text, link)}
                                  label="Edit Ceremony Address"
-                                 className="text-muted-foreground underline text-left max-w-md md:truncate h-fit"
+                                 className="md:truncate h-fit"
                               />
                               <div className="flex justify-end">
                                  <MapsIconButton
@@ -158,7 +158,7 @@ const WeddingDetails: React.FC = () => {
                                  link={weddingData.weddingDetails.event2.addressMapLink}
                                  onSave={(text, link) => updateEventAddress("event2", text, link)}
                                  label="Edit Reception Address"
-                                 className="block text-muted-foreground underline text-left md:truncate h-fit"
+                                 className="md:truncate h-fit"
                               />
                               <MapsIconButton
                                  onClick={() => openLinkInNewTab(weddingData.weddingDetails.event1.addressMapLink)}

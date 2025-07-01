@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from "@/components/ui/input.tsx";
 import { Label } from "@/components/ui/label.tsx";
 import { useWedding } from "@/context/useWedding.tsx";
+import "@/styles/linkStyle.css";
 
 interface EditableLinkProps {
    text: string;
@@ -47,19 +48,16 @@ const EditableLink: React.FC<EditableLinkProps> = ({ text, link, onSave, label, 
       console.log(link);
    };
 
-   const goToMaps = () => {
-      window.open(link, "_blank");
-   };
-
    if (!isLoggedIn) {
       return (
-         <button
-            onClick={goToMaps}
-            className={`-mx-1 px-1 text-orange-500 shadow-[inset_0_0_0_0_#ff6900] transition-all duration-300 ease-in-out hover:text-white italic hover:shadow-[inset_50rem_0_0_0_#ff6900] inline-block md:max-w-full ${className}`}
-            type="button"
+         <a
+            className={`link_component text-orange-500 transition-all duration-300 ease-in-out italic inline-block md:max-w-full ${className}`}
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
          >
             {children || text}
-         </button>
+         </a>
       );
    }
 
