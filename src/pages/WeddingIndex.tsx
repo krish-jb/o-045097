@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Contact from "@/components/wedding/Contact";
 import Footer from "@/components/wedding/Footer";
 import Gallery from "@/components/wedding/Gallery";
@@ -11,9 +13,19 @@ import WeddingDetails from "@/components/wedding/WeddingDetails";
 import WeddingHeader from "@/components/wedding/WeddingHeader";
 import WeddingHero from "@/components/wedding/WeddingHero";
 import { useWedding } from "@/context/useWedding";
+import scrollToElement from "@/utils/ScrollToElement";
 
 const WeddingIndex = () => {
     const { globalIsLoading } = useWedding();
+    const location = useLocation();
+
+    useEffect(() => {
+        const elementId = location.state?.scrollTo;
+        if (elementId) {
+            scrollToElement(elementId);
+            window.history.replaceState({}, document.title);
+        }
+    }, [location.state]);
 
     if (globalIsLoading) {
         return <Loading />;

@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useWedding } from "@/context/useWedding";
 import { toast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import scrollToElement from "@/utils/ScrollToElement";
 
 const WeddingHeader: React.FC = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -23,25 +24,12 @@ const WeddingHeader: React.FC = () => {
     }, []);
 
     const scrollToSection = (id: string) => {
+        setIsMobileMenuOpen(false);
         if (location.pathname !== "/") {
-            navigate("/");
+            navigate("/", { state: { scrollTo: id } });
             return;
         }
-        if (id === "home") {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth",
-            });
-        } else {
-            const element = document.getElementById(id);
-            if (element) {
-                window.scrollTo({
-                    top: element.offsetTop - 80,
-                    behavior: "smooth",
-                });
-            }
-        }
-        setIsMobileMenuOpen(false);
+        scrollToElement(id);
     };
 
     const handleLogout = () => {
