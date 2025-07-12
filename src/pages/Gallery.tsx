@@ -97,10 +97,7 @@ const Gallery: React.FC = () => {
                                 >
                                     <DeletableItem
                                         onDelete={() =>
-                                            handleDelete(
-                                                `gallery_image_${index}`,
-                                                index,
-                                            )
+                                            handleDelete(photo.name, index)
                                         }
                                         label={
                                             "Sure you want to delete this image?"
