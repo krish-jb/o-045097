@@ -1,6 +1,6 @@
 import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { User } from "@/types/wedding";
+import type { User } from "@/types/wedding";
 
 const uploadImage = async (
     file: File,

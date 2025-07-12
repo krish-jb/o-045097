@@ -1,6 +1,6 @@
+import type React from "react";
+import { useEffect, useState } from "react";
 import FadeIn from "@/components/animations/FadeIn";
-import Button from "@/components/ui-custom/Button";
-import ImageDropArea from "@/components/ui-custom/ImageDropArea";
 import {
     Dialog,
     DialogContent,
@@ -9,16 +9,16 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import LinkButton from "@/components/ui/LinkButton";
+import { Label } from "@/components/ui/label";
 import UploadButton from "@/components/ui/UploadButton";
+import Button from "@/components/ui-custom/Button";
+import ImageDropArea from "@/components/ui-custom/ImageDropArea";
 import DeletableItem from "@/components/wedding/DeleteableItem";
 import EditableImage from "@/components/wedding/EditableImage";
+import Footer from "@/components/wedding/Footer";
 import WeddingHeader from "@/components/wedding/WeddingHeader";
 import { useWedding } from "@/context/useWedding";
 import deleteImage from "@/utils/DeleteImage";
-import React, { useEffect, useState } from "react";
-import Footer from "@/components/wedding/Footer";
-import { Label } from "@/components/ui/label";
 
 const Gallery: React.FC = () => {
     const {
@@ -74,7 +74,7 @@ const Gallery: React.FC = () => {
     return (
         <>
             <WeddingHeader />
-            <section id="gallery" className="py-20 md:py-32 bg-white">
+            <section id={"gallery"} className="py-20 md:py-32 bg-white">
                 <div className="container mx-auto px-4 md:px-6">
                     <FadeIn>
                         <div className="text-center mb-16">
@@ -157,7 +157,7 @@ const Gallery: React.FC = () => {
                                                 Caption
                                             </Label>
                                             <Input
-                                                id="edit-caption"
+                                                id={"edit-caption"}
                                                 value={imageCaption}
                                                 onChange={(e) =>
                                                     setImageCaption(
