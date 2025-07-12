@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Contact from "@/components/wedding/Contact";
 import Footer from "@/components/wedding/Footer";
-import Gallery from "@/components/wedding/Gallery";
+import Gallery from "@/components/wedding/GallerySection";
 import GuestWishes from "@/components/wedding/GuestWishes";
 import JewelrySection from "@/components/wedding/JewelrySection";
 import Loading from "@/components/wedding/Loading";
@@ -14,6 +14,7 @@ import WeddingHeader from "@/components/wedding/WeddingHeader";
 import WeddingHero from "@/components/wedding/WeddingHero";
 import { useWedding } from "@/context/useWedding";
 import scrollToElement from "@/utils/ScrollToElement";
+import GallerySection from "@/components/wedding/GallerySection";
 
 const WeddingIndex = () => {
     const { globalIsLoading } = useWedding();
@@ -38,7 +39,7 @@ const WeddingIndex = () => {
             <OurStory />
             <WeddingDetails />
             <Schedule />
-            <Gallery />
+            <GallerySection />
             <GuestWishes />
             <MoreInfo />
             <Contact />
