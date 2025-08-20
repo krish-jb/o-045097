@@ -3,33 +3,29 @@ import { useParams } from "react-router-dom";
 import FadeIn from "@/components/animations/FadeIn";
 import { Card, CardContent } from "@/components/ui/card";
 import WeddingHeader from "@/components/wedding/WeddingHeader";
-import  useWedding from "@/hooks/useWedding";
+import useWedding from "@/hooks/useWedding";
+import useSyncUsername from "@/hooks/useSyncUsername";
 
 const Wishes: React.FC = () => {
-    const { weddingWishes, loadAllWeddingWishes, setUser } = useWedding();
+    const { weddingWishes, loadAllWeddingWishes } = useWedding();
     const { username } = useParams<{ username: string }>();
 
-    // Add this useEffect to extract and set username
+    // Use the custom hook to sync username
+    useSyncUsername(username || "");
+
+    // Add console.log for debugging
     useEffect(() => {
         console.log('Wishes - URL params:', { username });
-        
-        if (username) {
-            console.log('Wishes - Setting username in context:', username);
-            setUser(prev => ({ 
-                ...prev, 
-                username: username 
-            }));
-        }
-    }, [username, setUser]);
+    }, [username]);
 
-   useEffect(() => {
-      loadAllWeddingWishes();
-   }, [loadAllWeddingWishes]);
+    useEffect(() => {
+        loadAllWeddingWishes();
+    }, [loadAllWeddingWishes]);
 
-   return (
-      <>
-         <WeddingHeader />
-         <section id={"wishes"} className="py-20 md:py-32 bg-gray-50 min-h-screen">
+    return (
+        <>
+            <WeddingHeader />
+            <section id={"wishes"} className="py-20 md:py-32 bg-gray-50 min-h-screen">
             <div className="container mx-auto px-1">
                <FadeIn>
                   <div className="text-center mb-16">

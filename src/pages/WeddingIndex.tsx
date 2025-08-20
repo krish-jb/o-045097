@@ -12,28 +12,24 @@ import Schedule from "@/components/wedding/Schedule";
 import WeddingDetails from "@/components/wedding/WeddingDetails";
 import WeddingHeader from "@/components/wedding/WeddingHeader";
 import WeddingHero from "@/components/wedding/WeddingHero";
-import  useWedding from "@/hooks/useWedding";
+import useWedding from "@/hooks/useWedding";
+import useSyncUsername from "@/hooks/useSyncUsername";
 import scrollToElement from "@/utils/ScrollToElement";
 import GallerySection from "@/components/wedding/GallerySection";
 
 const WeddingIndex = () => {
-    const { globalIsLoading, setUser } = useWedding();
+    const { globalIsLoading } = useWedding();
     const location = useLocation();
     const { username } = useParams<{ username: string }>();
 
-    // Add this useEffect to extract and set username
+    // Use the custom hook to sync username
+    useSyncUsername(username || "");
+
+    // Add console.log for debugging
     useEffect(() => {
         console.log('WeddingIndex - URL params:', { username });
         console.log('WeddingIndex - Current pathname:', location.pathname);
-        
-        if (username) {
-            console.log('WeddingIndex - Setting username in context:', username);
-            setUser(prev => ({ 
-                ...prev, 
-                username: username 
-            }));
-        }
-    }, [username, location.pathname, setUser]);
+    }, [username, location.pathname]);
 
     useEffect(() => {
         const elementId = location.state?.scrollTo;
