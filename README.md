@@ -1,6 +1,6 @@
 # Template-1
 
 ## To Do 
-- [ ] Update Image function logic
-- [ ] Image diplay
-- [ ] Naivgation
+- [ ] Update Image CRUD functions logic
+- [ ] Image display
+- [ ] Fix Naivgation
