@@ -7,7 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Json } from "@/integrations/supabase/custom-types";
 import type { User, WebEntry, WeddingData, WeddingWish } from "@/types/wedding";
 import { capitalizeWords } from "@/utils/capitalize";
-import deleteImage from "@/utils/deleteImage";
+import deleteImage from "@/utils/DeleteImage";
 import uploadImage from "@/utils/UploadImage";
 import { WeddingContext, type WeddingContextType } from "./WeddingContext";
 
