@@ -1,4 +1,4 @@
-import { useWedding } from "@/context/useWedding";
+import  useWedding from "@/hooks/useWedding";
 import { HeartIcon } from "lucide-react";
 import React from "react";
 

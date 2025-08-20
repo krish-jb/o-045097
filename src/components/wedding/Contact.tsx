@@ -1,7 +1,7 @@
 import type React from "react";
 import FadeIn from "@/components/animations/FadeIn";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useWedding } from "@/context/useWedding";
+import  useWedding from "@/hooks/useWedding";
 import MapsIconButton from "../ui-custom/MapsIconButton";
 import EditableLink from "./EditableLink";
 import EditableText from "./EditableText";

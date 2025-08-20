@@ -1,11 +1,26 @@
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import FadeIn from "@/components/animations/FadeIn";
 import { Card, CardContent } from "@/components/ui/card";
 import WeddingHeader from "@/components/wedding/WeddingHeader";
-import { useWedding } from "@/context/useWedding";
+import  useWedding from "@/hooks/useWedding";
 
 const Wishes: React.FC = () => {
-   const { weddingWishes, loadAllWeddingWishes } = useWedding();
+    const { weddingWishes, loadAllWeddingWishes, setUser } = useWedding();
+    const { username } = useParams<{ username: string }>();
+
+    // Add this useEffect to extract and set username
+    useEffect(() => {
+        console.log('Wishes - URL params:', { username });
+        
+        if (username) {
+            console.log('Wishes - Setting username in context:', username);
+            setUser(prev => ({ 
+                ...prev, 
+                username: username 
+            }));
+        }
+    }, [username, setUser]);
 
    useEffect(() => {
       loadAllWeddingWishes();

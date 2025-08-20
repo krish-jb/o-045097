@@ -1,7 +1,7 @@
 import { PlusIcon } from "lucide-react";
 import type React from "react";
 import FadeIn from "@/components/animations/FadeIn";
-import { useWedding } from "@/context/useWedding";
+import  useWedding from "@/hooks/useWedding";
 import { useToast } from "@/hooks/use-toast";
 import type { WeddingData } from "@/types/wedding";
 import DeletableItem from "./DeleteableItem";

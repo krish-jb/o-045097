@@ -1,7 +1,7 @@
 import type React from "react";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useWedding } from "@/context/useWedding";
+import  useWedding from "@/hooks/useWedding";
 import { toast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import scrollToElement from "@/utils/ScrollToElement";

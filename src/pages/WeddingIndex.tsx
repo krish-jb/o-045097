@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import Contact from "@/components/wedding/Contact";
 import Footer from "@/components/wedding/Footer";
 import Gallery from "@/components/wedding/GallerySection";
@@ -12,13 +12,28 @@ import Schedule from "@/components/wedding/Schedule";
 import WeddingDetails from "@/components/wedding/WeddingDetails";
 import WeddingHeader from "@/components/wedding/WeddingHeader";
 import WeddingHero from "@/components/wedding/WeddingHero";
-import { useWedding } from "@/context/useWedding";
+import  useWedding from "@/hooks/useWedding";
 import scrollToElement from "@/utils/ScrollToElement";
 import GallerySection from "@/components/wedding/GallerySection";
 
 const WeddingIndex = () => {
-    const { globalIsLoading } = useWedding();
+    const { globalIsLoading, setUser } = useWedding();
     const location = useLocation();
+    const { username } = useParams<{ username: string }>();
+
+    // Add this useEffect to extract and set username
+    useEffect(() => {
+        console.log('WeddingIndex - URL params:', { username });
+        console.log('WeddingIndex - Current pathname:', location.pathname);
+        
+        if (username) {
+            console.log('WeddingIndex - Setting username in context:', username);
+            setUser(prev => ({ 
+                ...prev, 
+                username: username 
+            }));
+        }
+    }, [username, location.pathname, setUser]);
 
     useEffect(() => {
         const elementId = location.state?.scrollTo;

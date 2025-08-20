@@ -12,9 +12,9 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { useWedding } from "@/context/useWedding";
+import  useWedding from "@/hooks/useWedding";
 import { useToast } from "@/hooks/use-toast";
-import type { WeddingWishType } from "@/types/wedding";
+import type { WeddingWish } from "@/types/wedding";
 import { Input } from "../ui/input";
 import Button from "../ui-custom/Button";
 
@@ -37,7 +37,7 @@ const GuestWishes: React.FC = () => {
     const handleAdd = async () => {
         setIsLoading(true);
         setIsOpen(false);
-        const newWish: WeddingWishType[number] = {
+        const newWish: WeddingWish = {
             id: String(Date.now()),
             name: guestName,
             message: guestMessage,

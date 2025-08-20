@@ -9,16 +9,20 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({
-  variant = 'primary',
-  size = 'md',
-  children,
-  className,
-  fullWidth = false,
-  ...props
-}) => {
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((
+  {
+    variant = 'primary',
+    size = 'md',
+    children,
+    className,
+    fullWidth = false,
+    ...props
+  },
+  ref
+) => {
   return (
     <button
+      ref={ref}
       className={cn(
         'relative inline-flex items-center justify-center whitespace-nowrap rounded-none font-medium transition-all focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
         {
@@ -39,6 +43,8 @@ const Button: React.FC<ButtonProps> = ({
       {children}
     </button>
   );
-};
+});
+
+Button.displayName = 'Button';
 
 export default Button;
