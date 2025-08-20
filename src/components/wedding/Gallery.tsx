@@ -1,6 +1,6 @@
 import { type ReactNode, useState } from "react";
-import { useWedding } from "@/context/useWedding";
-import deleteImage from "@/utils/DeleteImage";
+import  useWedding from "@/hooks/useWedding";
+import deleteImage from "@/utils/deleteImage";
 import FadeIn from "../animations/FadeIn";
 import DeletableItem from "./DeleteableItem";
 import EditableImage from "./EditableImage";

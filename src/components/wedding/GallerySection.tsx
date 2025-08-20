@@ -1,10 +1,11 @@
 import type React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import LinkButton from "../ui/LinkButton";
 import Gallery from "./Gallery";
 
 const GallerySection: React.FC = () => {
     const navigate = useNavigate();
+    const { username } = useParams<{ username: string }>();
 
     return (
         <Gallery limit={3}>
@@ -12,7 +13,7 @@ const GallerySection: React.FC = () => {
                 <LinkButton
                     text={"View All"}
                     onClick={() => {
-                        navigate("/gallery");
+                        navigate(`/gallery/${username}`);
                     }}
                 />
             </div>

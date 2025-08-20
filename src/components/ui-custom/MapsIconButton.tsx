@@ -1,6 +1,6 @@
 import type React from "react";
 import { useEffect, useState } from "react";
-import { useWedding } from "@/context/useWedding";
+import  useWedding from "@/hooks/useWedding";
 import { useSelectSingle } from "react-day-picker";
 
 interface MapsIconButtonProps {
@@ -35,17 +35,17 @@ const MapsIconButton: React.FC<MapsIconButtonProps> = ({ onClick }) => {
                 className=""
             >
                 <title>Map Icon</title>
-                <g id={"map-icon"} stroke-width="0"></g>
+                <g id={"map-icon"} strokeWidth="0"></g>
                 <g
                     id={"map-icon-tracerCarrier"}
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                 ></g>
                 <g id={"map-icon-path"}>
                     <path
                         fill="#FFAA00"
                         stroke="#FFAA00"
-                        stroke-width="12"
+                        strokeWidth="12"
                         d="M96 22a51.88 51.88 0 0 0-36.77 15.303A52.368 52.368 0 0 0 44 74.246c0 16.596 4.296 28.669 20.811 48.898a163.733 163.733 0 0 1 20.053 28.38C90.852 163.721 90.146 172 96 172c5.854 0 5.148-8.279 11.136-20.476a163.723 163.723 0 0 1 20.053-28.38C143.704 102.915 148 90.841 148 74.246a52.37 52.37 0 0 0-15.23-36.943A51.88 51.88 0 0 0 96 22Z"
                     ></path>
                     <circle
@@ -53,7 +53,7 @@ const MapsIconButton: React.FC<MapsIconButtonProps> = ({ onClick }) => {
                         cy="74"
                         r="20"
                         stroke={color}
-                        stroke-width="12"
+                        strokeWidth="12"
                         fill={color}
                     ></circle>
                 </g>

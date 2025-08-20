@@ -1,7 +1,7 @@
 import type React from "react";
 import { useId } from "react";
 import FadeIn from "@/components/animations/FadeIn";
-import { useWedding } from "@/context/useWedding";
+import  useWedding from "@/hooks/useWedding";
 import EditableText from "./EditableText";
 
 const MoreInfo: React.FC = () => {

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import Contact from "@/components/wedding/Contact";
 import Footer from "@/components/wedding/Footer";
 import Gallery from "@/components/wedding/GallerySection";
@@ -12,13 +12,24 @@ import Schedule from "@/components/wedding/Schedule";
 import WeddingDetails from "@/components/wedding/WeddingDetails";
 import WeddingHeader from "@/components/wedding/WeddingHeader";
 import WeddingHero from "@/components/wedding/WeddingHero";
-import { useWedding } from "@/context/useWedding";
+import useWedding from "@/hooks/useWedding";
+import useSyncUsername from "@/hooks/useSyncUsername";
 import scrollToElement from "@/utils/ScrollToElement";
 import GallerySection from "@/components/wedding/GallerySection";
 
 const WeddingIndex = () => {
     const { globalIsLoading } = useWedding();
     const location = useLocation();
+    const { username } = useParams<{ username: string }>();
+
+    // Use the custom hook to sync username
+    useSyncUsername(username || "");
+
+    // Add console.log for debugging
+    useEffect(() => {
+        console.log('WeddingIndex - URL params:', { username });
+        console.log('WeddingIndex - Current pathname:', location.pathname);
+    }, [username, location.pathname]);
 
     useEffect(() => {
         const elementId = location.state?.scrollTo;

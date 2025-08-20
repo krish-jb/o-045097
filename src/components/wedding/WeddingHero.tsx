@@ -2,7 +2,7 @@ import type React from "react";
 import FadeIn from "@/components/animations/FadeIn";
 import EditableImage from "@/components/wedding/EditableImage";
 import EditableText from "@/components/wedding/EditableText";
-import { useWedding } from "@/context/useWedding";
+import  useWedding from "@/hooks/useWedding";
 import uploadImage from "@/utils/UploadImage";
 
 const WeddingHero: React.FC = () => {
@@ -27,14 +27,16 @@ const WeddingHero: React.FC = () => {
    };
 
    const updateHeroImage = async (file: File) => {
-      const imageUrl = await uploadImage(file, user, "hero_image");
-      updateWeddingData({
-         couple: { ...weddingData.couple, image: imageUrl },
-      });
+        const imageData = await uploadImage(file, user, "hero_image");
+        if (imageData) {
+            updateWeddingData({
+                couple: { ...weddingData.couple, image: imageData.url },
+            });
+        }
    };
 
    return (
-      <section className="relative min-h-screen flex items-center overflow-hidden">
+      <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
          <EditableImage label="Update Cover Image" onUpdate={updateHeroImage}>
             <div className="absolute inset-0 -z-10 pointer-events-none">
                <img src={weddingData.couple.image} alt="Wedding Background" className="w-full h-full object-cover" />

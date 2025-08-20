@@ -1,6 +1,6 @@
 import type React from "react";
 import { useId, useState } from "react";
-import { useWedding } from "@/context/useWedding";
+import  useWedding from "@/hooks/useWedding";
 import {
     Dialog,
     DialogContent,
