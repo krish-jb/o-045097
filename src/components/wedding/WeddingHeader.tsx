@@ -1,5 +1,5 @@
 import type React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Menu, X, LogOut } from "lucide-react";
 import useWedding from "@/hooks/useWedding";
@@ -11,11 +11,14 @@ const WeddingHeader: React.FC = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [activeSection, setActiveSection] = useState("home");
+    const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0 });
     const { isLoggedIn, logout } = useWedding();
     const { weddingData } = useWedding();
     const navigate = useNavigate();
     const location = useLocation();
     const { username } = useParams<{ username: string }>();
+    const navRef = useRef<HTMLDivElement>(null);
+    const buttonRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
 
     // Navigation items configuration
     const navigationItems = [
@@ -27,6 +30,22 @@ const WeddingHeader: React.FC = () => {
         { id: "contact", label: "Contact Us" },
     ];
 
+    // Update underline position based on active section
+    const updateUnderlinePosition = (sectionId: string) => {
+        const activeButton = buttonRefs.current[sectionId];
+        const navContainer = navRef.current;
+        
+        if (activeButton && navContainer) {
+            const navRect = navContainer.getBoundingClientRect();
+            const buttonRect = activeButton.getBoundingClientRect();
+            
+            setUnderlineStyle({
+                left: buttonRect.left - navRect.left,
+                width: buttonRect.width,
+            });
+        }
+    };
+
     // Handle scroll events for header background and active section detection
     useEffect(() => {
         const handleScroll = () => {
@@ -37,20 +56,29 @@ const WeddingHeader: React.FC = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    // Active section detection using IntersectionObserver
+    // Enhanced active section detection using IntersectionObserver
     useEffect(() => {
         const sections = navigationItems.map(item => document.getElementById(item.id)).filter(Boolean);
         
         const observer = new IntersectionObserver(
             (entries) => {
+                // Find the section with the highest intersection ratio
+                let maxRatio = 0;
+                let activeEntry = null;
+                
                 entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        setActiveSection(entry.target.id);
+                    if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
+                        maxRatio = entry.intersectionRatio;
+                        activeEntry = entry;
                     }
                 });
+                
+                if (activeEntry) {
+                    setActiveSection(activeEntry.target.id);
+                }
             },
             {
-                threshold: 0.3,
+                threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
                 rootMargin: "-20% 0px -70% 0px"
             }
         );
@@ -61,6 +89,21 @@ const WeddingHeader: React.FC = () => {
 
         return () => observer.disconnect();
     }, []);
+
+    // Update underline position when active section changes
+    useEffect(() => {
+        updateUnderlinePosition(activeSection);
+    }, [activeSection]);
+
+    // Handle window resize to recalculate underline position
+    useEffect(() => {
+        const handleResize = () => {
+            updateUnderlinePosition(activeSection);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [activeSection]);
 
     // Handle keyboard navigation
     useEffect(() => {
@@ -89,7 +132,7 @@ const WeddingHeader: React.FC = () => {
 
     const scrollToSection = (id: string) => {
         setIsMobileMenuOpen(false);
-        setActiveSection(id); // Add this line to immediately update active section
+        setActiveSection(id); // Immediately update active section for instant feedback
         if (location.pathname !== `/${username}`) {
             navigate(`/${username}`, { state: { scrollTo: id } });
             return;
@@ -128,23 +171,36 @@ const WeddingHeader: React.FC = () => {
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center space-x-8">
-                        <nav className="flex items-center space-x-6">
+                        <nav className="flex items-center space-x-6 relative" ref={navRef}>
+                            {/* Animated underline */}
+                            <div
+                                className="absolute bottom-0 h-0.5 bg-black transition-all duration-300 ease-out"
+                                style={{
+                                    left: `${underlineStyle.left}px`,
+                                    width: `${underlineStyle.width}px`,
+                                    transform: 'translateY(8px)'
+                                }}
+                            />
+                            
                             {navigationItems.map((item) => (
                                 <button
                                     key={item.id}
+                                    ref={(el) => {
+                                        buttonRefs.current[item.id] = el;
+                                    }}
                                     className={cn(
-                                        "relative text-sm font-medium transition-all duration-300 py-2 px-3 rounded-none group", // removed rounded to make minimal
+                                        "relative text-sm font-medium transition-all duration-300 py-2 px-3 rounded-none group",
                                         activeSection === item.id
-                                        ? "text-black border-b-2 border-black" // solid black, subtle underline
-                                        : "text-neutral-700 hover:text-black"  // darker idle state
+                                            ? "text-black"
+                                            : "text-neutral-700 hover:text-black"
                                     )}
                                     onClick={() => scrollToSection(item.id)}
                                     type="button"
-                                    >
+                                >
                                     {item.label}
-                                    </button>
-
+                                </button>
                             ))}
+                            
                             {isLoggedIn && (
                                 <button
                                     className="flex items-center space-x-2 text-sm font-medium text-red-600 hover:text-red-700 hover:bg-red-50 transition-all duration-300 py-2 px-3 rounded-lg"
