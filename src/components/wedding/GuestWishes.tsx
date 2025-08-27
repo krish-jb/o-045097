@@ -1,7 +1,7 @@
 import { ChevronRight, PlusIcon } from "lucide-react";
 import type React from "react";
 import { useId, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,useParams } from "react-router-dom";
 import FadeIn from "@/components/animations/FadeIn";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -17,6 +17,7 @@ import { useToast } from "@/hooks/use-toast";
 import type { WeddingWish } from "@/types/wedding";
 import { Input } from "../ui/input";
 import Button from "../ui-custom/Button";
+import useSyncUsername from "@/hooks/useSyncUsername";
 
 const GuestWishes: React.FC = () => {
     const { weddingWishes, setWeddingWishes, addWish } = useWedding();
@@ -26,7 +27,8 @@ const GuestWishes: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const { toast } = useToast();
-
+    const { username } = useParams<{ username: string }>();
+    useSyncUsername(username || "");
     const guestNameInputId = useId();
     const guestMessageInputId = useId();
 
@@ -178,7 +180,7 @@ const GuestWishes: React.FC = () => {
                         >
                             <Card
                                 className="flex items-center justify-center h-full hover:bg-gray-300 active:bg-gray-300 cursor-pointer duration-200"
-                                onClick={() => navigate("/wishes")}
+                                onClick={() => navigate(`/wishes/${username}`)}
                             >
                                 <CardContent className="flex justify-center items-center flex-col py-3 px-6">
                                     <p>
