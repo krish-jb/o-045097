@@ -6,6 +6,9 @@ import EditableText from "./EditableText";
 
 const MoreInfo: React.FC = () => {
     const { weddingData, updateWeddingData } = useWedding();
+    if(weddingData.moreInfo.disabled){
+        return;
+    }
     const moreInfoId = useId();
     const updateMoreInfoTitle = (newTitle: string) => {
         updateWeddingData({

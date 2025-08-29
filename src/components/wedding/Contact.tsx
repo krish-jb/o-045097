@@ -8,6 +8,9 @@ import EditableText from "./EditableText";
 
 const Contact: React.FC = () => {
    const { weddingData, updateWeddingData } = useWedding();
+   if(weddingData.contact.disabled){
+      return;
+   }
 
    const updateContact = (field: string, value: string) => {
       updateWeddingData({

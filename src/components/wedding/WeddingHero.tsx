@@ -36,7 +36,7 @@ const WeddingHero: React.FC = () => {
    };
 
    return (
-      <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
+      <section id="hero" className="relative min-h-screen flex items-center overflow-hidden">
          <EditableImage label="Update Cover Image" onUpdate={updateHeroImage}>
             <div className="absolute inset-0 -z-10 pointer-events-none">
                <img src={weddingData.couple.image} alt="Wedding Background" className="w-full h-full object-cover" />

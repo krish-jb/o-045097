@@ -10,7 +10,9 @@ import EditableText from "./EditableText";
 const WeddingDetails: React.FC = () => {
     const { weddingData, updateWeddingData } = useWedding();
     const { toast } = useToast();
-
+     if(weddingData.weddingDetails.disabled){
+        return; 
+    }
     const confirmationMessage = (event: string) => {
         toast({
             title: `Successfully updated ${event}`,
@@ -55,6 +57,7 @@ const WeddingDetails: React.FC = () => {
     const openLinkInNewTab = (link: string) => {
         window.open(link, "_blank");
     };
+  
 
     return (
         <section id={"wedding-details"} className="py-20 md:py-32 bg-white">
