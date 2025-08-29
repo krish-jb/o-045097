@@ -84,14 +84,46 @@ const WeddingHeader: React.FC = () => {
   const lastScrollY = useRef(0);
   const animationFrameRef = useRef<number>();
 
-  const navigationItems = useMemo(() => [
-    { id: "home", label: "Home" },
-    { id: "story", label: "Our Story" },
-    { id: "wedding-details", label: "Details" },
-    { id: "schedule", label: "Schedule" },
-    { id: "gallery", label: "Gallery" },
-    { id: "contact", label: "Contact Us" },
-  ], []);
+    const navigationItems = useMemo(
+        () => [
+            { id: "hero", label: "Home", disabled: false },
+            {
+                id: "story",
+                label: "Our Story",
+                disabled: weddingData?.story?.disabled,
+            },
+            {
+                id: "details",
+                label: "Details",
+                disabled: weddingData?.weddingDetails?.disabled,
+            },
+            { id: "schedule", label: "Schedule", disabled: false },
+            { id: "gallery", label: "Gallery", disabled: false },
+            {
+                id: "wishes",
+                label: "Wishes",
+                disabled: weddingData?.wishDisabled,
+            },
+            {
+                id: "contact",
+                label: "Contact",
+                disabled: weddingData?.contact?.disabled,
+            },
+            { id: "info", label: "Info", disabled: true },
+            {
+                id: "jewellery",
+                label: "Jewellery",
+                disabled: weddingData?.jeweller?.disabled,
+            },
+        ],
+        [
+            weddingData?.story?.disabled,
+            weddingData?.weddingDetails?.disabled,
+            weddingData?.wishDisabled,
+            weddingData?.contact?.disabled,
+            weddingData?.jeweller?.disabled,
+        ],
+    );
 
   // Debounced active section for smoother transitions
   const debouncedActiveSection = useDebounce(activeSection, 50);
@@ -298,7 +330,8 @@ const WeddingHeader: React.FC = () => {
                 }}
               />
               
-              {navigationItems.map((item) => (
+              {navigationItems.filter((item) => !item.disabled)
+                .map((item) => (
                 <NavButton
                   key={item.id}
                   item={item}
@@ -367,7 +400,9 @@ const WeddingHeader: React.FC = () => {
         </div>
 
         <nav className="flex flex-col p-6 space-y-2">
-          {navigationItems.map((item) => (
+          {navigationItems
+          .filter((item) => !item.disabled)
+          .map((item) => (
             <NavButton
               key={item.id}
               item={item}
