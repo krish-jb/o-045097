@@ -13,10 +13,7 @@ const Wishes: React.FC = () => {
     // Use the custom hook to sync username
     useSyncUsername(username || "");
 
-    // Add console.log for debugging
-    useEffect(() => {
-        console.log('Wishes - URL params:', { username });
-    }, [username]);
+    
 
     useEffect(() => {
         loadAllWeddingWishes();

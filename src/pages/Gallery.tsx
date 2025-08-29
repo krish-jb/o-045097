@@ -14,11 +14,6 @@ const AllImages: React.FC = () => {
     // Use the custom hook to sync username
     useSyncUsername(username || "");
 
-    // Add console.log for debugging
-    useEffect(() => {
-        console.log('Gallery - URL params:', { username });
-        window.scrollTo(0, 0);
-    }, [username]);
 
     return (
         <>

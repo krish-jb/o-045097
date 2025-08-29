@@ -7,7 +7,9 @@ import EditableText from "./EditableText";
 
 const OurStory: React.FC = () => {
     const { weddingData, updateWeddingData, user } = useWedding();
-
+    if(weddingData.story.disabled){
+        return;
+    }
     const updateStoryTitle = (newTitle: string) => {
         updateWeddingData({
             story: { ...weddingData.story, title: newTitle },
@@ -28,6 +30,7 @@ const OurStory: React.FC = () => {
             });
         }
     };
+   
 
     return (
         <section id={"story"} className="py-20 md:py-32 bg-gray-50">

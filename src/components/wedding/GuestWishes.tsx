@@ -45,8 +45,6 @@ const GuestWishes: React.FC = () => {
             message: guestMessage,
         };
 
-        console.log(newWish);
-
         const originalWishes = structuredClone(weddingWishes);
 
         const tempWeddingWishes = structuredClone(weddingWishes);

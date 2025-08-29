@@ -25,11 +25,7 @@ const WeddingIndex = () => {
     // Use the custom hook to sync username
     useSyncUsername(username || "");
 
-    // Add console.log for debugging
-    useEffect(() => {
-        console.log('WeddingIndex - URL params:', { username });
-        console.log('WeddingIndex - Current pathname:', location.pathname);
-    }, [username, location.pathname]);
+   
 
     useEffect(() => {
         const elementId = location.state?.scrollTo;
