@@ -239,9 +239,6 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                         weddingDataCopy?.user_profile?.purchased_templates?.includes(
                             templateName,
                         ) ?? false;
-                    console.log('isPurchased:', isPurchased);
-                    console.log('templateName:', templateName);
-                    console.log('weddingDataCopy:', weddingDataCopy);
                     if (isLoggedIn || isPurchased) {
                         setGlobalIsLoading(false);
                     }
@@ -316,7 +313,6 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
 
     const loadAllWeddingWishes = useCallback(async () => {
         if (!user?.id) return;
-        console.log('loadAllWeddingWishes - user:', user);
         setGlobalIsLoading(true);
         try {
             const { data: wishData, error: wishError } = await supabase
