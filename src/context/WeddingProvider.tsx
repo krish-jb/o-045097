@@ -209,7 +209,6 @@ const loadWeddingAd = useCallback(
         console.error("Wedding Ad Error:", weddingAdError);
       }
 
-      console.log("Wedding Ad:", weddingAd);
       return { weddingAd, weddingAdError };
             } catch (error) {
                 console.log("Error fetching data: ", error);
@@ -250,8 +249,9 @@ const loadWeddingAd = useCallback(
                 if (shouldUpdateUser || !username || !userId) {
                     setUser((prev) => ({
                         ...prev,
-                        id: prev.id || currentUserId,
-                        username: prev.username || currentUsername,
+                        id: currentUserId || prev?.id,
+                        username: currentUsername || prev?.username,
+                        isAuthenticated: true,
                     }));
                 }
 
@@ -276,9 +276,7 @@ const loadWeddingAd = useCallback(
                         weddingDataCopy?.user_profile?.purchased_templates?.includes(
                             templateName,
                         ) ?? false;
-                    if (isLoggedIn || isPurchased) {
-                        setGlobalIsLoading(false);
-                    }
+                    setGlobalIsLoading(false);
                 }
             }
         },
