@@ -6,17 +6,25 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 const JewelrySection: React.FC = () => {
-    const { weddingData, updateWeddingData } = useWedding();
-
-    const updateJewelry = (field: string, value: string) => {
-        updateWeddingData({
-            jeweller: { ...weddingData.jeweller, [field]: value },
-        });
+    const { weddingAd } = useWedding();
+    if (!weddingAd || !weddingAd.Ad_section) {
+        return null;
+    }
+    // Provide default values if weddingAd is null/undefined
+    const safeWeddingAd = {
+        Ad_section: {
+            title: weddingAd.Ad_section.title || 'Our wedding cards',
+            image: weddingAd.Ad_section.image || '/jeweller/ad-1.jpg',
+            description: weddingAd.Ad_section.description || 'Discover our exclusive collection of fine wedding cards.',
+            shopName: weddingAd.Ad_section.shopName || 'Luxury Cards',
+            website: weddingAd.Ad_section.website || 'matson.app',
+            disabled: weddingAd.Ad_section.disabled || false
+        }
     };
+    if (safeWeddingAd.Ad_section.disabled) {
+        return null;
+    }
 
-    const goToJewellerWebsite = () => {
-        window.open(weddingData.jeweller.website, "_blank");
-    };
 
     return (
         <section id="jeweller" className="py-20 md:py-32 bg-white">
@@ -27,10 +35,10 @@ const JewelrySection: React.FC = () => {
                             <div className="grid md:grid-cols-2 gap-0">
                                 <div
                                     className="relative h-96 md:h-full cursor-pointer"
-                                    onClick={goToJewellerWebsite}
+                                    onClick={() => window.open(safeWeddingAd.Ad_section.website, "_blank")} 
                                 >
                                     <img
-                                        src="/jewelry/ad-2.jpg"
+                                        src={safeWeddingAd.Ad_section.image} 
                                         alt="Wedding Jewellery"
                                         className="w-full h-full object-cover object-[0%_15%] hover:scale-105 duration-500"
                                     />
@@ -38,12 +46,12 @@ const JewelrySection: React.FC = () => {
                                 <div className="p-8 md:p-12 flex flex-col justify-center">
                                     <CardHeader className="p-0 mb-6">
                                         <p className="block text-2xl md:text-3xl font-serif font-medium tracking-tight mb-4">
-                                            {weddingData.jeweller.title}
+                                            {safeWeddingAd.Ad_section.title}
                                         </p>
                                     </CardHeader>
                                     <CardContent className="p-0 space-y-6">
                                         <p className="text-muted-foreground leading-relaxed">
-                                            {weddingData.jeweller.description}
+                                            {safeWeddingAd.Ad_section.description}
                                         </p>
                                         <div className="space-y-4">
                                             <div>
@@ -52,14 +60,14 @@ const JewelrySection: React.FC = () => {
                                                 </p>
                                                 <p className="text-lg font-medium">
                                                     {
-                                                        weddingData.jeweller
+                                                        safeWeddingAd.Ad_section
                                                             .shopName
                                                     }
                                                 </p>
                                             </div>
                                             <Button
                                                 variant="outline"
-                                                onClick={goToJewellerWebsite}
+                                                onClick={() => window.open(safeWeddingAd.Ad_section.website, "_blank")} 
                                                 className="w-full mt-5"
                                             >
                                                 Visit Website
